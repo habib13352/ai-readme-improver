@@ -2,8 +2,7 @@ name: "AI README Improver CI"
 
 on:
   pull_request:
-    paths:
-      - "README.md"
+    types: [opened, synchronize, reopened]
 
 jobs:
   improve-readme:
@@ -34,6 +33,12 @@ jobs:
         run: |
           mkdir -p logs
           cp README.md logs/original_README.md
+
+      - name: Log previous AI files if present
+        run: |
+          mkdir -p logs
+          if [ -f README.improved.md ]; then cp README.improved.md logs/previous_README.improved.md; fi
+          if [ -f suggestions.md ]; then cp suggestions.md logs/previous_suggestions.md; fi
 
       - name: Run AI Improver
         run: python main.py
