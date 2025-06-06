@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import os
+from typing import Any
+
 import yaml
-from jinja2 import Environment, FileSystemLoader
 
 from openai_helper import ask_openai
 
 
-def load_config(path: str = "config.yaml") -> dict:
+def load_config(path: str = "config.yaml") -> dict[str, Any]:
     """Load configuration values from a YAML file.
 
     Args:
@@ -24,7 +25,7 @@ def load_config(path: str = "config.yaml") -> dict:
         return yaml.safe_load(f)
 
 
-def build_prompt(readme_text: str, config: dict) -> str:
+def build_prompt(readme_text: str, config: dict[str, Any]) -> str:
     """Construct the prompt for the rewrite request.
 
     Args:
@@ -43,9 +44,10 @@ def build_prompt(readme_text: str, config: dict) -> str:
     if config.get("email"):
         contact_section = f"## Contact\n- Email: {config['email']}"
 
-    extra_sections_md = ""
-    for section in config.get("extra_sections", []):
-        extra_sections_md += f"## {section['title']}\n{section['content']}\n\n"
+    sections = [
+        f"## {s['title']}\n{s['content']}\n" for s in config.get("extra_sections", [])
+    ]
+    extra_sections_md = "\n".join(sections)
 
     return f"""
 You are ChatGPT. Improve the project's README.md with these rules:

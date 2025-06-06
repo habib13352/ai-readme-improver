@@ -11,15 +11,15 @@ logger = get_logger()
 
 load_dotenv()
 
-_client = None
-_CACHE_DIR = Path(".cache")
-_CACHE_DIR.mkdir(exist_ok=True)
+_openai_client = None
+CACHE_DIR = Path(".cache")
+CACHE_DIR.mkdir(exist_ok=True)
 
 
 def _get_client() -> "OpenAI":
     """Create the OpenAI client lazily."""
-    global _client
-    if _client is None:
+    global _openai_client
+    if _openai_client is None:
         try:
             from openai import OpenAI  # type: ignore
         except ModuleNotFoundError as exc:
@@ -31,8 +31,8 @@ def _get_client() -> "OpenAI":
             raise RuntimeError(
                 "OPENAI_API_KEY is not set. Add it to your .env file or environment variables."
             )
-        _client = OpenAI(api_key=api_key)
-    return _client
+        _openai_client = OpenAI(api_key=api_key)
+    return _openai_client
 
 
 # Rough USD cost per 1K tokens for supported models
@@ -57,18 +57,26 @@ def _estimate_cost(model: str, total_tokens: int) -> float:
 
 
 def ask_openai(
-    prompt: str, model: str = "gpt-3.5-turbo", temperature: float = 0.5, max_tokens: int = 1280
+    prompt: str,
+    model: str = "gpt-3.5-turbo",
+    temperature: float = 0.5,
+    max_tokens: int = 1280,
 ) -> str:
-    """Send a prompt to OpenAI ChatCompletion with caching and detailed logging."""
+    """Send a prompt to OpenAI ChatCompletion with caching and detailed logging.
+
+    The response is cached on disk to avoid unnecessary API calls.
+    """
 
     cache_key = hashlib.sha256(f"{model}:{prompt}".encode("utf-8")).hexdigest()
-    cache_file = _CACHE_DIR / f"{cache_key}.json"
+    cache_file = CACHE_DIR / f"{cache_key}.json"
     if cache_file.exists():
         with cache_file.open("r", encoding="utf-8") as f:
             return json.load(f)["response"]
 
     logger.info("\n----- OpenAI Request -----")
-    logger.info(f"Model: {model} | Temperature: {temperature} | Max tokens: {max_tokens}")
+    logger.info(
+        f"Model: {model} | Temperature: {temperature} | Max tokens: {max_tokens}"
+    )
     logger.info("Prompt:\n" + prompt)
 
     start = time.time()
