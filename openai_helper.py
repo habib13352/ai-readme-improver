@@ -1,7 +1,10 @@
+import hashlib
+import json
 import os
 import time
+from pathlib import Path
+
 from dotenv import load_dotenv
-from openai import OpenAI
 from logger import get_logger
 
 logger = get_logger()
@@ -9,17 +12,28 @@ logger = get_logger()
 load_dotenv()
 
 _client = None
+_CACHE_DIR = Path(".cache")
+_CACHE_DIR.mkdir(exist_ok=True)
 
 
-def _get_client() -> OpenAI:
-    """Create the OpenAI client on first use."""
+def _get_client() -> "OpenAI":
+    """Create the OpenAI client lazily."""
     global _client
     if _client is None:
+        try:
+            from openai import OpenAI  # type: ignore
+        except ModuleNotFoundError as exc:
+            raise RuntimeError(
+                "The 'openai' package is required to use this tool. Install it via 'pip install openai'."
+            ) from exc
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
-            raise RuntimeError("OPENAI_API_KEY is not set")
+            raise RuntimeError(
+                "OPENAI_API_KEY is not set. Add it to your .env file or environment variables."
+            )
         _client = OpenAI(api_key=api_key)
     return _client
+
 
 # Rough USD cost per 1K tokens for supported models
 MODEL_COST_PER_1K = {
@@ -31,7 +45,18 @@ def _estimate_cost(model: str, total_tokens: int) -> float:
     price = MODEL_COST_PER_1K.get(model, 0)
     return (total_tokens / 1000) * price
 
-def ask_openai(prompt: str, model="gpt-3.5-turbo", temperature=0.5, max_tokens=1280) -> str:
+
+def ask_openai(
+    prompt: str, model: str = "gpt-3.5-turbo", temperature: float = 0.5, max_tokens: int = 1280
+) -> str:
+    """Send a prompt to OpenAI ChatCompletion with caching and detailed logging."""
+
+    cache_key = hashlib.sha256(f"{model}:{prompt}".encode("utf-8")).hexdigest()
+    cache_file = _CACHE_DIR / f"{cache_key}.json"
+    if cache_file.exists():
+        with cache_file.open("r", encoding="utf-8") as f:
+            return json.load(f)["response"]
+
     logger.info("\n----- OpenAI Request -----")
     logger.info(f"Model: {model} | Temperature: {temperature} | Max tokens: {max_tokens}")
     logger.info("Prompt:\n" + prompt)
@@ -65,5 +90,8 @@ def ask_openai(prompt: str, model="gpt-3.5-turbo", temperature=0.5, max_tokens=1
     logger.info(f"Elapsed time: {elapsed:.2f}s")
     logger.info("Response:\n" + content)
     logger.info("----- End Request -----\n")
+
+    with cache_file.open("w", encoding="utf-8") as f:
+        json.dump({"response": content}, f)
 
     return content

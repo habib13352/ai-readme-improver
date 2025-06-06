@@ -1,6 +1,8 @@
+import argparse
+import logging
 import os
 import sys
-import argparse
+
 from readme_loader import load_readme
 from improver import (
     generate_summary,
@@ -10,19 +12,32 @@ from improver import (
 )
 from logger import get_logger
 
+
 logger = get_logger()
 
 
-def main():
+def main(argv=None):
+    """Run the CLI."""
     sys.stdout.reconfigure(encoding="utf-8")
 
     parser = argparse.ArgumentParser(prog="ai-readme-improver")
+    parser.add_argument("--readme", default="README.md", help="Path to README")
+    parser.add_argument("--suggestions", default="suggestions.md", help="Suggestions output file")
+    parser.add_argument("--improved", default="README.improved.md", help="Improved README output file")
+    parser.add_argument("--model", default="gpt-3.5-turbo", help="OpenAI model to use")
+    parser.add_argument("--summary-prompt", default=None, help="Override summary prompt")
+    parser.add_argument("--suggest-prompt", default=None, help="Override suggestion prompt")
+    parser.add_argument("--rewrite-prompt", default=None, help="Override rewrite prompt")
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
     parser.add_argument("--config", default="config.yaml", help="Path to config file")
     parser.add_argument("--email", help="Override contact email")
     parser.add_argument("--logo-path", help="Override logo path")
     parser.add_argument("--dry-run", action="store_true", help="Print settings but do not call OpenAI")
     parser.add_argument("--interactive", action="store_true", help="Prompt for config values interactively")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
 
     config = load_config(args.config)
 
@@ -51,9 +66,9 @@ def main():
         logger.error("OPENAI_API_KEY is not set. Add it to your .env file.")
         return
 
-    readme_path = "README.md"
+    readme_path = args.readme
     if not os.path.exists(readme_path):
-        logger.error(f"❌ Error: {readme_path} not found.")
+        logger.error("❌ Error: %s not found.", readme_path)
         return
 
     readme_text = load_readme(readme_path)
@@ -62,31 +77,27 @@ def main():
         return
 
     logger.info("🔹 Generating TL;DR summary...")
-    summary = generate_summary(readme_text)
-    logger.info("\n--- TL;DR SUMMARY ---\n")
-    logger.info(summary)
-    logger.info("\n----------------------\n")
+    summary = generate_summary(readme_text, args.model, args.summary_prompt)
+    logger.info("\n--- TL;DR SUMMARY ---\n%s\n----------------------\n", summary)
 
     logger.info("🔹 Generating improvement suggestions...")
-    suggestions = suggest_improvements(readme_text)
-    logger.info("\n--- IMPROVEMENT SUGGESTIONS ---\n")
-    logger.info(suggestions)
-    logger.info("\n--------------------------------\n")
+    suggestions = suggest_improvements(readme_text, args.model, args.suggest_prompt)
+    logger.info("\n--- IMPROVEMENT SUGGESTIONS ---\n%s\n--------------------------------\n", suggestions)
 
-    with open("suggestions.md", "w", encoding="utf-8") as f:
+    with open(args.suggestions, "w", encoding="utf-8") as f:
         f.write("# 🤖 AI README Improver Feedback\n\n")
         f.write("## TL;DR Summary\n\n")
         f.write(summary.strip() + "\n\n")
         f.write("## Improvement Suggestions\n\n")
         f.write(suggestions.strip() + "\n\n")
         f.write("---\n*Powered by [OpenAI](https://openai.com)*\n")
-    logger.info("✅ Wrote feedback to suggestions.md")
+    logger.info("✅ Wrote feedback to %s", args.suggestions)
 
-    logger.info("🔹 Generating rewritten README → README.improved.md")
-    improved = rewrite_readme(readme_text, config)
-    with open("README.improved.md", "w", encoding="utf-8") as f:
+    logger.info("🔹 Generating rewritten README → %s", args.improved)
+    improved = rewrite_readme(readme_text, args.model, args.rewrite_prompt, config)
+    with open(args.improved, "w", encoding="utf-8") as f:
         f.write(improved)
-    logger.info("✅ Saved improved version to README.improved.md\n")
+    logger.info("✅ Saved improved version to %s\n", args.improved)
 
 
 if __name__ == "__main__":
