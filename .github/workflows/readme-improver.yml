@@ -1,8 +1,18 @@
 name: "AI README Improver"
 
 on:
+  workflow_dispatch:  # ✅ Manual run support
+    inputs:
+      email:
+        description: "Custom email for the README"
+        required: false
+      logo-path:
+        description: "Path to custom logo"
+        required: false
+
   pull_request:
     paths: ["README.md"]
+
   push:
     branches: [main]
 
@@ -32,13 +42,13 @@ jobs:
         run: |
           python main.py \
             --config config.yaml \
-            --email "${{ secrets.README_EMAIL }}" \
-            --logo-path "assets/logo.png"
+            --email "${{ github.event.inputs.email || secrets.README_EMAIL }}" \
+            --logo-path "${{ github.event.inputs.logo-path || 'assets/logo.png' }}"
 
       - name: Replace README with improved version
         run: |
           mv README.improved.md README.md
-          rm suggestions.md
+          rm -f suggestions.md
 
       - name: Commit and push updated README
         run: |
