@@ -1,8 +1,25 @@
 # AI README Enhancer
 
-AI README Enhancer is a cutting-edge command-line interface (CLI) tool and GitHub Action created to refine and optimize `README.md` files using advanced OpenAI technology. It provides a concise TL;DR summary, actionable bullet-point recommendations, and an improved version of the README document.
+*Generate polished READMEs with a single command.*
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![build](https://img.shields.io/badge/build-passing-brightgreen)
 
 ![Demo](https://via.placeholder.com/600x200.png?text=AI+README+Enhancer+Demo)
+
+## Features
+
+- 📄 Auto-generates a TL;DR summary and improvement suggestions
+- 📝 Produces a fully rewritten README with modern Markdown styling
+- 🧩 Works locally or as a GitHub Action
+
+## Table of Contents
+
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [GitHub Action Setup](#github-action-setup)
+4. [Contributing](#contributing)
+5. [License](#license)
+6. [Contact](#contact)
 
 ## Installation
 
@@ -24,6 +41,15 @@ To install AI README Enhancer, please follow these steps:
 Run the CLI tool within the repository that contains a `README.md` file using the following command:
 
 ```bash
+python main.py
+```
+
+### Quick Start
+
+```bash
+python -m venv .venv && \
+source .venv/bin/activate && \
+pip install -r requirements.txt && \
 python main.py
 ```
 
