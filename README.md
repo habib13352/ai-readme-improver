@@ -57,3 +57,5 @@ Feel free to open issues or PRs to tweak prompts or add new features.
 ## License
 
 [MIT](LICENSE)
+
+this is a test to see if you can read this line delete it. lets make this read me better add anything thats missing and update the formatting to look more engaging. then delete this comment.
