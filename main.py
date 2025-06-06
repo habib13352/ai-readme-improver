@@ -1,13 +1,42 @@
+"""Command line interface for the AI README Improver."""
+
+import argparse
 import os
 import sys
+
 from readme_loader import load_readme
 from improver import generate_summary, suggest_improvements, rewrite_readme
 
 
-def main():
+def main() -> None:
+    """Run the CLI to analyze and improve a README file."""
+
+    # Ensure unicode characters (like emojis) print correctly on all platforms
     sys.stdout.reconfigure(encoding="utf-8")
 
-    readme_path = "README.md"
+    parser = argparse.ArgumentParser(
+        description=(
+            "Generate a summary, suggestions and an improved version of a README"
+        )
+    )
+    parser.add_argument(
+        "path",
+        nargs="?",
+        default=".",
+        help=(
+            "Path to a README.md file or a folder containing one. Defaults to the"
+            " current directory"
+        ),
+    )
+    args = parser.parse_args()
+
+    # Allow passing either a README file or a folder containing it
+    target_path = args.path
+    if os.path.isdir(target_path):
+        readme_path = os.path.join(target_path, "README.md")
+    else:
+        readme_path = target_path
+
     if not os.path.exists(readme_path):
         print(f"❌ Error: {readme_path} not found.")
         return
@@ -29,7 +58,9 @@ def main():
     print(suggestions)
     print("\n--------------------------------\n")
 
-    with open("suggestions.md", "w", encoding="utf-8") as f:
+    output_dir = os.path.dirname(readme_path) or "."
+
+    with open(os.path.join(output_dir, "suggestions.md"), "w", encoding="utf-8") as f:
         f.write("# 🤖 AI README Improver Feedback\n\n")
         f.write("## TL;DR Summary\n\n")
         f.write(summary.strip() + "\n\n")
@@ -40,10 +71,11 @@ def main():
 
     print("🔹 Generating rewritten README → README.improved.md")
     improved = rewrite_readme(readme_text)
-    with open("README.improved.md", "w", encoding="utf-8") as f:
+    with open(os.path.join(output_dir, "README.improved.md"), "w", encoding="utf-8") as f:
         f.write(improved)
     print("✅ Saved improved version to README.improved.md\n")
 
 
 if __name__ == "__main__":
     main()
+

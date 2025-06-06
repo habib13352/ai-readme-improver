@@ -16,13 +16,28 @@ Copy `.env.example` to `.env` and add your `OPENAI_API_KEY`.
 
 ## Usage
 
-Run the CLI in the repository that contains a `README.md`:
+The CLI can analyse the `README.md` in the current directory or any other folder.
 
-```bash
-python main.py
-```
+1. **Activate your environment** (if not already):
 
-The script creates `suggestions.md` and `README.improved.md` with feedback and a polished version of the README.
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # Windows: .venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+
+2. **Set your OpenAI API key** by copying `.env.example` to `.env` and filling
+   in `OPENAI_API_KEY`.
+
+3. **Run the CLI**:
+
+   ```bash
+   python main.py            # analyse README.md in the current directory
+   python main.py path/to/project  # or point to another folder
+   python main.py /path/to/README.md  # or a specific file
+   ```
+
+The script creates `suggestions.md` and `README.improved.md` next to the target README.
 
 ## GitHub Action Setup
 

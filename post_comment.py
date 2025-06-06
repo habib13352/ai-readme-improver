@@ -1,3 +1,5 @@
+"""GitHub Action helper to post README suggestions as a pull request comment."""
+
 import os
 import sys
 import subprocess
@@ -9,6 +11,8 @@ REPO = os.getenv("GITHUB_REPOSITORY")
 
 
 def get_pr_number() -> str:
+    """Extract the pull request number from the GitHub Actions event file."""
+
     with open(GITHUB_EVENT_PATH, "r") as f:
         payload = json.load(f)
     pr = payload.get("pull_request")
@@ -19,6 +23,8 @@ def get_pr_number() -> str:
 
 
 def main():
+    """Post the contents of ``suggestions.md`` as a PR comment using ``gh``."""
+
     suggestions_file = "suggestions.md"
     if not os.path.exists(suggestions_file):
         print("❌ suggestions.md not found. Skipping comment.")
@@ -44,3 +50,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
