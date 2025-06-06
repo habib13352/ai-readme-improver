@@ -60,3 +60,9 @@ jobs:
           git add README.md
           git commit -m "🤖 Auto-improved README using AI"
           git push origin HEAD:${{ github.head_ref }}
+
+      - name: Upload logs artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: readme-improver-logs
+          path: logs
