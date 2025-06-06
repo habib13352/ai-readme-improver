@@ -47,6 +47,39 @@ jobs:
       - run: python post_comment.py
 ```
 
+### Auto-update README
+
+If you also want the improved README committed automatically, add a second
+workflow like this:
+
+```yaml
+name: "AI README Auto Update"
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - run: pip install "openai>=1.0" python-dotenv markdown2
+      - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+      - run: python main.py
+      - run: |
+          mkdir -p readme-archive
+          timestamp=$(date +'%Y%m%d_%H%M%S')
+          cp README.md "readme-archive/README.$timestamp.md"
+          cp README.improved.md README.md
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: auto update README"
+          file_pattern: "README.md readme-archive/*"
+```
+
 ## Contributing
 
 Feel free to open issues or PRs to tweak prompts or add new features.
