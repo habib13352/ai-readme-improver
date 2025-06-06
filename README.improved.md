@@ -1,44 +1,47 @@
-# AI README Improver
+# AI README Enhancer
 
-AI README Improver is a powerful CLI tool and GitHub Action designed to enhance and optimize `README.md` files using OpenAI technology. It offers a succinct TL;DR summary, actionable bullet-point suggestions, and a refined version of the README document.
+AI README Enhancer is a cutting-edge command-line interface (CLI) tool and GitHub Action created to refine and optimize `README.md` files using advanced OpenAI technology. It provides a concise TL;DR summary, actionable bullet-point recommendations, and an improved version of the README document.
 
-![demo](https://via.placeholder.com/600x200.png?text=AI+README+Improver+Demo)
+![Demo](https://via.placeholder.com/600x200.png?text=AI+README+Enhancer+Demo)
 
 ## Installation
 
-To install AI README Improver, follow these steps:
+To install AI README Enhancer, please follow these steps:
 
-```bash
-python -m venv .venv
-source .venv/bin/activate  # For Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-Remember to copy the `.env.example` file to `.env` and insert your `OPENAI_API_KEY`. The script will not run successfully if this key is not provided.
+1. Create a virtual environment:
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate  # For Windows: .venv\Scripts\activate
+    ```
+2. Install the necessary dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3. Copy the `.env.example` file to `.env` and insert your `OPENAI_API_KEY`. The script will not function correctly without this key.
 
 ## Usage
 
-Execute the CLI tool within the repository containing a `README.md` file with the following command:
+Run the CLI tool within the repository that contains a `README.md` file using the following command:
 
 ```bash
 python main.py
 ```
 
-Upon running the script, two additional files, `suggestions.md` and `README.improved.md`, will be generated, offering feedback and an enhanced version of the README.
+Upon execution, two new files, `suggestions.md` and `README.improved.md`, will be generated, providing feedback and an enhanced version of the README.
 
-Comprehensive logs for each execution are stored in `logs/run_YYYYMMDD_HHMMSS.log`, capturing OpenAI prompts, responses, token usage, estimated costs, and timing details. When run in GitHub Actions, these logs are uploaded as an artifact for later download.
+Detailed logs for each run are saved in `logs/run_YYYYMMDD_HHMMSS.log`, capturing OpenAI prompts, responses, token usage, estimated costs, and timing information. If executed in GitHub Actions, these logs are uploaded as an artifact for future reference.
 
 ## GitHub Action Setup
 
-To configure the GitHub Action for automated feedback on `README.md` changes in pull requests, add the workflow below to `.github/workflows/readme-improver.yml`:
+To set up the GitHub Action for automated feedback on changes to `README.md` in pull requests, add the following workflow to `.github/workflows/readme-enhancer.yml`:
 
 ```yaml
-name: "AI README Improver CI"
+name: "AI README Enhancer CI"
 on:
   pull_request:
     paths: ["README.md"]
 jobs:
-  improve-readme:
+  enhance-readme:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -50,15 +53,19 @@ jobs:
       - run: python main.py
       - uses: actions/upload-artifact@v4
         with:
-          name: readme-improver-logs
+          name: readme-enhancer-logs
           path: logs
       - run: python post_comment.py
 ```
 
 ## Contributing
 
-Contributions in the form of issue reports or pull requests to enhance prompts or introduce new functionalities are welcome.
+We welcome contributions in the form of issue reports or pull requests to enhance prompts or introduce new features.
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Contact
+
+For any inquiries or feedback, feel free to reach out to us at [email@example.com](mailto:email@example.com).
