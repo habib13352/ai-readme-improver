@@ -4,10 +4,7 @@
 
 *Generate polished READMEs with a single command.*
 
-[![CI](https://github.com/username/ai-readme-improver/actions/workflows/readme-improver.yml/badge.svg?branch=main)](https://github.com/username/ai-readme-improver/actions/workflows/readme-improver.yml)
-[![Docs](https://img.shields.io/badge/docs-passing-brightgreen)](https://github.com/username/ai-readme-improver/actions/workflows/auto-docs.yml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-blue)](pyproject.toml)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![build](https://img.shields.io/badge/build-passing-brightgreen)
 
 README Improver is a command-line interface (CLI) tool and GitHub Action that leverages OpenAI technology to enhance and optimize `README.md` files. It provides a concise TL;DR summary, actionable bullet-point suggestions, and a polished version of the README document.
 
@@ -30,46 +27,38 @@ README Improver is a command-line interface (CLI) tool and GitHub Action that le
 
 ## Installation
 
-Install README Improver in a Python 3.10 environment:
+Follow these steps to install README Improver:
 
-1. **Create a virtual environment**
-   ```bash
-   python3.10 -m venv .venv
-   source .venv/bin/activate  # Windows: .venv\Scripts\activate
-   ```
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Configure the API key**
-   ```bash
-   cp .env.example .env
-   echo "OPENAI_API_KEY=your-key" >> .env
-   ```
+1. Create a virtual environment:
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate  # For Windows: .venv\Scripts\activate
+    ```
+
+2. Install required packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Copy `.env.example` to `.env` and add your `OPENAI_API_KEY` for successful execution.
 
 ## Usage
 
-The tool analyzes and rewrites the README in the current directory.
-
+Run the CLI tool within the repository containing a `README.md` file using the command:
 ```bash
-git clone https://github.com/username/ai-readme-improver.git
-cd ai-readme-improver
-python3.10 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-export OPENAI_API_KEY=your-key
-python main.py --readme README.md --improved README.improved.md
+python main.py
 ```
 
-Key options:
+After execution, `suggestions.md` and `README.improved.md` will be generated, providing feedback and an enhanced README version. Detailed logs are stored in `logs/run_YYYYMMDD_HHMMSS.log`, including OpenAI prompts, responses, costs, and timing details. In GitHub Actions, logs are uploaded as artifacts for retrieval.
 
-- `--model` – choose the OpenAI model (default `gpt-3.5-turbo`).
-- `--summary-prompt`, `--suggest-prompt`, `--rewrite-prompt` – override default prompts.
-- `--verbose` – enable debug logging.
+### Quick Start
 
-After running, `suggestions.md` contains a summary and improvement list, while
-`README.improved.md` holds the rewritten document. Logs are stored under
-`logs/` with timestamps.
+```bash
+python -m venv .venv && \
+source .venv/bin/activate && \
+pip install -r requirements.txt && \
+python main.py
+```
 
 ## GitHub Action Setup
 
