@@ -41,7 +41,7 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - run: pip install openai python-dotenv markdown2
+      - run: pip install "openai>=1.0" python-dotenv markdown2
       - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
       - run: python main.py
       - run: python post_comment.py
