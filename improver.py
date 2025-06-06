@@ -13,7 +13,8 @@ def suggest_improvements(readme_text: str) -> str:
         "You are an expert technical writer. "
         "Suggest specific improvements for this README. "
         "Mention missing sections (Installation, Usage, License, etc.), "
-        "clarity of language, badge additions, and SEO keywords. "
+        "clarity of language, badge additions, table of contents, and SEO keywords. "
+        "Recommend quick-start examples and other best practices from the Awesome README collection. "
         "Output as bullet points:\n\n"
         f"{readme_text}"
     )
@@ -22,10 +23,12 @@ def suggest_improvements(readme_text: str) -> str:
 def rewrite_readme(readme_text: str) -> str:
     prompt = (
         "You are an expert technical writer tasked with rewriting a project README. "
-        "Ensure it is professional and clear. "
-        "Include the sections Title, Short Description, Installation, Usage, License, Contributing, and Contact. "
-        "Add extra sections only if they will genuinely help the reader. "
-        "Feel free to use creative Markdown formatting such as tables, callouts, or code blocks when appropriate. "
+        "Follow best practices from the Awesome README collection. "
+        "Ensure the document is professional, clear, and engaging. "
+        "Include a catchy tagline, useful badges, and a Table of Contents. "
+        "Provide the sections Overview, Installation, Usage, Contributing, License, and Contact. "
+        "Add a Quick Start code block if helpful. "
+        "Use creative Markdown formatting such as tables or callouts when appropriate. "
         "Rewrite the README below:\n\n"
         f"{readme_text}"
     )
