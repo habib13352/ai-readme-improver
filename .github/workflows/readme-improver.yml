@@ -3,6 +3,8 @@ name: "AI README Improver CI"
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
 
 permissions:
   contents: write
@@ -10,14 +12,15 @@ permissions:
 
 jobs:
   improve-readme:
+    if: github.actor != 'github-actions[bot]'
     name: "Rewrite README with AI if changed"
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout PR branch
+      - name: Checkout branch
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: true
           fetch-depth: 0
@@ -55,6 +58,7 @@ jobs:
           cp suggestions.md logs/suggestions.md
 
       - name: Comment on PR with suggestions
+        if: github.event_name == 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python post_comment.py
@@ -73,7 +77,7 @@ jobs:
           else
             git add README.md
             git commit -m "Auto-improved README using AI"
-            git push origin HEAD:${{ github.head_ref }}
+            git push origin HEAD:${{ github.head_ref || github.ref_name }}
           fi
 
       - name: Upload logs artifact
