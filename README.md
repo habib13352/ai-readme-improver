@@ -30,15 +30,12 @@ Comprehensive logs for each execution are stored in `logs/run_YYYYMMDD_HHMMSS.lo
 
 ## GitHub Action Setup
 
-To automatically improve `README.md` content in pull requests and keep the `main` branch up to date, add the workflow below to `.github/workflows/readme-improver.yml`:
+To configure the GitHub Action for automated feedback on `README.md` changes in pull requests, add the workflow below to `.github/workflows/readme-improver.yml`:
 
 ```yaml
 name: "AI README Improver CI"
 on:
   pull_request:
-    paths: ["README.md"]
-  push:
-    branches: [main]
     paths: ["README.md"]
 jobs:
   improve-readme:
