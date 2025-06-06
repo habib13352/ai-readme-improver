@@ -1,0 +1,34 @@
+name: "AI README Improver CI"
+
+on:
+  pull_request:
+    paths:
+      - "README.md"
+
+jobs:
+  improve-readme:
+    name: "Analyze README on PR"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install openai python-dotenv markdown2
+
+      - name: Load secrets into env
+        run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+
+      - name: Run AI README Improver
+        run: python main.py
+
+      - name: Post feedback as PR comment
+        run: python post_comment.py
