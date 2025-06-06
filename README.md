@@ -51,6 +51,19 @@ jobs:
       - run: pip install "openai>=1.0" python-dotenv markdown2
       - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
       - run: python main.py
+      - name: Replace README with improved version
+        run: |
+          mv README.improved.md README.md
+          rm suggestions.md
+      - name: Commit improved README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "chore: apply AI-suggested README improvements"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v4
         with:
           name: readme-enhancer-logs
