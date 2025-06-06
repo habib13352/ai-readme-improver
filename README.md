@@ -26,7 +26,7 @@ python main.py
 
 Upon running the script, two additional files, `suggestions.md` and `README.improved.md`, will be generated, offering feedback and an enhanced version of the README.
 
-Comprehensive logs for each execution are stored in `logs/run_YYYYMMDD_HHMMSS.log`, capturing OpenAI prompts, responses, token usage, estimated costs, and timing details.
+Comprehensive logs for each execution are stored in `logs/run_YYYYMMDD_HHMMSS.log`, capturing OpenAI prompts, responses, token usage, estimated costs, and timing details. When run in GitHub Actions, these logs are uploaded as an artifact for later download.
 
 ## GitHub Action Setup
 
@@ -48,6 +48,10 @@ jobs:
       - run: pip install "openai>=1.0" python-dotenv markdown2
       - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
       - run: python main.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: readme-improver-logs
+          path: logs
       - run: python post_comment.py
 ```
 
