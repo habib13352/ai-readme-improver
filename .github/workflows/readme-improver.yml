@@ -2,12 +2,10 @@ name: "AI README Improver CI"
 
 on:
   pull_request:
-    paths:
-      - "README.md"
 
 jobs:
   improve-readme:
-    name: "Rewrite README with AI if changed"
+    name: "Rewrite README with AI on PR"
     runs-on: ubuntu-latest
 
     steps:
