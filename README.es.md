@@ -4,6 +4,8 @@
 
 *Genera README pulidos con un solo comando.*
 
+[Read this in English](README.md)
+
 [![CI](https://github.com/username/ai-readme-improver/actions/workflows/readme-improver.yml/badge.svg?branch=main)](https://github.com/username/ai-readme-improver/actions/workflows/readme-improver.yml)
 [![Docs](https://img.shields.io/badge/docs-passing-brightgreen)](https://github.com/username/ai-readme-improver/actions/workflows/auto-docs.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)

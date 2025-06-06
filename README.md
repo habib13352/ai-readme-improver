@@ -4,6 +4,8 @@
 
 *Generate polished READMEs with a single command.*
 
+[Leer en Español](README.es.md)
+
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![build](https://img.shields.io/badge/build-passing-brightgreen)
 
 README Improver is a command-line interface (CLI) tool and GitHub Action that leverages OpenAI technology to enhance and optimize `README.md` files. It provides a concise TL;DR summary, actionable bullet-point suggestions, and a polished version of the README document.
