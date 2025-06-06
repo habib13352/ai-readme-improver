@@ -1,0 +1,1 @@
+Extract all docstrings from the repository's Python modules and format them into markdown at `docs/api_reference.md` with headings for each module and entry.

@@ -4,7 +4,9 @@ from datetime import datetime
 
 _logger = None
 
-def get_logger():
+def get_logger() -> logging.Logger:
+    """Return a configured logger writing to file and console."""
+
     global _logger
     if _logger:
         return _logger
