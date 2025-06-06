@@ -1,10 +1,13 @@
-from openai_helper import ask_openai
+from __future__ import annotations
+
 import os
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
+from openai_helper import ask_openai
 
-def load_config(path="config.yaml"):
+
+def load_config(path: str = "config.yaml") -> dict:
     if not os.path.exists(path):
         return {}
     with open(path, "r", encoding="utf-8") as f:
@@ -38,26 +41,47 @@ Here is the current README.md:
 {readme_text}
 """
 
-def generate_summary(readme_text: str) -> str:
-    prompt = (
-        "You are an AI assistant that reads README files. "
-        "Provide a concise TL;DR summary of the following README (2–3 lines):\n\n"
-        f"{readme_text}"
-    )
-    return ask_openai(prompt, temperature=0.3, max_tokens=200)
 
-def suggest_improvements(readme_text: str) -> str:
-    prompt = (
-        "You are an expert technical writer. "
-        "Suggest specific improvements for this README. "
-        "Mention missing sections (Installation, Usage, License, etc.), "
-        "clarity of language, badge additions, table of contents, and SEO keywords. "
-        "Recommend quick-start examples and other best practices from the Awesome README collection. "
-        "Output as bullet points:\n\n"
-        f"{readme_text}"
-    )
-    return ask_openai(prompt, temperature=0.5, max_tokens=400)
+DEFAULT_SUMMARY_PROMPT = (
+    "You are an AI assistant that reads README files. "
+    "Provide a concise TL;DR summary of the following README (2–3 lines):\n\n"
+)
 
-def rewrite_readme(readme_text: str, config: dict) -> str:
-    prompt = build_prompt(readme_text, config)
-    return ask_openai(prompt, temperature=0.7, max_tokens=1920)
+DEFAULT_SUGGEST_PROMPT = (
+    "You are an expert technical writer. "
+    "Suggest specific improvements for this README. "
+    "Mention missing sections (Installation, Usage, License, etc.), "
+    "clarity of language, badge additions, and SEO keywords. "
+    "Output as bullet points:\n\n"
+)
+
+DEFAULT_REWRITE_PROMPT = (
+    "You are an AI that rewrites project README files to be more professional, "
+    "clear, and complete. "
+    "Rewrite the following README, ensuring it includes these sections: "
+    "Title, Short Description, Installation, Usage, License, Contributing, Contact. "
+    "Use Markdown formatting:\n\n"
+)
+
+
+def generate_summary(readme_text: str, model: str = "gpt-3.5-turbo", prompt_prefix: str | None = None) -> str:
+    prompt = (prompt_prefix or DEFAULT_SUMMARY_PROMPT) + readme_text
+    return ask_openai(prompt, model=model, temperature=0.3, max_tokens=200)
+
+
+def suggest_improvements(readme_text: str, model: str = "gpt-3.5-turbo", prompt_prefix: str | None = None) -> str:
+    prompt = (prompt_prefix or DEFAULT_SUGGEST_PROMPT) + readme_text
+    return ask_openai(prompt, model=model, temperature=0.5, max_tokens=400)
+
+
+def rewrite_readme(
+    readme_text: str,
+    model: str = "gpt-3.5-turbo",
+    prompt_prefix: str | None = None,
+    config: dict | None = None,
+) -> str:
+    if config:
+        prompt = build_prompt(readme_text, config)
+    else:
+        prompt = (prompt_prefix or DEFAULT_REWRITE_PROMPT) + readme_text
+    return ask_openai(prompt, model=model, temperature=0.7, max_tokens=1920)
