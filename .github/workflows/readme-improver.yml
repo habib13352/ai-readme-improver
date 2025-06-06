@@ -1,87 +1,38 @@
-name: "AI README Improver CI"
+name: "AI README Improver"
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
   push:
     branches: [main]
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
-  improve-readme:
+  update-readme:
     if: github.actor != 'github-actions[bot]'
-    name: "Rewrite README with AI if changed"
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout branch
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          persist-credentials: true
-          fetch-depth: 0
+      - uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install "openai>=1.0" python-dotenv markdown2
+      - run: pip install -r requirements.txt
 
-      - name: Set OpenAI key
-        run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
-
-      - name: Log original README
-        run: |
-          mkdir -p logs
-          cp README.md logs/original_README.md
-
-      - name: Log previous AI files if present
-        run: |
-          mkdir -p logs
-          if [ -f README.improved.md ]; then cp README.improved.md logs/previous_README.improved.md; fi
-          if [ -f suggestions.md ]; then cp suggestions.md logs/previous_suggestions.md; fi
-
-      - name: Run AI Improver
+      - env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python main.py
 
-      - name: Log AI-generated files
-        run: |
-          cp README.improved.md logs/improved_README.md
-          cp suggestions.md logs/suggestions.md
-
-      - name: Comment on PR with suggestions
-        if: github.event_name == 'pull_request'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python post_comment.py
-
-      - name: Replace README with improved version
-        run: |
+      - run: |
           mv README.improved.md README.md
           rm suggestions.md
 
-      - name: Commit updated README
+      - name: Commit and push updated README
         run: |
-          git config user.name "github-actions"
+          git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet README.md; then
-            echo "README has no changes"
-          else
-            git add README.md
-            git commit -m "Auto-improved README using AI"
-            git push origin HEAD:${{ github.head_ref || github.ref_name }}
-          fi
-
-      - name: Upload logs artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: readme-improver-logs
-          path: logs
+          git add README.md
+          git diff --cached --quiet || git commit -m "Auto update README"
+          git push origin HEAD:main
