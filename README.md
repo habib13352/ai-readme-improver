@@ -13,6 +13,7 @@ pip install -r requirements.txt
 ```
 
 Copy `.env.example` to `.env` and add your `OPENAI_API_KEY`.
+The script exits with an error if this variable is not set.
 
 ## Usage
 
@@ -23,6 +24,8 @@ python main.py
 ```
 
 The script creates `suggestions.md` and `README.improved.md` with feedback and a polished version of the README.
+
+Detailed logs for each run are written to `logs/run_YYYYMMDD_HHMMSS.log`. These logs include the prompts sent to OpenAI, the responses, token usage, estimated cost and timing information.
 
 ## GitHub Action Setup
 
