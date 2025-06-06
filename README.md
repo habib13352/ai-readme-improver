@@ -119,4 +119,4 @@ Thanks to OpenAI and the community for feedback.
 
 ## Contact
 
-- Email: [you@example.com](mailto:you@example.com)
+- Email: you@example.com
