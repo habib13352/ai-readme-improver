@@ -71,7 +71,12 @@ python main.py
 
 Upon execution, two new files, `suggestions.md` and `README.improved.md`, will be generated, providing feedback and an enhanced version of the README.
 
+
 Detailed logs for each run are saved in `logs/run_YYYYMMDD_HHMMSS.log`, capturing OpenAI prompts, responses, token usage, estimated costs, and timing information. If executed in GitHub Actions, these logs are uploaded as an artifact for future reference.
+
+### Configuration
+
+Runtime settings, such as the contact email and additional sections, are read from `config.yaml`. Use `--config` to specify a different file or `--interactive` to update values on the fly. Enable `--verbose` for extra logging.
 
 ## Testing
 
