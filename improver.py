@@ -21,10 +21,12 @@ def suggest_improvements(readme_text: str) -> str:
 
 def rewrite_readme(readme_text: str) -> str:
     prompt = (
-        "You are an AI that rewrites project README files to be more professional, clear, and complete. "
-        "Rewrite the following README, ensuring it includes these sections: "
-        "Title, Short Description, Installation, Usage, License, Contributing, Contact. "
-        "Use Markdown formatting:\n\n"
+        "You are an expert technical writer tasked with rewriting a project README. "
+        "Ensure it is professional and clear. "
+        "Include the sections Title, Short Description, Installation, Usage, License, Contributing, and Contact. "
+        "Add extra sections only if they will genuinely help the reader. "
+        "Feel free to use creative Markdown formatting such as tables, callouts, or code blocks when appropriate. "
+        "Rewrite the README below:\n\n"
         f"{readme_text}"
     )
-    return ask_openai(prompt, temperature=0.7, max_tokens=1200)
+    return ask_openai(prompt, temperature=0.7, max_tokens=1920)

@@ -31,7 +31,7 @@ def _estimate_cost(model: str, total_tokens: int) -> float:
     price = MODEL_COST_PER_1K.get(model, 0)
     return (total_tokens / 1000) * price
 
-def ask_openai(prompt: str, model="gpt-3.5-turbo", temperature=0.5, max_tokens=800) -> str:
+def ask_openai(prompt: str, model="gpt-3.5-turbo", temperature=0.5, max_tokens=1280) -> str:
     logger.info("\n----- OpenAI Request -----")
     logger.info(f"Model: {model} | Temperature: {temperature} | Max tokens: {max_tokens}")
     logger.info("Prompt:\n" + prompt)
@@ -47,6 +47,7 @@ def ask_openai(prompt: str, model="gpt-3.5-turbo", temperature=0.5, max_tokens=8
     elapsed = time.time() - start
 
     content = response.choices[0].message.content.strip()
+    finish_reason = response.choices[0].finish_reason
     usage = response.usage
     if usage:
         cost = _estimate_cost(model, usage.total_tokens)
@@ -57,6 +58,10 @@ def ask_openai(prompt: str, model="gpt-3.5-turbo", temperature=0.5, max_tokens=8
         logger.info(f"Estimated cost: ${cost:.6f}")
     else:
         logger.info("Token usage unavailable")
+    if finish_reason and finish_reason != "stop":
+        logger.warning(f"Response truncated (finish_reason={finish_reason})")
+    else:
+        logger.info(f"Finish reason: {finish_reason}")
     logger.info(f"Elapsed time: {elapsed:.2f}s")
     logger.info("Response:\n" + content)
     logger.info("----- End Request -----\n")
