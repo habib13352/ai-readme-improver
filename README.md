@@ -4,12 +4,9 @@
 
 *Generate polished READMEs with a single command.*
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![build](https://img.shields.io/badge/build-passing-brightgreen)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![build](https://img.shields.io/badge/build-passing-brightgreen)
 
-README Improver is a command-line interface (CLI) tool and GitHub Action that
-uses OpenAI to enhance `README.md` files. It provides a concise TL;DR summary,
-bullet-point suggestions and a polished version of the README.
+README Improver is a command-line interface (CLI) tool and GitHub Action that leverages OpenAI technology to enhance and optimize `README.md` files. It provides a concise TL;DR summary, actionable bullet-point suggestions, and a polished version of the README document.
 
 ## Features
 
@@ -33,34 +30,26 @@ bullet-point suggestions and a polished version of the README.
 Follow these steps to install README Improver:
 
 1. Create a virtual environment:
-
     ```bash
     python -m venv .venv
     source .venv/bin/activate  # For Windows: .venv\Scripts\activate
     ```
 
 2. Install required packages:
-
     ```bash
     pip install -r requirements.txt
     ```
 
-3. Copy `.env.example` to `.env` and add your `OPENAI_API_KEY` for successful
-   execution.
+3. Copy `.env.example` to `.env` and add your `OPENAI_API_KEY` for successful execution.
 
 ## Usage
 
-Run the CLI tool within the repository that contains a `README.md` file using
-the command:
-
+Run the CLI tool within the repository containing a `README.md` file using the command:
 ```bash
 python main.py
 ```
 
-After execution, `suggestions.md` and `README.improved.md` will be generated.
-Detailed logs appear in `logs/run_YYYYMMDD_HHMMSS.log` with OpenAI prompts,
-responses, costs and timing information. In GitHub Actions, these logs are
-uploaded as artifacts.
+After execution, `suggestions.md` and `README.improved.md` will be generated, providing feedback and an enhanced README version. Detailed logs are stored in `logs/run_YYYYMMDD_HHMMSS.log`, including OpenAI prompts, responses, costs, and timing details. In GitHub Actions, logs are uploaded as artifacts for retrieval.
 
 ### Quick Start
 
@@ -73,9 +62,7 @@ python main.py
 
 ## GitHub Action Setup
 
-Configure the GitHub Action for automated feedback on `README.md` changes in
-pull requests. Add the following workflow to
-`.github/workflows/readme-improver.yml`:
+Configure the GitHub Action for automated feedback on `README.md` changes in pull requests by adding the following workflow to `.github/workflows/readme-improver.yml`:
 
 ```yaml
 name: "README Improver CI"
@@ -100,11 +87,9 @@ jobs:
       - name: Commit improved README
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email \
-            "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git diff --cached --quiet || \
-            git commit -m "chore: apply AI-suggested README improvements"
+          git diff --cached --quiet || git commit -m "chore: apply AI-suggested README improvements"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -117,8 +102,7 @@ jobs:
 
 ## Contributing
 
-Contributions, such as issue reports or pull requests to enhance prompts or to
-introduce new features, are encouraged.
+Contributions, such as issue reports or pull requests to enhance prompts or introduce new features, are encouraged.
 
 ## License
 
