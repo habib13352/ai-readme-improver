@@ -2,6 +2,9 @@ import os
 import sys
 from readme_loader import load_readme
 from improver import generate_summary, suggest_improvements, rewrite_readme
+from logger import get_logger
+
+logger = get_logger()
 
 
 def main():
@@ -9,25 +12,25 @@ def main():
 
     readme_path = "README.md"
     if not os.path.exists(readme_path):
-        print(f"❌ Error: {readme_path} not found.")
+        logger.error(f"❌ Error: {readme_path} not found.")
         return
 
     readme_text = load_readme(readme_path)
     if not readme_text.strip():
-        print("⚠️ README is empty. Exiting.")
+        logger.warning("⚠️ README is empty. Exiting.")
         return
 
-    print("🔹 Generating TL;DR summary...")
+    logger.info("🔹 Generating TL;DR summary...")
     summary = generate_summary(readme_text)
-    print("\n--- TL;DR SUMMARY ---\n")
-    print(summary)
-    print("\n----------------------\n")
+    logger.info("\n--- TL;DR SUMMARY ---\n")
+    logger.info(summary)
+    logger.info("\n----------------------\n")
 
-    print("🔹 Generating improvement suggestions...")
+    logger.info("🔹 Generating improvement suggestions...")
     suggestions = suggest_improvements(readme_text)
-    print("\n--- IMPROVEMENT SUGGESTIONS ---\n")
-    print(suggestions)
-    print("\n--------------------------------\n")
+    logger.info("\n--- IMPROVEMENT SUGGESTIONS ---\n")
+    logger.info(suggestions)
+    logger.info("\n--------------------------------\n")
 
     with open("suggestions.md", "w", encoding="utf-8") as f:
         f.write("# 🤖 AI README Improver Feedback\n\n")
@@ -36,13 +39,13 @@ def main():
         f.write("## Improvement Suggestions\n\n")
         f.write(suggestions.strip() + "\n\n")
         f.write("---\n*Powered by [OpenAI](https://openai.com)*\n")
-    print("✅ Wrote feedback to suggestions.md")
+    logger.info("✅ Wrote feedback to suggestions.md")
 
-    print("🔹 Generating rewritten README → README.improved.md")
+    logger.info("🔹 Generating rewritten README → README.improved.md")
     improved = rewrite_readme(readme_text)
     with open("README.improved.md", "w", encoding="utf-8") as f:
         f.write(improved)
-    print("✅ Saved improved version to README.improved.md\n")
+    logger.info("✅ Saved improved version to README.improved.md\n")
 
 
 if __name__ == "__main__":

@@ -24,6 +24,8 @@ python main.py
 
 The script creates `suggestions.md` and `README.improved.md` with feedback and a polished version of the README.
 
+Detailed logs for each run are written to `logs/run_YYYYMMDD_HHMMSS.log`. These logs include the prompts sent to OpenAI, the responses, token usage, estimated cost and timing information.
+
 ## GitHub Action Setup
 
 Add the workflow below to `.github/workflows/readme-improver.yml` to automatically post suggestions when a PR modifies `README.md`:
