@@ -15,5 +15,14 @@ dependencies = [
     "markdown2"
 ]
 
+[tool.setuptools]
+py-modules = [
+    "improver",
+    "main",
+    "openai_helper",
+    "post_comment",
+    "readme_loader",
+]
+
 [project.scripts]
 readme-improver = "main:main"
