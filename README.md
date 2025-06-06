@@ -2,9 +2,6 @@
 
 ![Logo](assets/logo.png)
 
-i want you to format the logo img so its not so big and there isnt so much empty space.
-make it fit just right.
-
 *Generate polished READMEs with a single command.*
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![build](https://img.shields.io/badge/build-passing-brightgreen)
