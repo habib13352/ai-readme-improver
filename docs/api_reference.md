@@ -17,7 +17,7 @@ Construct the prompt for the rewrite request.
 | Name | Type | Description |
 | --- | --- | --- |
 | `readme_text` | `str` | Current README contents |
-| `config` | `dict` | Configuration values controlling extra sections and branding |
+| `config` | `dict` | Controls extra sections and branding |
 
 Returns: `str` formatted prompt.
 
