@@ -22,7 +22,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install openai python-dotenv markdown2
+          # Pin OpenAI to 0.28 for compatibility with this project
+          pip install openai==0.28 python-dotenv markdown2
 
       - name: Load secrets into env
         run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV

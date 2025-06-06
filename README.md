@@ -12,6 +12,9 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+`requirements.txt` pins the `openai` package to version `0.28` for
+compatibility with the scripts in this repository.
+
 Copy `.env.example` to `.env` and add your `OPENAI_API_KEY`.
 
 ## Usage
@@ -56,7 +59,7 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - run: pip install openai python-dotenv markdown2
+      - run: pip install openai==0.28 python-dotenv markdown2
       - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
       - run: python main.py
       - run: python post_comment.py
