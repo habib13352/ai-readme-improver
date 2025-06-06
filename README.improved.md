@@ -1,32 +1,36 @@
 # AI README Improver
 
-A CLI tool and GitHub Action that leverages OpenAI to analyze and enhance `README.md` files. It offers a concise summary, bullet-point recommendations, and a refined version of the README.
+AI README Improver is a powerful CLI tool and GitHub Action designed to enhance and optimize `README.md` files using OpenAI technology. It offers a succinct TL;DR summary, actionable bullet-point suggestions, and a refined version of the README document.
 
 ![demo](https://via.placeholder.com/600x200.png?text=AI+README+Improver+Demo)
 
 ## Installation
 
+To install AI README Improver, follow these steps:
+
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+source .venv/bin/activate  # For Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Duplicate `.env.example` as `.env` and insert your `OPENAI_API_KEY`.
+Remember to copy the `.env.example` file to `.env` and insert your `OPENAI_API_KEY`. The script will not run successfully if this key is not provided.
 
 ## Usage
 
-Execute the CLI within the repository containing a `README.md`:
+Execute the CLI tool within the repository containing a `README.md` file with the following command:
 
 ```bash
 python main.py
 ```
 
-The tool generates `suggestions.md` and `README.improved.md` with insights and an enhanced version of the README.
+Upon running the script, two additional files, `suggestions.md` and `README.improved.md`, will be generated, offering feedback and an enhanced version of the README.
+
+Comprehensive logs for each execution are stored in `logs/run_YYYYMMDD_HHMMSS.log`, capturing OpenAI prompts, responses, token usage, estimated costs, and timing details.
 
 ## GitHub Action Setup
 
-Include the workflow below in `.github/workflows/readme-improver.yml` to automatically provide suggestions when a PR modifies `README.md`:
+To configure the GitHub Action for automated feedback on `README.md` changes in pull requests, add the workflow below to `.github/workflows/readme-improver.yml`:
 
 ```yaml
 name: "AI README Improver CI"
@@ -49,8 +53,8 @@ jobs:
 
 ## Contributing
 
-Please feel free to raise issues or PRs to adjust prompts or introduce new functionalities.
+Contributions in the form of issue reports or pull requests to enhance prompts or introduce new functionalities are welcome.
 
 ## License
 
-[MIT](LICENSE)
+This project is licensed under the [MIT License](LICENSE).
