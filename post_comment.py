@@ -13,7 +13,7 @@ def get_pr_number() -> str:
         payload = json.load(f)
     pr = payload.get("pull_request")
     if not pr:
-        print("\u274c Not triggered by a pull request. Exiting.")
+        print("❌ Not triggered by a pull request. Exiting.")
         sys.exit(1)
     return str(pr.get("number"))
 
@@ -21,7 +21,7 @@ def get_pr_number() -> str:
 def main():
     suggestions_file = "suggestions.md"
     if not os.path.exists(suggestions_file):
-        print("\u274c suggestions.md not found. Skipping comment.")
+        print("❌ suggestions.md not found. Skipping comment.")
         return
 
     with open(suggestions_file, "r", encoding="utf-8") as f:
@@ -37,9 +37,9 @@ def main():
     print(f"Posting feedback to PR #{pr_number}...")
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        print("\u274c Failed to post comment:", result.stderr)
+        print("❌ Failed to post comment:", result.stderr)
     else:
-        print("\u2705 Feedback posted successfully.")
+        print("✅ Feedback posted successfully.")
 
 
 if __name__ == "__main__":
