@@ -1,16 +1,12 @@
 # README Improver
 
-<<<<<<< HEAD
+![Logo](assets/logo.png)
+
 *Generate polished READMEs with a single command.*
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![build](https://img.shields.io/badge/build-passing-brightgreen)
-=======
-## Description
->>>>>>> 062b303 (fixing)
 
 README Improver is a command-line interface (CLI) tool and GitHub Action that leverages OpenAI technology to enhance and optimize `README.md` files. It provides a concise TL;DR summary, actionable bullet-point suggestions, and a polished version of the README document.
-
-![Demo](https://via.placeholder.com/600x200.png?text=README+Improver+Demo)
 
 ## Features
 
@@ -25,7 +21,9 @@ README Improver is a command-line interface (CLI) tool and GitHub Action that le
 3. [GitHub Action Setup](#github-action-setup)
 4. [Contributing](#contributing)
 5. [License](#license)
-6. [Contact](#contact)
+6. [Maintainers](#maintainers)
+7. [Acknowledgements](#acknowledgements)
+8. [Contact](#contact)
 
 ## Installation
 
@@ -51,7 +49,8 @@ Run the CLI tool within the repository containing a `README.md` file using the c
 python main.py
 ```
 
-<<<<<<< HEAD
+After execution, `suggestions.md` and `README.improved.md` will be generated, providing feedback and an enhanced README version. Detailed logs are stored in `logs/run_YYYYMMDD_HHMMSS.log`, including OpenAI prompts, responses, costs, and timing details. In GitHub Actions, logs are uploaded as artifacts for retrieval.
+
 ### Quick Start
 
 ```bash
@@ -60,13 +59,6 @@ source .venv/bin/activate && \
 pip install -r requirements.txt && \
 python main.py
 ```
-
-Upon execution, two new files, `suggestions.md` and `README.improved.md`, will be generated, providing feedback and an enhanced version of the README.
-
-Detailed logs for each run are saved in `logs/run_YYYYMMDD_HHMMSS.log`, capturing OpenAI prompts, responses, token usage, estimated costs, and timing information. If executed in GitHub Actions, these logs are uploaded as an artifact for future reference.
-=======
-After execution, `suggestions.md` and `README.improved.md` will be generated, providing feedback and an enhanced README version. Detailed logs are stored in `logs/run_YYYYMMDD_HHMMSS.log`, including OpenAI prompts, responses, costs, and timing details. In GitHub Actions, logs are uploaded as artifacts for retrieval.
->>>>>>> 062b303 (fixing)
 
 ## GitHub Action Setup
 
@@ -116,10 +108,15 @@ Contributions, such as issue reports or pull requests to enhance prompts or intr
 
 This project is licensed under the [MIT License](LICENSE).
 
+## Maintainers
+
+- Alice Johnson (@alicej)
+- Bob Smith (@bobsmith)
+
+## Acknowledgements
+
+Thanks to OpenAI and the community for feedback.
+
 ## Contact
 
-<<<<<<< HEAD
-For any inquiries or feedback, feel free to reach out to us at [email@example.com](mailto:email@example.com).
-=======
-For any inquiries or feedback, please reach out to [example@email.com](mailto:example@email.com).
->>>>>>> 062b303 (fixing)
+- Email: you@example.com
