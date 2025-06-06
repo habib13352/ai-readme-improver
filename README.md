@@ -13,6 +13,7 @@ pip install -r requirements.txt
 ```
 
 Copy `.env.example` to `.env` and add your `OPENAI_API_KEY`.
+The script exits with an error if this variable is not set.
 
 ## Usage
 

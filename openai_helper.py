@@ -8,11 +8,18 @@ logger = get_logger()
 
 load_dotenv()
 
-api_key = os.getenv("OPENAI_API_KEY")
-if api_key is None:
-    raise RuntimeError("OPENAI_API_KEY not set in .env")
+_client = None
 
-client = OpenAI(api_key=api_key)
+
+def _get_client() -> OpenAI:
+    """Create the OpenAI client on first use."""
+    global _client
+    if _client is None:
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise RuntimeError("OPENAI_API_KEY is not set")
+        _client = OpenAI(api_key=api_key)
+    return _client
 
 # Rough USD cost per 1K tokens for supported models
 MODEL_COST_PER_1K = {
@@ -30,6 +37,7 @@ def ask_openai(prompt: str, model="gpt-3.5-turbo", temperature=0.5, max_tokens=8
     logger.info("Prompt:\n" + prompt)
 
     start = time.time()
+    client = _get_client()
     response = client.chat.completions.create(
         model=model,
         messages=[{"role": "user", "content": prompt}],

@@ -10,6 +10,10 @@ logger = get_logger()
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
 
+    if not os.getenv("OPENAI_API_KEY"):
+        logger.error("OPENAI_API_KEY is not set. Add it to your .env file.")
+        return
+
     readme_path = "README.md"
     if not os.path.exists(readme_path):
         logger.error(f"❌ Error: {readme_path} not found.")
