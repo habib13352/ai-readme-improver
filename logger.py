@@ -2,19 +2,21 @@ import logging
 import os
 from datetime import datetime
 
+LOG_DIR = "logs"
+
 _logger = None
+
 
 def get_logger() -> logging.Logger:
     """Return a configured logger writing to file and console."""
 
     global _logger
-    if _logger:
+    if _logger is not None:
         return _logger
 
-    logs_dir = "logs"
-    os.makedirs(logs_dir, exist_ok=True)
+    os.makedirs(LOG_DIR, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_file = os.path.join(logs_dir, f"run_{timestamp}.log")
+    log_file = os.path.join(LOG_DIR, f"run_{timestamp}.log")
 
     logger = logging.getLogger("readme_improver")
     logger.setLevel(logging.INFO)
