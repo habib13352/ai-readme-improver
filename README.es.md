@@ -2,54 +2,54 @@
 
 ![Logo](assets/logo.png)
 
-*Generate polished READMEs with a single command.*
+*Genera README pulidos con un solo comando.*
 
 [![CI](https://github.com/username/ai-readme-improver/actions/workflows/readme-improver.yml/badge.svg?branch=main)](https://github.com/username/ai-readme-improver/actions/workflows/readme-improver.yml)
 [![Docs](https://img.shields.io/badge/docs-passing-brightgreen)](https://github.com/username/ai-readme-improver/actions/workflows/auto-docs.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1.0-blue)](pyproject.toml)
 
-README Improver is a command-line interface (CLI) tool and GitHub Action that leverages OpenAI technology to enhance and optimize `README.md` files. It provides a concise TL;DR summary, actionable bullet-point suggestions, and a polished version of the README document.
+README Improver es una herramienta de línea de comandos y GitHub Action que usa OpenAI para mejorar archivos `README.md`. Genera un breve resumen, sugerencias y una versión reescrita del documento.
 
-## Features
+## Características
 
-- 📄 Auto-generates a TL;DR summary and improvement suggestions
-- 📝 Produces a fully rewritten README with modern Markdown styling
-- 🧩 Works locally or as a GitHub Action
+- 📄 Genera un resumen TL;DR y sugerencias de mejora
+- 📝 Produce un README reescrito con estilo moderno
+- 🧩 Funciona localmente o como GitHub Action
 
-## Table of Contents
+## Tabla de Contenidos
 
-1. [Installation](#installation)
-2. [Usage](#usage)
-3. [GitHub Action Setup](#github-action-setup)
-4. [Contributing](#contributing)
-5. [License](#license)
-6. [Maintainers](#maintainers)
-7. [Acknowledgements](#acknowledgements)
-8. [Contact](#contact)
+1. [Instalación](#instalación)
+2. [Uso](#uso)
+3. [Configuración de GitHub Action](#configuración-de-github-action)
+4. [Contribuir](#contribuir)
+5. [Licencia](#licencia)
+6. [Mantenedores](#mantenedores)
+7. [Agradecimientos](#agradecimientos)
+8. [Contacto](#contacto)
 
-## Installation
+## Instalación
 
-Install README Improver in a Python 3.10 environment:
+Instala README Improver en un entorno de Python 3.10:
 
-1. **Create a virtual environment**
+1. **Crea un entorno virtual**
    ```bash
    python3.10 -m venv .venv
    source .venv/bin/activate  # Windows: .venv\Scripts\activate
    ```
-2. **Install dependencies**
+2. **Instala las dependencias**
    ```bash
    pip install -r requirements.txt
    ```
-3. **Configure the API key**
+3. **Configura la clave de API**
    ```bash
    cp .env.example .env
-   echo "OPENAI_API_KEY=your-key" >> .env
+   echo "OPENAI_API_KEY=tu-clave" >> .env
    ```
 
-## Usage
+## Uso
 
-The tool analyzes and rewrites the README in the current directory.
+La herramienta analiza y reescribe el README del directorio actual.
 
 ```bash
 git clone https://github.com/username/ai-readme-improver.git
@@ -57,23 +57,21 @@ cd ai-readme-improver
 python3.10 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-export OPENAI_API_KEY=your-key
+export OPENAI_API_KEY=tu-clave
 python main.py --readme README.md --improved README.improved.md
 ```
 
-Key options:
+Opciones principales:
 
-- `--model` – choose the OpenAI model (default `gpt-3.5-turbo`).
-- `--summary-prompt`, `--suggest-prompt`, `--rewrite-prompt` – override default prompts.
-- `--verbose` – enable debug logging.
+- `--model` – modelo de OpenAI (por defecto `gpt-3.5-turbo`).
+- `--summary-prompt`, `--suggest-prompt`, `--rewrite-prompt` – sobrescribe los prompts.
+- `--verbose` – activa registro detallado.
 
-After running, `suggestions.md` contains a summary and improvement list, while
-`README.improved.md` holds the rewritten document. Logs are stored under
-`logs/` with timestamps.
+Tras ejecutar, `suggestions.md` contiene el resumen y la lista de mejoras, mientras que `README.improved.md` guarda el documento reescrito. Los registros se almacenan en `logs/`.
 
-## GitHub Action Setup
+## Configuración de GitHub Action
 
-Configure the GitHub Action for automated feedback on `README.md` changes in pull requests by adding the following workflow to `.github/workflows/readme-improver.yml`:
+Configura la acción para mejorar automáticamente el README en las pull requests añadiendo el siguiente workflow a `.github/workflows/readme-improver.yml`:
 
 ```yaml
 name: "README Improver CI"
@@ -111,23 +109,23 @@ jobs:
       - run: python post_comment.py
 ```
 
-## Contributing
+## Contribuir
 
-Contributions, such as issue reports or pull requests to enhance prompts or introduce new features, are encouraged.
+Las contribuciones como reportes de errores o pull requests son bienvenidas.
 
-## License
+## Licencia
 
-This project is licensed under the [MIT License](LICENSE).
+Este proyecto está bajo la [Licencia MIT](LICENSE).
 
-## Maintainers
+## Mantenedores
 
 - Alice Johnson (@alicej)
 - Bob Smith (@bobsmith)
 
-## Acknowledgements
+## Agradecimientos
 
-Thanks to OpenAI and the community for feedback.
+Gracias a OpenAI y a la comunidad por sus comentarios.
 
-## Contact
+## Contacto
 
 - Email: you@example.com

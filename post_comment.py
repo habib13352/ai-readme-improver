@@ -9,6 +9,8 @@ REPO = os.getenv("GITHUB_REPOSITORY")
 
 
 def get_pr_number() -> str:
+    """Extract the pull request number from the GitHub event payload."""
+
     with open(GITHUB_EVENT_PATH, "r") as f:
         payload = json.load(f)
     pr = payload.get("pull_request")
@@ -19,6 +21,8 @@ def get_pr_number() -> str:
 
 
 def main():
+    """Post README improvement suggestions as a PR comment."""
+
     suggestions_file = "suggestions.md"
     if not os.path.exists(suggestions_file):
         print("❌ suggestions.md not found. Skipping comment.")

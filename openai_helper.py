@@ -42,6 +42,16 @@ MODEL_COST_PER_1K = {
 
 
 def _estimate_cost(model: str, total_tokens: int) -> float:
+    """Estimate API cost for a given model and token count.
+
+    Args:
+        model: Model name used for the request.
+        total_tokens: Total tokens consumed by the request.
+
+    Returns:
+        Approximate USD cost based on predefined pricing.
+    """
+
     price = MODEL_COST_PER_1K.get(model, 0)
     return (total_tokens / 1000) * price
 
