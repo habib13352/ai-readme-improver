@@ -48,7 +48,7 @@ jobs:
       - run: pip install "openai>=1.0" python-dotenv markdown2
       - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
       - run: python main.py
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: readme-improver-logs
           path: logs
