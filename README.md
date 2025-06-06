@@ -11,8 +11,8 @@ The project consists of a small set of Python modules:
 - **`readme_loader.py`** – loads the text of a README file.
 - **`improver.py`** – contains functions that ask OpenAI to generate summaries,
   suggestions and a rewritten README.
-- **`openai_helper.py`** – thin wrapper around the OpenAI SDK with caching and
-  error handling.
+- **`openai_helper.py`** – thin wrapper around the OpenAI SDK with simple
+  on-disk caching (`.cache/`) and friendly error handling.
 - **`main.py`** – command line entry point that ties everything together.
 
 Running the tool will read a README, send it to OpenAI and produce two
@@ -31,7 +31,8 @@ Copy `.env.example` to `.env` and add your `OPENAI_API_KEY`.
 
 ## Usage
 
-Run the CLI in the repository that contains a `README.md`:
+Run the CLI in the repository that contains a `README.md` (or use the
+`readme-improver` command if installed as a package):
 
 ```bash
 python main.py --readme README.md \
