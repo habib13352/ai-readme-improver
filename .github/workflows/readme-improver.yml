@@ -26,9 +26,14 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - env:
+      - name: Run AI README Improver
+        env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: python main.py
+        run: |
+          python main.py \
+            --config config.yaml \
+            --email "${{ secrets.README_EMAIL }}" \
+            --logo-path "assets/logo.png"
 
       - name: Replace README with improved version
         run: |
