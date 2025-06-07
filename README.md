@@ -2,7 +2,7 @@
 
 ![Logo](assets/logo.png)
 
-*Generate polished READMEs with a single command.*
+*Generate polished READMEs with a single command.* new pls
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![build](https://img.shields.io/badge/build-passing-brightgreen)
 
