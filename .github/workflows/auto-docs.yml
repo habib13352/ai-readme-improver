@@ -1,9 +1,13 @@
 name: Auto Docs
+
 on:
   push:
     branches: [main]
   schedule:
     - cron: '0 2 * * *'
+
+permissions:
+  contents: write
 
 jobs:
   build-docs:
@@ -16,18 +20,29 @@ jobs:
       - name: Set up Node.js (for markdownlint)
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
           npm install -g markdownlint-cli
-      - run: markdownlint README.md docs/**/*.md
-      - run: linkchecker README.md
-      - run: python scripts/update_readme.py
+      - name: Lint Markdown files
+        run: markdownlint README.md docs/**/*.md
+      - name: Check links in README
+        run: linkchecker README.md
+      - name: Update README
+        run: |
+          python scripts/update_readme.py
+          git status --short
       - name: Commit docs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add README.md docs/
-          git diff --cached --quiet || git commit -m 'docs: auto update'
-          git push origin HEAD:docs/auto-update
+          timestamp=$(date -u +"%Y-%m-%d-%H-%M")
+          git add README.md SUGGESTED_README.md README_SUGGESTIONS.md oldreadme/ || true
+          git status --short
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "docs: auto update ${timestamp}"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
