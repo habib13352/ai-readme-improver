@@ -40,7 +40,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          python main.py \
+          python run_improver.py \
             --config config.yaml \
             --email "${{ github.event.inputs.email || secrets.README_EMAIL }}" \
             --logo-path "${{ github.event.inputs.logo-path || 'assets/logo.png' }}"

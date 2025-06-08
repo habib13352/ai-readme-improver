@@ -46,7 +46,7 @@ Follow these steps to install README Improver:
 
 Run the CLI tool within the repository containing a `README.md` file using the command:
 ```bash
-python main.py
+python run_improver.py
 ```
 
 After execution, `suggestions.md` and `README.improved.md` will be generated, providing feedback and an enhanced README version. Detailed logs are stored in `logs/run_YYYYMMDD_HHMMSS.log`, including OpenAI prompts, responses, costs, and timing details. In GitHub Actions, logs are uploaded as artifacts for retrieval.
@@ -57,7 +57,7 @@ After execution, `suggestions.md` and `README.improved.md` will be generated, pr
 python -m venv .venv && \
 source .venv/bin/activate && \
 pip install -r requirements.txt && \
-python main.py
+python run_improver.py
 ```
 
 ## GitHub Action Setup
@@ -79,7 +79,7 @@ jobs:
           python-version: "3.10"
       - run: pip install "openai>=1.0" python-dotenv markdown2
       - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
-      - run: python main.py
+      - run: python run_improver.py
       - name: Replace README with improved version
         run: |
           mv README.improved.md README.md
