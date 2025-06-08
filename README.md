@@ -111,8 +111,6 @@ This project is licensed under the [MIT License](LICENSE).
 ## Maintainers
 
 - Hamza Habib (@habib13352)
-- Alice Johnson (@alicej)
-- Bob Smith (@bobsmith)
 
 ## Acknowledgements
 
