@@ -16,12 +16,9 @@ dependencies = [
 ]
 
 [tool.setuptools]
+packages = ["readme_improver"]
 py-modules = [
-    "improver",
     "main",
-    "openai_helper",
-    "post_comment",
-    "readme_loader",
 ]
 
 [project.scripts]

@@ -1,6 +1,6 @@
 # API Reference
 
-## improver.load_config
+## readme_improver.improver.load_config
 
 Load configuration values from a YAML file.
 
@@ -10,7 +10,7 @@ Load configuration values from a YAML file.
 
 Returns: `dict` parsed configuration or empty dict.
 
-## improver.build_prompt
+## readme_improver.improver.build_prompt
 
 Construct the prompt for the rewrite request.
 
@@ -21,7 +21,7 @@ Construct the prompt for the rewrite request.
 
 Returns: `str` formatted prompt.
 
-## improver.generate_summary
+## readme_improver.improver.generate_summary
 
 Generate a TL;DR summary of the README.
 
@@ -33,7 +33,7 @@ Generate a TL;DR summary of the README.
 
 Returns: `str` summary.
 
-## improver.suggest_improvements
+## readme_improver.improver.suggest_improvements
 
 Provide improvement suggestions for the README.
 
@@ -45,7 +45,7 @@ Provide improvement suggestions for the README.
 
 Returns: `str` suggestions.
 
-## improver.rewrite_readme
+## readme_improver.improver.rewrite_readme
 
 Rewrite the README using OpenAI.
 
@@ -58,19 +58,19 @@ Rewrite the README using OpenAI.
 
 Returns: `str` rewritten README content.
 
-## logger.get_logger
+## readme_improver.logger.get_logger
 
 Return a configured logger writing to file and console.
 
 Returns: `logging.Logger` instance.
 
-## openai_helper._get_client
+## readme_improver.openai_helper._get_client
 
 Create the OpenAI client lazily.
 
 Returns: `OpenAI` client instance.
 
-## openai_helper._estimate_cost
+## readme_improver.openai_helper._estimate_cost
 
 Estimate API cost for a given model and token count.
 
@@ -81,7 +81,7 @@ Estimate API cost for a given model and token count.
 
 Returns: `float` cost in USD.
 
-## openai_helper.ask_openai
+## readme_improver.openai_helper.ask_openai
 
 Send a prompt to OpenAI ChatCompletion with caching and detailed logging.
 
@@ -94,7 +94,7 @@ Send a prompt to OpenAI ChatCompletion with caching and detailed logging.
 
 Returns: `str` response from the API.
 
-## readme_loader.load_readme
+## readme_improver.readme_loader.load_readme
 
 Load the contents of a README file.
 
@@ -104,13 +104,13 @@ Load the contents of a README file.
 
 Returns: `str` file content (empty string if missing).
 
-## post_comment.get_pr_number
+## readme_improver.post_comment.get_pr_number
 
 Extract the pull request number from the GitHub event payload.
 
 Returns: `str` PR number.
 
-## post_comment.main
+## readme_improver.post_comment.main
 
 Post README improvement suggestions as a PR comment.
 

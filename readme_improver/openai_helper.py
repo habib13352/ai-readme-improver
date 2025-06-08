@@ -5,7 +5,7 @@ import time
 from pathlib import Path
 
 from dotenv import load_dotenv
-from logger import get_logger
+from .logger import get_logger
 
 logger = get_logger()
 

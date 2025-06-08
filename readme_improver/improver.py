@@ -5,7 +5,7 @@ from typing import Any
 
 import yaml
 
-from openai_helper import ask_openai
+from .openai_helper import ask_openai
 
 
 def load_config(path: str = "config.yaml") -> dict[str, Any]:

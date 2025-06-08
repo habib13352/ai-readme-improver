@@ -3,14 +3,14 @@ import logging
 import os
 import sys
 
-from readme_loader import load_readme
-from improver import (
+from readme_improver.readme_loader import load_readme
+from readme_improver.improver import (
     generate_summary,
     suggest_improvements,
     rewrite_readme,
     load_config,
 )
-from logger import get_logger
+from readme_improver.logger import get_logger
 
 
 logger = get_logger()

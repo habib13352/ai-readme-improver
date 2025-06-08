@@ -1,9 +1,9 @@
 import os
 from pathlib import Path
 
-import openai_helper
-from logger import get_logger
-from improver import load_config, build_prompt
+import readme_improver.openai_helper as openai_helper
+from readme_improver.logger import get_logger
+from readme_improver.improver import load_config, build_prompt
 
 
 class DummyClient:

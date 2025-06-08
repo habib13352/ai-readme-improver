@@ -5,13 +5,13 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
-from improver import (
+from readme_improver.improver import (
     generate_summary,
     suggest_improvements,
     rewrite_readme,
     load_config,
 )
-from readme_loader import load_readme
+from readme_improver.readme_loader import load_readme
 
 
 ARCHIVE_ROOT = Path("oldreadme")
