@@ -1,0 +1,582 @@
+01:56:33 - 🔹 Generating TL;DR summary...
+01:56:33 - 
+----- OpenAI Request -----
+01:56:33 - Model: gpt-3.5-turbo | Temperature: 0.3 | Max tokens: 200
+01:56:33 - Prompt:
+You are an AI assistant that reads README files. Provide a concise TL;DR summary of the following README (2–3 lines):
+
+# README Improver
+
+![Logo](assets/logo.png)
+
+*Generate polished READMEs with a single command.*
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![build](https://img.shields.io/badge/build-passing-brightgreen)
+
+README Improver is a command-line interface (CLI) tool and GitHub Action that leverages OpenAI technology to enhance and optimize `README.md` files. It provides a concise TL;DR summary, actionable bullet-point suggestions, and a polished version of the README document.
+
+## Features
+
+- 📄 Auto-generates a TL;DR summary and improvement suggestions
+- 📝 Produces a fully rewritten README with modern Markdown styling
+- 🧩 Works locally or as a GitHub Action
+
+## Table of Contents
+
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [GitHub Action Setup](#github-action-setup)
+4. [Contributing](#contributing)
+5. [License](#license)
+6. [Maintainers](#maintainers)
+7. [Acknowledgements](#acknowledgements)
+8. [Contact](#contact)
+
+## Installation
+
+Follow these steps to install README Improver:
+
+1. Create a virtual environment:
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate  # For Windows: .venv\Scripts\activate
+    ```
+
+2. Install required packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Copy `.env.example` to `.env` and add your `OPENAI_API_KEY` for successful execution.
+
+## Usage
+
+Run the CLI tool within the repository containing a `README.md` file using the command:
+```bash
+python main.py
+```
+
+After execution, `suggestions.md` and `README.improved.md` will be generated, providing feedback and an enhanced README version. Detailed logs are stored in `logs/run_YYYYMMDD_HHMMSS.log`, including OpenAI prompts, responses, costs, and timing details. In GitHub Actions, logs are uploaded as artifacts for retrieval.
+
+### Quick Start
+
+```bash
+python -m venv .venv && \
+source .venv/bin/activate && \
+pip install -r requirements.txt && \
+python main.py
+```
+
+## GitHub Action Setup
+
+Configure the GitHub Action for automated feedback on `README.md` changes in pull requests by adding the following workflow to `.github/workflows/readme-improver.yml`:
+
+```yaml
+name: "README Improver CI"
+on:
+  pull_request:
+    paths: ["README.md"]
+jobs:
+  improve-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - run: pip install "openai>=1.0" python-dotenv markdown2
+      - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+      - run: python main.py
+      - name: Replace README with improved version
+        run: |
+          mv README.improved.md README.md
+          rm suggestions.md
+      - name: Commit improved README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "chore: apply AI-suggested README improvements"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: readme-improver-logs
+          path: logs
+      - run: python post_comment.py
+```
+
+## Contributing
+
+Contributions, such as issue reports or pull requests to enhance prompts or introduce new features, are encouraged.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Maintainers
+
+- Alice Johnson (@alicej)
+- Bob Smith (@bobsmith)
+
+## Acknowledgements
+
+Thanks to OpenAI and the community for feedback.
+
+## Contact
+
+- Email: you@example.com
+01:56:38 - Tokens: prompt=930 completion=48 total=978
+01:56:38 - Estimated cost: $0.001956
+01:56:38 - Finish reason: stop
+01:56:38 - Elapsed time: 4.58s
+01:56:38 - Response:
+TL;DR: README Improver is a CLI tool and GitHub Action that uses OpenAI to enhance README.md files by generating summaries, suggestions, and polished versions. It works locally or as a GitHub Action for automated feedback on pull requests.
+01:56:38 - ----- End Request -----
+
+01:56:38 - 
+--- TL;DR SUMMARY ---
+TL;DR: README Improver is a CLI tool and GitHub Action that uses OpenAI to enhance README.md files by generating summaries, suggestions, and polished versions. It works locally or as a GitHub Action for automated feedback on pull requests.
+----------------------
+
+01:56:38 - 🔹 Generating improvement suggestions...
+01:56:38 - 
+----- OpenAI Request -----
+01:56:38 - Model: gpt-3.5-turbo | Temperature: 0.5 | Max tokens: 400
+01:56:38 - Prompt:
+You are an expert technical writer. Suggest specific improvements for this README. Mention missing sections (Installation, Usage, License, etc.), clarity of language, badge additions, and SEO keywords. Output as bullet points:
+
+# README Improver
+
+![Logo](assets/logo.png)
+
+*Generate polished READMEs with a single command.*
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![build](https://img.shields.io/badge/build-passing-brightgreen)
+
+README Improver is a command-line interface (CLI) tool and GitHub Action that leverages OpenAI technology to enhance and optimize `README.md` files. It provides a concise TL;DR summary, actionable bullet-point suggestions, and a polished version of the README document.
+
+## Features
+
+- 📄 Auto-generates a TL;DR summary and improvement suggestions
+- 📝 Produces a fully rewritten README with modern Markdown styling
+- 🧩 Works locally or as a GitHub Action
+
+## Table of Contents
+
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [GitHub Action Setup](#github-action-setup)
+4. [Contributing](#contributing)
+5. [License](#license)
+6. [Maintainers](#maintainers)
+7. [Acknowledgements](#acknowledgements)
+8. [Contact](#contact)
+
+## Installation
+
+Follow these steps to install README Improver:
+
+1. Create a virtual environment:
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate  # For Windows: .venv\Scripts\activate
+    ```
+
+2. Install required packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Copy `.env.example` to `.env` and add your `OPENAI_API_KEY` for successful execution.
+
+## Usage
+
+Run the CLI tool within the repository containing a `README.md` file using the command:
+```bash
+python main.py
+```
+
+After execution, `suggestions.md` and `README.improved.md` will be generated, providing feedback and an enhanced README version. Detailed logs are stored in `logs/run_YYYYMMDD_HHMMSS.log`, including OpenAI prompts, responses, costs, and timing details. In GitHub Actions, logs are uploaded as artifacts for retrieval.
+
+### Quick Start
+
+```bash
+python -m venv .venv && \
+source .venv/bin/activate && \
+pip install -r requirements.txt && \
+python main.py
+```
+
+## GitHub Action Setup
+
+Configure the GitHub Action for automated feedback on `README.md` changes in pull requests by adding the following workflow to `.github/workflows/readme-improver.yml`:
+
+```yaml
+name: "README Improver CI"
+on:
+  pull_request:
+    paths: ["README.md"]
+jobs:
+  improve-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - run: pip install "openai>=1.0" python-dotenv markdown2
+      - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+      - run: python main.py
+      - name: Replace README with improved version
+        run: |
+          mv README.improved.md README.md
+          rm suggestions.md
+      - name: Commit improved README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "chore: apply AI-suggested README improvements"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: readme-improver-logs
+          path: logs
+      - run: python post_comment.py
+```
+
+## Contributing
+
+Contributions, such as issue reports or pull requests to enhance prompts or introduce new features, are encouraged.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Maintainers
+
+- Alice Johnson (@alicej)
+- Bob Smith (@bobsmith)
+
+## Acknowledgements
+
+Thanks to OpenAI and the community for feedback.
+
+## Contact
+
+- Email: you@example.com
+01:56:39 - Tokens: prompt=946 completion=190 total=1136
+01:56:39 - Estimated cost: $0.002272
+01:56:39 - Finish reason: stop
+01:56:39 - Elapsed time: 1.41s
+01:56:39 - Response:
+- Add a section for "Installation" with detailed steps on how to install the tool
+- Include a section for "Usage" with instructions on how to run the CLI tool
+- Create a section for "GitHub Action Setup" with a detailed guide on how to set up the tool as a GitHub Action
+- Consider adding a section for "Contributing" to encourage contributions
+- Include a section for "License" to specify the project's licensing information
+- Add a section for "Maintainers" to list the maintainers of the project
+- Consider adding a section for "Acknowledgements" to thank contributors or technologies used
+- Include a section for "Contact" to provide contact information for the project
+- Add badges for build status and license to provide more information at a glance
+- Use more SEO-friendly keywords in the README content, such as "README improvement tool", "GitHub Action", "Markdown styling", "OpenAI technology"
+01:56:39 - ----- End Request -----
+
+01:56:39 - 
+--- IMPROVEMENT SUGGESTIONS ---
+- Add a section for "Installation" with detailed steps on how to install the tool
+- Include a section for "Usage" with instructions on how to run the CLI tool
+- Create a section for "GitHub Action Setup" with a detailed guide on how to set up the tool as a GitHub Action
+- Consider adding a section for "Contributing" to encourage contributions
+- Include a section for "License" to specify the project's licensing information
+- Add a section for "Maintainers" to list the maintainers of the project
+- Consider adding a section for "Acknowledgements" to thank contributors or technologies used
+- Include a section for "Contact" to provide contact information for the project
+- Add badges for build status and license to provide more information at a glance
+- Use more SEO-friendly keywords in the README content, such as "README improvement tool", "GitHub Action", "Markdown styling", "OpenAI technology"
+--------------------------------
+
+01:56:39 - ✅ Wrote feedback to suggestions.md
+01:56:39 - 🔹 Generating rewritten README → README.improved.md
+01:56:39 - 
+----- OpenAI Request -----
+01:56:39 - Model: gpt-3.5-turbo | Temperature: 0.7 | Max tokens: 1920
+01:56:39 - Prompt:
+
+You are ChatGPT. Improve the project's README.md with these rules:
+1. Insert logo (if provided) at the very top:
+   ![Logo](assets/logo.png)
+2. Include any extra sections specified in the config:
+   ## Maintainers
+- Hamza Habib (@habib13352)
+
+
+## Acknowledgements
+Thanks to OpenAI and the community for feedback.
+
+
+3. Ensure a “Contact” section with the email is at the bottom:
+   ## Contact
+- Email: hamzahabib10@gmail.com
+4. Provide a short TL;DR summary and bullet-point suggestions, then output the fully-rewritten README.md.
+
+Here is the current README.md:
+# README Improver
+
+![Logo](assets/logo.png)
+
+*Generate polished READMEs with a single command.*
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![build](https://img.shields.io/badge/build-passing-brightgreen)
+
+README Improver is a command-line interface (CLI) tool and GitHub Action that leverages OpenAI technology to enhance and optimize `README.md` files. It provides a concise TL;DR summary, actionable bullet-point suggestions, and a polished version of the README document.
+
+## Features
+
+- 📄 Auto-generates a TL;DR summary and improvement suggestions
+- 📝 Produces a fully rewritten README with modern Markdown styling
+- 🧩 Works locally or as a GitHub Action
+
+## Table of Contents
+
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [GitHub Action Setup](#github-action-setup)
+4. [Contributing](#contributing)
+5. [License](#license)
+6. [Maintainers](#maintainers)
+7. [Acknowledgements](#acknowledgements)
+8. [Contact](#contact)
+
+## Installation
+
+Follow these steps to install README Improver:
+
+1. Create a virtual environment:
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate  # For Windows: .venv\Scripts\activate
+    ```
+
+2. Install required packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Copy `.env.example` to `.env` and add your `OPENAI_API_KEY` for successful execution.
+
+## Usage
+
+Run the CLI tool within the repository containing a `README.md` file using the command:
+```bash
+python main.py
+```
+
+After execution, `suggestions.md` and `README.improved.md` will be generated, providing feedback and an enhanced README version. Detailed logs are stored in `logs/run_YYYYMMDD_HHMMSS.log`, including OpenAI prompts, responses, costs, and timing details. In GitHub Actions, logs are uploaded as artifacts for retrieval.
+
+### Quick Start
+
+```bash
+python -m venv .venv && \
+source .venv/bin/activate && \
+pip install -r requirements.txt && \
+python main.py
+```
+
+## GitHub Action Setup
+
+Configure the GitHub Action for automated feedback on `README.md` changes in pull requests by adding the following workflow to `.github/workflows/readme-improver.yml`:
+
+```yaml
+name: "README Improver CI"
+on:
+  pull_request:
+    paths: ["README.md"]
+jobs:
+  improve-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - run: pip install "openai>=1.0" python-dotenv markdown2
+      - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+      - run: python main.py
+      - name: Replace README with improved version
+        run: |
+          mv README.improved.md README.md
+          rm suggestions.md
+      - name: Commit improved README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "chore: apply AI-suggested README improvements"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: readme-improver-logs
+          path: logs
+      - run: python post_comment.py
+```
+
+## Contributing
+
+Contributions, such as issue reports or pull requests to enhance prompts or introduce new features, are encouraged.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Maintainers
+
+- Alice Johnson (@alicej)
+- Bob Smith (@bobsmith)
+
+## Acknowledgements
+
+Thanks to OpenAI and the community for feedback.
+
+## Contact
+
+- Email: you@example.com
+
+01:56:45 - Tokens: prompt=1047 completion=912 total=1959
+01:56:45 - Estimated cost: $0.003918
+01:56:45 - Finish reason: stop
+01:56:45 - Elapsed time: 6.22s
+01:56:45 - Response:
+# README Improver
+
+![Logo](assets/logo.png)
+
+*Generate polished READMEs with a single command.*
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![build](https://img.shields.io/badge/build-passing-brightgreen)
+
+README Improver is a command-line interface (CLI) tool and GitHub Action that leverages OpenAI technology to enhance and optimize `README.md` files. It provides a concise TL;DR summary, actionable bullet-point suggestions, and a polished version of the README document.
+
+## Features
+
+- 📄 Auto-generates a TL;DR summary and improvement suggestions
+- 📝 Produces a fully rewritten README with modern Markdown styling
+- 🧩 Works locally or as a GitHub Action
+
+## Table of Contents
+
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [GitHub Action Setup](#github-action-setup)
+4. [Contributing](#contributing)
+5. [License](#license)
+6. [Maintainers](#maintainers)
+7. [Acknowledgements](#acknowledgements)
+8. [Contact](#contact)
+
+## Installation
+
+Follow these steps to install README Improver:
+
+1. Create a virtual environment:
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate  # For Windows: .venv\Scripts\activate
+    ```
+
+2. Install required packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Copy `.env.example` to `.env` and add your `OPENAI_API_KEY` for successful execution.
+
+## Usage
+
+Run the CLI tool within the repository containing a `README.md` file using the command:
+```bash
+python main.py
+```
+
+After execution, `suggestions.md` and `README.improved.md` will be generated, providing feedback and an enhanced README version. Detailed logs are stored in `logs/run_YYYYMMDD_HHMMSS.log`, including OpenAI prompts, responses, costs, and timing details. In GitHub Actions, logs are uploaded as artifacts for retrieval.
+
+### Quick Start
+
+```bash
+python -m venv .venv && \
+source .venv/bin/activate && \
+pip install -r requirements.txt && \
+python main.py
+```
+
+## GitHub Action Setup
+
+Configure the GitHub Action for automated feedback on `README.md` changes in pull requests by adding the following workflow to `.github/workflows/readme-improver.yml`:
+
+```yaml
+name: "README Improver CI"
+on:
+  pull_request:
+    paths: ["README.md"]
+jobs:
+  improve-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - run: pip install "openai>=1.0" python-dotenv markdown2
+      - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+      - run: python main.py
+      - name: Replace README with improved version
+        run: |
+          mv README.improved.md README.md
+          rm suggestions.md
+      - name: Commit improved README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "chore: apply AI-suggested README improvements"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: readme-improver-logs
+          path: logs
+      - run: python post_comment.py
+```
+
+## Contributing
+
+Contributions, such as issue reports or pull requests to enhance prompts or introduce new features, are encouraged.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Maintainers
+
+- Hamza Habib (@habib13352)
+- Alice Johnson (@alicej)
+- Bob Smith (@bobsmith)
+
+## Acknowledgements
+
+Thanks to OpenAI and the community for feedback.
+
+## Contact
+
+- Email: hamzahabib10@gmail.com
+01:56:45 - ----- End Request -----
+
+01:56:45 - ✅ Saved improved version to README.improved.md
+

@@ -110,6 +110,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Maintainers
 
+- Hamza Habib (@habib13352)
 - Alice Johnson (@alicej)
 - Bob Smith (@bobsmith)
 
@@ -119,4 +120,4 @@ Thanks to OpenAI and the community for feedback.
 
 ## Contact
 
-- Email: you@example.com
+- Email: hamzahabib10@gmail.com
