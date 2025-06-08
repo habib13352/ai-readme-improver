@@ -58,6 +58,7 @@ You are ChatGPT. Improve the project's README.md with these rules:
 3. Ensure a “Contact” section with the email is at the bottom:
    {contact_section}
 4. Provide a short TL;DR summary and bullet-point suggestions, then output the fully-rewritten README.md.
+5. Only use maintainer names and other details explicitly provided in the config or current README. Do not invent additional data.
 
 Here is the current README.md:
 {readme_text}
