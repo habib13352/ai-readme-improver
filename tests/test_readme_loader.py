@@ -1,5 +1,5 @@
 import os
-from readme_loader import load_readme
+from readme_improver.readme_loader import load_readme
 
 def test_load_readme_not_found(tmp_path):
     path = tmp_path / "missing.md"
