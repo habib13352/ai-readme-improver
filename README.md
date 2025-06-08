@@ -114,8 +114,6 @@ This project is licensed under the [MIT License](LICENSE).
 - Alice Johnson (@alicej)
 - Bob Smith (@bobsmith)
 
-remove data that does not appear im the config file
-
 ## Acknowledgements
 
 Thanks to OpenAI and the community for feedback.
