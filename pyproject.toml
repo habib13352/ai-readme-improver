@@ -12,7 +12,8 @@ requires-python = ">=3.9"
 dependencies = [
     "openai",
     "python-dotenv",
-    "markdown2"
+    "markdown2",
+    "PyYAML"
 ]
 
 [tool.setuptools]
