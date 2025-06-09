@@ -9,7 +9,7 @@ import yaml
 
 from .openai_helper import ask_openai
 
-# System prompt guiding the README structure when falling back
+# Fallback rewrite ordering (used only if no sections list is found)
 README_ORDER_MESSAGE = (
     "Structure the README exactly in this order, using these section headings "
     "(with Markdown H2):\n\n"
@@ -33,6 +33,21 @@ def load_config(path: str = "config.yaml") -> dict[str, Any]:
         return {}
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
+
+
+def generate_repo_layout() -> str:
+    """Scan key directories and return a markdown list of code files."""
+    files: list[str] = []
+    for pattern in ("src/**/*.py", "readme_improver/**/*.py", "scripts/**/*.py"):
+        files.extend(sorted(str(p) for p in Path().glob(pattern)))
+
+    if not files:
+        return ""
+
+    lines = ["Here’s the repository layout:"]
+    for path in files:
+        lines.append(f"- `{path}`")
+    return "\n".join(lines)
 
 
 DEFAULT_SUMMARY_PROMPT = (
@@ -60,27 +75,19 @@ DEFAULT_REWRITE_PROMPT = (
 def generate_summary(
     readme_text: str,
     model: str = "gpt-3.5-turbo",
-    prompt_prefix: str | None = None
+    prompt_prefix: str | None = None,
 ) -> str:
-    return ask_openai(
-        (prompt_prefix or DEFAULT_SUMMARY_PROMPT) + readme_text,
-        model=model,
-        temperature=0.3,
-        max_tokens=200
-    )
+    prompt = (prompt_prefix or DEFAULT_SUMMARY_PROMPT) + readme_text
+    return ask_openai(prompt, model=model, temperature=0.3, max_tokens=200)
 
 
 def suggest_improvements(
     readme_text: str,
     model: str = "gpt-3.5-turbo",
-    prompt_prefix: str | None = None
+    prompt_prefix: str | None = None,
 ) -> str:
-    return ask_openai(
-        (prompt_prefix or DEFAULT_SUGGEST_PROMPT) + readme_text,
-        model=model,
-        temperature=0.5,
-        max_tokens=400
-    )
+    prompt = (prompt_prefix or DEFAULT_SUGGEST_PROMPT) + readme_text
+    return ask_openai(prompt, model=model, temperature=0.5, max_tokens=400)
 
 
 def rewrite_readme(
@@ -89,16 +96,16 @@ def rewrite_readme(
     prompt_prefix: str | None = None,
     config: dict | None = None,
 ) -> str:
-    """Rewrite the README using per-section prompt files as defined in config.yaml."""
+    """Rewrite the README using per-section prompt files, injecting repo context."""
 
     if config and config.get("sections"):
         output_md: list[str] = []
 
         # Title & Logo
-        if config.get("project_name"):
-            output_md.append(f"# {config['project_name'].strip()}")
-        if config.get("logo_path"):
-            output_md.append(f"![Logo]({config['logo_path']})")
+        if project := config.get("project_name"):
+            output_md.append(f"# {project}")
+        if logo := config.get("logo_path"):
+            output_md.append(f"![Logo]({logo})")
 
         # Badges
         if config.get("badges"):
@@ -108,46 +115,41 @@ def rewrite_readme(
             ]
             output_md.append(" ".join(badges))
 
-        # Iterate each section defined in config.yaml
+        # Per-section generation
+        repo_layout = generate_repo_layout()
         for sec in config["sections"]:
             if not sec.get("enabled"):
                 continue
 
             name = sec["name"].lower()
-            # Override for Maintainers
+            # Maintainers override (direct from config)
             if name == "maintainers" and config.get("maintainers"):
-                output_md.append(
-                    "## Maintainers\n" +
-                    "\n".join(f"- {m['name']} ({m['handle']})" for m in config["maintainers"])
-                )
+                lines = [f"- {m['name']} ({m['handle']})" for m in config["maintainers"]]
+                output_md.append("## Maintainers\n" + "\n".join(lines))
                 continue
 
-            # Override for Contact
-            if name == "contact" and config.get("email"):
-                output_md.append(f"## Contact\n- Email: {config['email']}")
+            # Contact override (direct from config)
+            if name == "contact" and (email := config.get("email")):
+                output_md.append(f"## Contact\n- Email: {email}")
                 continue
 
-            # Otherwise load from prompt file
-            prompt_file = sec.get("prompt_file")
-            if prompt_file and Path(prompt_file).exists():
-                prompt_text = Path(prompt_file).read_text(encoding="utf-8")
+            # Load the prompt file
+            pf = sec.get("prompt_file")
+            if pf and Path(pf).exists():
+                prompt_text = Path(pf).read_text(encoding="utf-8")
+                # Inject repo layout context
+                if repo_layout:
+                    prompt_text = repo_layout + "\n\n" + prompt_text
                 section_md = ask_openai(
-                    prompt_text,
-                    model=model,
-                    temperature=0.7,
-                    max_tokens=1024
+                    prompt_text, model=model, temperature=0.7, max_tokens=1024
                 ).strip()
                 output_md.append(section_md)
 
         return "\n\n".join(output_md)
 
-    # —– removed: old extra_sections loop here —–
-    # Fallback to single–shot rewrite if no sections list
+    # Fallback: single-shot rewrite
     prompt_body = (prompt_prefix or DEFAULT_REWRITE_PROMPT) + readme_text
     full_prompt = f"{README_ORDER_MESSAGE}\n\n{prompt_body}"
     return ask_openai(
-        full_prompt,
-        model=model,
-        temperature=0.7,
-        max_tokens=1920
+        full_prompt, model=model, temperature=0.7, max_tokens=1920
     )
