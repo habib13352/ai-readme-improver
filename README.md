@@ -40,7 +40,10 @@ Follow these steps to install README Improver:
     pip install -r requirements.txt
     ```
 
-3. Set the `OPENAI_API_KEY` environment variable with your OpenAI token. Optionally set `README_EMAIL` and `README_LOGO` to override contact details from `config.yaml`.
+3. Set the `OPENAI_API_KEY` environment variable with your OpenAI token.
+   Optionally set `README_EMAIL` and `README_LOGO` to override contact
+   details from `config.yaml`. Set `README_IMPROVER_CACHE=0` to disable
+   response caching.
 
 ## Usage
 

@@ -1,4 +1,9 @@
-"""Thin wrapper around the OpenAI client with logging and disk caching."""
+"""Lightweight OpenAI helper with logging and optional disk caching.
+
+The response for each request is cached under ``.cache/`` by default to
+avoid unnecessary API calls. Set the environment variable
+``README_IMPROVER_CACHE=0`` to disable caching entirely.
+"""
 
 import hashlib
 import json

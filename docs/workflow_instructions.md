@@ -8,7 +8,8 @@ Create `.github/workflows/readme-improver.yml` containing a job that:
 - Checks out the repository
 - Sets up Python and installs `requirements.txt`
 - Runs `python run_improver.py` with `OPENAI_API_KEY` provided
-- Commits `README.improved.md` back to `README.md` and pushes the result
+- Commits `README.improved.md` back to `README.md` and pushes the result.
+  Set `README_IMPROVER_CACHE=0` in the job's environment to skip disk caching if desired.
 
 ## 2. Logging in the Python Script
 
