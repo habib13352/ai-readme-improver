@@ -2,7 +2,7 @@
 
 ![Logo](assets/logo.png)
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/ci.yml)](https://github.com/habib13352/ai-readme-improver/actions) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/readme-improver.yml?branch=main)](https://github.com/habib13352/ai-readme-improver/actions) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## Table of Contents
 <!-- TOC -->
