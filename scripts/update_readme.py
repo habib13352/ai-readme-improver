@@ -22,7 +22,7 @@ def archive_previous(timestamp: str) -> Path:
     """Move existing generated files into a timestamped archive directory."""
     archive_dir = ARCHIVE_ROOT / timestamp
     archive_dir.mkdir(parents=True, exist_ok=True)
-    for name in ["README.md", "SUGGESTED_README.md", "README_SUGGESTIONS.md"]:
+    for name in ["README.md", "README.improved.md", "suggestions.md"]:
         path = Path(name)
         if path.exists():
             shutil.move(str(path), archive_dir / path.name)
@@ -35,7 +35,7 @@ def generate_files(readme_text: str, cfg: dict) -> None:
     suggestions = suggest_improvements(readme_text)
     improved = rewrite_readme(readme_text, config=cfg)
 
-    Path("SUGGESTED_README.md").write_text(improved, encoding="utf-8")
+    Path("README.improved.md").write_text(improved, encoding="utf-8")
     Path("README.md").write_text(improved, encoding="utf-8")
 
     suggestion_content = (
@@ -46,7 +46,7 @@ def generate_files(readme_text: str, cfg: dict) -> None:
         f"{suggestions}\n\n"
         "---\n*Powered by [OpenAI](https://openai.com)*\n"
     )
-    Path("README_SUGGESTIONS.md").write_text(suggestion_content, encoding="utf-8")
+    Path("suggestions.md").write_text(suggestion_content, encoding="utf-8")
 
 
 def main() -> None:
