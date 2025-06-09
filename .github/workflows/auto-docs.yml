@@ -1,6 +1,8 @@
 name: Auto Docs
 
 on:
+  workflow_dispatch:  # ✅ Manual run support
+
   push:
     branches: [main]
   schedule:
