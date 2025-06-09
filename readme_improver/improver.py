@@ -9,7 +9,7 @@ import yaml
 
 from .openai_helper import ask_openai
 
-# Fallback rewrite ordering (used only if no sections list is found)
+# System‐level fallback ordering (only if no `sections:` is defined)
 README_ORDER_MESSAGE = (
     "Structure the README exactly in this order, using these section headings "
     "(with Markdown H2):\n\n"
@@ -35,18 +35,44 @@ def load_config(path: str = "config.yaml") -> dict[str, Any]:
         return yaml.safe_load(f)
 
 
-def generate_repo_layout() -> str:
-    """Scan key directories and return a markdown list of code files."""
-    files: list[str] = []
-    for pattern in ("readme_improver/**/*.py", "scripts/**/*.py"):
-        files.extend(sorted(str(p) for p in Path().glob(pattern)))
+def build_prompt(readme_text: str, config: dict[str, Any]) -> str:
+    """Construct the single‐shot rewrite prompt using logo, badges, extra_sections, and contact."""
+    logo_block = f"![Logo]({config['logo_path']})" if config.get("logo_path") else ""
+    contact_section = f"## Contact\n- Email: {config['email']}" if config.get("email") else ""
+    badge_block = " ".join(
+        f"[![{b['name']}]({b['image_url']})]({b['link']})"
+        for b in config.get("badges", [])
+    )
+    extra_sections_md = "\n".join(
+        f"## {s['title']}\n{s['content']}\n" for s in config.get("extra_sections", [])
+    )
 
+    return f"""
+You are ChatGPT. Improve the project's README.md with these rules:
+1. Insert logo (if provided) at the very top:
+   {logo_block}
+2. Insert badges under the title:
+   {badge_block}
+3. Include any extra sections specified in the config:
+   {extra_sections_md}
+4. Ensure a “Contact” section with the email is at the bottom:
+   {contact_section}
+5. Provide a short TL;DR summary and bullet-point suggestions, then output the fully-rewritten README.md.
+6. Only use maintainer names and other details explicitly provided in the config or current README. Do not invent additional data.
+
+Here is the current README.md:
+{readme_text}
+"""
+
+
+def generate_repo_layout() -> str:
+    """Scan src/, readme_improver/, scripts/ for .py files and build a Markdown list."""
+    patterns = ("src/**/*.py", "readme_improver/**/*.py", "scripts/**/*.py")
+    files = sorted(str(p) for pat in patterns for p in Path().glob(pat))
     if not files:
         return ""
-
     lines = ["Here’s the repository layout:"]
-    for path in files:
-        lines.append(f"- `{path}`")
+    lines += [f"- `{fp}`" for fp in files]
     return "\n".join(lines)
 
 
@@ -65,9 +91,8 @@ DEFAULT_SUGGEST_PROMPT = (
 
 DEFAULT_REWRITE_PROMPT = (
     "You are an AI that rewrites project README files to be more professional, "
-    "clear, and complete. "
-    "Rewrite the following README, ensuring it includes these sections: "
-    "Title, Short Description, Installation, Usage, License, Contributing, Contact. "
+    "clear, and complete. Rewrite the following README, ensuring it includes these "
+    "sections: Title, Short Description, Installation, Usage, License, Contributing, Contact. "
     "Use Markdown formatting:\n\n"
 )
 
@@ -97,7 +122,6 @@ def rewrite_readme(
     config: dict | None = None,
 ) -> str:
     """Rewrite the README using per-section prompt files, injecting repo context."""
-
     if config and config.get("sections"):
         output_md: list[str] = []
 
@@ -122,22 +146,21 @@ def rewrite_readme(
                 continue
 
             name = sec["name"].lower()
-            # Maintainers override (direct from config)
+            # Maintainers from config
             if name == "maintainers" and config.get("maintainers"):
                 lines = [f"- {m['name']} ({m['handle']})" for m in config["maintainers"]]
                 output_md.append("## Maintainers\n" + "\n".join(lines))
                 continue
 
-            # Contact override (direct from config)
+            # Contact from config
             if name == "contact" and (email := config.get("email")):
                 output_md.append(f"## Contact\n- Email: {email}")
                 continue
 
-            # Load the prompt file
+            # Otherwise load the prompt file
             pf = sec.get("prompt_file")
             if pf and Path(pf).exists():
                 prompt_text = Path(pf).read_text(encoding="utf-8")
-                # Inject repo layout context
                 if repo_layout:
                     prompt_text = repo_layout + "\n\n" + prompt_text
                 section_md = ask_openai(
