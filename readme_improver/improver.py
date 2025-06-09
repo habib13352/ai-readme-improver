@@ -9,6 +9,22 @@ import yaml
 
 from .openai_helper import ask_openai
 
+# System prompt guiding the README structure
+README_ORDER_MESSAGE = (
+    "Structure the README exactly in this order, using these section headings "
+    "(with Markdown H2):\n\n"
+    "Title & Logo\n\n"
+    "Badges\n\n"
+    "Table of Contents\n\n"
+    "Demo\n\n"
+    "Installation\n\n"
+    "Usage\n\n"
+    "Contributing\n\n"
+    "License\n\n"
+    "Maintainers\n\n"
+    "Acknowledgements"
+)
+
 
 def load_config(path: str = "config.yaml") -> dict[str, Any]:
     """Load configuration values from a YAML file.
@@ -156,4 +172,8 @@ def rewrite_readme(
         prompt = build_prompt(readme_text, config)
     else:
         prompt = (prompt_prefix or DEFAULT_REWRITE_PROMPT) + readme_text
+
+    # Prepend the system-level guidance about README structure
+    prompt = f"{README_ORDER_MESSAGE}\n\n{prompt}"
+
     return ask_openai(prompt, model=model, temperature=0.7, max_tokens=1920)

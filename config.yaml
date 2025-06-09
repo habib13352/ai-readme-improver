@@ -3,18 +3,38 @@ email: "hamzahabib10@gmail.com"
 logo_path: "assets/logo.png"
 badges:
   - name: "Build Status"
-    image_url: "https://img.shields.io/github/actions/workflow/status/username/repo/ci.yml"
-    link: "https://github.com/username/repo/actions"
+    image_url: "https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/ci.yml"
+    link: "https://github.com/habib13352/ai-readme-improver/actions"
   - name: "License"
     image_url: "https://img.shields.io/badge/license-MIT-blue.svg"
     link: "LICENSE"
+
 extra_sections:
+  - title: "Table of Contents"
+    content: "<!-- TOC -->"
+  - title: "Demo"
+    content: "![Demo](assets/demo.gif)"
+  - title: "Installation"
+    content: |
+      ```bash
+      pip install ai-readme-improver
+      ```
+  - title: "Usage"
+    content: |
+      ```bash
+      ai-readme-improver --help
+      ```
+  - title: "Contributing"
+    content: "See [CONTRIBUTING.md](CONTRIBUTING.md)."
+  - title: "License"
+    content: >
+      This project is licensed under the MIT License — see the [LICENSE](LICENSE) file.
   - title: "Maintainers"
     content: |
-      - Hamza Habib (@habib13352)
+      - Hamza Ali Habib (@habib13352)
   - title: "Acknowledgements"
     content: |
-      Thanks to OpenAI and the community for feedback.
+      - Thanks to the OpenAI team and community.
 sections:
   - name: Badges
     prompt_file: prompts/update_badges.prompt
