@@ -22,10 +22,9 @@
 
 ![Demo](assets/demo.gif)
 
-In this demo, the user can see how the CLI tool enhances a README file by automatically adding badges, a table of contents, and formatting the content for better readability.
+In this demo, the CLI tool is shown improving a README by adding badges, table of contents, and formatting the content for better readability.
 ```
 
-```markdown
 ## Installation
 
 ```bash
@@ -37,27 +36,27 @@ pip install ai-readme-improver
 ## Usage
 
 ```bash
-ai-readme-improver --config config.yaml --archive-dir oldreadme --logo company_logo.png --email hello@example.com
+ai-readme-improver --config config.yaml --archive-dir oldreadme --logo company_logo.png --email user@example.com
 ```
 
-Briefly explain: This command runs the improver with your custom config, archives old files under oldreadme/, uses the specified company logo, and sets the contact email to hello@example.com.
+Briefly explain: This command runs the improver with your custom config, archives old files under oldreadme/, adds the company logo to the readme, and includes the user's email for contact information.
 
-## Features
-- 📁 Archives previous README and suggestions
-- 📝 Generates TL;DR summaries, suggestions, and full rewrites
-- ⚙️ Configurable via config.yaml
-- ⚡ GitHub Action integration
-- 🔒 Commits only on real changes
+## Features  
+- 📚 Archives previous README and suggestions  
+- 📝 Generates TL;DR summaries, suggestions, and full rewrites  
+- ⚙️ Configurable via config.yaml  
+- 🤖 GitHub Action integration  
+- 💡 Commits only on real changes
 
 ## Configuration
 
-| Key           | Description                                 | Default                  |
-| ------------- | ------------------------------------------- | ------------------------ |
-| project_name  | The name of the project                     | None                     |
-| logo_path     | The file path to the project's logo image   | None                     |
-| email         | The contact email address for the project   | None                     |
-| badges        | Whether to display badges on the project    | True                     |
-| extra_sections| Additional sections to include in the project documentation | None  |
+| Key           | Description                                   | Default           |
+|---------------|-----------------------------------------------|-------------------|
+| project_name  | The name of the project                      | None              |
+| logo_path     | The path to the project's logo image          | None              |
+| email         | The email address for project communication   | None              |
+| badges        | List of badges to display in the README       | None              |
+| extra_sections| List of additional sections to include in README | None            |
 
 ```markdown
 ## Contributing
@@ -68,24 +67,18 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for gu
 - Writing tests
 ```
 
+```markdown
 ## License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+```
 
 ## Maintainers
-- John Smith (@johnsmith)
-- Sarah Johnson (@sarahjohnson)
-- Michael Lee (@michaellee)
+- Hamza Ali Habib (@habib13352)
 
 ## Acknowledgements
+- The OpenAI team for their valuable insights and support.
+- Our community contributors for their dedication and feedback.
 
-- The OpenAI team for their support and collaboration throughout this project.
-- Our community contributors for their valuable feedback and contributions.
-- Our mentors for their guidance and expertise.
-- Our friends and family for their endless support and encouragement.
-
-```markdown
 ## Contact
-
 - Email: hamzahabib10@gmail.com
-```
