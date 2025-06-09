@@ -4,7 +4,7 @@ logo_path: "assets/logo.png"
 badges:
   - name: "Build Status"
     image_url: "https://img.shields.io/github/actions/workflow/status/username/repo/ci.yml"
-    link: "https://github.com/username/repo/actions"
+    link: "https://github.com/habib13352/ai-readme-improver/actions"
 extra_sections:
   - title: "Maintainers"
     content: |
