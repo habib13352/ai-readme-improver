@@ -40,7 +40,7 @@ Follow these steps to install README Improver:
     pip install -r requirements.txt
     ```
 
-3. Copy `.env.example` to `.env` and add your `OPENAI_API_KEY` for successful execution.
+3. Set the `OPENAI_API_KEY` environment variable with your OpenAI token. Optionally set `README_EMAIL` and `README_LOGO` to override contact details from `config.yaml`.
 
 ## Usage
 
@@ -65,7 +65,7 @@ python run_improver.py
 Configure the GitHub Action for automated feedback on `README.md` changes in pull requests by adding the following workflow to `.github/workflows/readme-improver.yml`:
 
 ```yaml
-name: "README Improver CI"
+name: README Improver CI
 on:
   pull_request:
     paths: ["README.md"]
@@ -77,27 +77,22 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - run: pip install "openai>=1.0" python-dotenv markdown2
-      - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+      - run: pip install -r requirements.txt
       - run: python run_improver.py
-      - name: Replace README with improved version
-        run: |
-          mv README.improved.md README.md
-          rm suggestions.md
-      - name: Commit improved README
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - run: mv README.improved.md README.md
+      - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git diff --cached --quiet || git commit -m "chore: apply AI-suggested README improvements"
+          git add README.md README.improved.md suggestions.md
+          git diff --cached --quiet || git commit -m "Auto update README"
           git push
+      - if: github.event_name == 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v4
-        with:
-          name: readme-improver-logs
-          path: logs
-      - run: python post_comment.py
+        run: python post_comment.py
 ```
 
 ## Contributing

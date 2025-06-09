@@ -1,3 +1,5 @@
+"""Utilities for posting README improvement suggestions to pull requests."""
+
 import os
 import sys
 import subprocess

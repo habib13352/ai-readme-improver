@@ -1,3 +1,5 @@
+"""Command line entry point to generate README suggestions and rewrites."""
+
 import argparse
 import logging
 import os
@@ -24,43 +26,21 @@ def main(argv=None):
     parser.add_argument("--readme", default="README.md", help="Path to README")
     parser.add_argument("--suggestions", default="suggestions.md", help="Suggestions output file")
     parser.add_argument("--improved", default="README.improved.md", help="Improved README output file")
-    parser.add_argument("--model", default="gpt-3.5-turbo", help="OpenAI model to use")
-    parser.add_argument("--summary-prompt", default=None, help="Override summary prompt")
-    parser.add_argument("--suggest-prompt", default=None, help="Override suggestion prompt")
-    parser.add_argument("--rewrite-prompt", default=None, help="Override rewrite prompt")
-    parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
     parser.add_argument("--config", default="config.yaml", help="Path to config file")
-    parser.add_argument("--email", help="Override contact email")
-    parser.add_argument("--logo-path", help="Override logo path")
-    parser.add_argument("--dry-run", action="store_true", help="Print settings but do not call OpenAI")
-    parser.add_argument("--interactive", action="store_true", help="Prompt for config values interactively")
+    parser.add_argument("--model", default="gpt-3.5-turbo", help="OpenAI model")
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
     args = parser.parse_args(argv)
 
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
     config = load_config(args.config)
-
-    if args.interactive:
-        print("🚀  AI README Improver Configuration Wizard")
-        project_name = input("1) Enter project name: ").strip()
-        email_input = input("2) Enter contact email: ").strip()
-        logo_input = input("3) Enter logo path (e.g. assets/logo.png): ").strip()
-        if project_name:
-            config["project_name"] = project_name
-        if email_input:
-            config["email"] = email_input
-        if logo_input:
-            config["logo_path"] = logo_input
-
-    if args.email:
-        config["email"] = args.email
-    if args.logo_path:
-        config["logo_path"] = args.logo_path
-
-    if args.dry_run:
-        print("[DRY RUN] Final config:", config)
-        sys.exit(0)
+    env_email = os.getenv("README_EMAIL")
+    if env_email:
+        config["email"] = env_email
+    env_logo = os.getenv("README_LOGO")
+    if env_logo:
+        config["logo_path"] = env_logo
 
     if not os.getenv("OPENAI_API_KEY"):
         logger.error("OPENAI_API_KEY is not set. Add it to your .env file.")
@@ -77,11 +57,11 @@ def main(argv=None):
         return
 
     logger.info("🔹 Generating TL;DR summary...")
-    summary = generate_summary(readme_text, args.model, args.summary_prompt)
+    summary = generate_summary(readme_text, args.model)
     logger.info("\n--- TL;DR SUMMARY ---\n%s\n----------------------\n", summary)
 
     logger.info("🔹 Generating improvement suggestions...")
-    suggestions = suggest_improvements(readme_text, args.model, args.suggest_prompt)
+    suggestions = suggest_improvements(readme_text, args.model)
     logger.info("\n--- IMPROVEMENT SUGGESTIONS ---\n%s\n--------------------------------\n", suggestions)
 
     with open(args.suggestions, "w", encoding="utf-8") as f:
@@ -94,7 +74,7 @@ def main(argv=None):
     logger.info("✅ Wrote feedback to %s", args.suggestions)
 
     logger.info("🔹 Generating rewritten README → %s", args.improved)
-    improved = rewrite_readme(readme_text, args.model, args.rewrite_prompt, config)
+    improved = rewrite_readme(readme_text, args.model, config=config)
     with open(args.improved, "w", encoding="utf-8") as f:
         f.write(improved)
     logger.info("✅ Saved improved version to %s\n", args.improved)

@@ -1,3 +1,5 @@
+"""Simple logger writing to a timestamped file and the console."""
+
 import logging
 import os
 from datetime import datetime

@@ -1,3 +1,5 @@
+"""Thin wrapper around the OpenAI client with logging and disk caching."""
+
 import hashlib
 import json
 import os
@@ -14,6 +16,8 @@ load_dotenv()
 _openai_client = None
 CACHE_DIR = Path(".cache")
 CACHE_DIR.mkdir(exist_ok=True)
+# Set README_IMPROVER_CACHE=0 to disable caching
+CACHE_ENABLED = os.getenv("README_IMPROVER_CACHE", "1") != "0"
 
 
 def _get_client() -> "OpenAI":
@@ -69,7 +73,7 @@ def ask_openai(
 
     cache_key = hashlib.sha256(f"{model}:{prompt}".encode("utf-8")).hexdigest()
     cache_file = CACHE_DIR / f"{cache_key}.json"
-    if cache_file.exists():
+    if CACHE_ENABLED and cache_file.exists():
         with cache_file.open("r", encoding="utf-8") as f:
             return json.load(f)["response"]
 
@@ -109,7 +113,8 @@ def ask_openai(
     logger.info("Response:\n" + content)
     logger.info("----- End Request -----\n")
 
-    with cache_file.open("w", encoding="utf-8") as f:
-        json.dump({"response": content}, f)
+    if CACHE_ENABLED:
+        with cache_file.open("w", encoding="utf-8") as f:
+            json.dump({"response": content}, f)
 
     return content
