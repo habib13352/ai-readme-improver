@@ -38,7 +38,7 @@ def load_config(path: str = "config.yaml") -> dict[str, Any]:
 def generate_repo_layout() -> str:
     """Scan key directories and return a markdown list of code files."""
     files: list[str] = []
-    for pattern in ("src/**/*.py", "readme_improver/**/*.py", "scripts/**/*.py"):
+    for pattern in ("readme_improver/**/*.py", "scripts/**/*.py"):
         files.extend(sorted(str(p) for p in Path().glob(pattern)))
 
     if not files:
