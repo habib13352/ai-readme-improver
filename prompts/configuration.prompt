@@ -1,0 +1,10 @@
+Produce the “## Configuration” section.  
+- Heading: ## Configuration  
+- Render a Markdown table with columns: Key | Description | Default.  
+- Include rows for:
+  - project_name
+  - logo_path
+  - email
+  - badges
+  - extra_sections  
+- For each, briefly describe its purpose and default value (if any).

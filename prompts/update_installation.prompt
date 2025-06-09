@@ -1,1 +1,0 @@
-Rewrite the Installation section for a Python CLI requiring Python 3.10, `pip install -r requirements.txt`, and the `OPENAI_API_KEY` environment variable. Use concise step-by-step instructions with markdown code fences.

@@ -1,0 +1,14 @@
+Produce the “## Installation” section.  
+- Heading: ## Installation  
+- Show a code block with the pip install command for this package.  
+- Optionally note any prerequisites (e.g. Python 3.8+).  
+- Format as:
+
+```markdown
+## Installation
+
+```bash
+pip install ai-readme-improver
+```
+
+```

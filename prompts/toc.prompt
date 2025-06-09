@@ -1,0 +1,16 @@
+You are a README generator. Create a “## Table of Contents” section that links to each main H2 heading in this README (in order): Demo, Installation, Usage, Features, Configuration, Contributing, License, Maintainers, Acknowledgements, Contact.
+
+Output exactly:
+
+## Table of Contents
+
+- [Demo](#demo)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+- [Maintainers](#maintainers)
+- [Acknowledgements](#acknowledgements)
+- [Contact](#contact)

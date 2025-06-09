@@ -1,0 +1,4 @@
+Produce the “## Maintainers” section.  
+- Heading: ## Maintainers  
+- List each maintainer with their name and GitHub handle as a bullet. Example:
+  - Jane Doe (@janedoe)

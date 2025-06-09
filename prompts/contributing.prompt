@@ -1,0 +1,14 @@
+Write the “## Contributing” section.  
+- Heading: ## Contributing  
+- Briefly explain how to contribute: opening issues, making pull requests, running tests locally.  
+- Link to CONTRIBUTING.md.  
+- Format as:
+
+```markdown
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+- Reporting bugs
+- Submitting pull requests
+- Writing tests
+```

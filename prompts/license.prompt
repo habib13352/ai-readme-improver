@@ -1,0 +1,11 @@
+Generate the “## License” section.  
+- Heading: ## License  
+- State the project is under the MIT License.  
+- Link to the LICENSE file.  
+- Format as:
+
+```markdown
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+```

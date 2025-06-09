@@ -1,0 +1,9 @@
+Generate the “## Features” section.  
+- Heading: ## Features  
+- Bullet-list 4–6 key capabilities of this tool, e.g.:
+  - Archives previous README and suggestions
+  - Generates TL;DR summaries, suggestions, and full rewrites
+  - Configurable via config.yaml
+  - GitHub Action integration
+  - Commits only on real changes  
+- Use emoji bullets (optional) for visual flair.

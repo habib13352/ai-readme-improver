@@ -1,0 +1,10 @@
+Generate the “## Contact” section.  
+- Heading: ## Contact  
+- Provide your contact email as a bullet or plain line.  
+- Format as:
+
+```markdown
+## Contact
+
+- Email: hamzahabib10@gmail.com
+```

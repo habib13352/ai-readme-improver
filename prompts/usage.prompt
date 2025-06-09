@@ -1,0 +1,19 @@
+Write the “## Usage” section.  
+- Heading: ## Usage  
+- Show a code block demonstrating the basic CLI flags:
+  - `--config`
+  - `--archive-dir`
+  - `--logo`
+  - `--email`
+- Include a short descriptive sentence on what each flag does.  
+- Format as:
+
+```markdown
+## Usage
+
+```bash
+ai-readme-improver --config config.yaml --archive-dir oldreadme
+```
+
+Briefly explain: This command runs the improver with your custom config and archives old files under oldreadme/.
+```  

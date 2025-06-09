@@ -1,0 +1,13 @@
+Generate the “## Demo” section.  
+- Heading: ## Demo  
+- Embed the GIF at assets/demo.gif.  
+- Write 2–3 sentences describing what the user sees (e.g., the CLI improving a README, showing badges, TOC, etc.).  
+- Format as:
+
+```markdown
+## Demo
+
+![Demo](assets/demo.gif)
+
+_Your descriptive caption here._
+```  

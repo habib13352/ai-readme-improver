@@ -1,1 +1,0 @@
-Given a JSONL log of AI usage, report the total number of calls, total tokens, total cost, and a per-section breakdown.

@@ -1,53 +1,59 @@
+# config.yaml
+
 project_name: "AI README Improver"
 email: "hamzahabib10@gmail.com"
 logo_path: "assets/logo.png"
+
 badges:
   - name: "Build Status"
-    image_url: "https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/ci.yml"
+    image_url: "https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/readme-improver.yml?branch=main"
     link: "https://github.com/habib13352/ai-readme-improver/actions"
   - name: "License"
     image_url: "https://img.shields.io/badge/license-MIT-blue.svg"
     link: "LICENSE"
 
-extra_sections:
-  - title: "Table of Contents"
-    content: "<!-- TOC -->"
-  - title: "Demo"
-    content: "![Demo](assets/demo.gif)"
-  - title: "Installation"
-    content: |
-      ```bash
-      pip install ai-readme-improver
-      ```
-  - title: "Usage"
-    content: |
-      ```bash
-      ai-readme-improver --help
-      ```
-  - title: "Contributing"
-    content: "See [CONTRIBUTING.md](CONTRIBUTING.md)."
-  - title: "License"
-    content: >
-      This project is licensed under the MIT License — see the [LICENSE](LICENSE) file.
-  - title: "Maintainers"
-    content: |
-      - Hamza Ali Habib (@habib13352)
-  - title: "Acknowledgements"
-    content: |
-      - Thanks to the OpenAI team and community.
+# Now we drive each major section via its own prompt file:
 sections:
-  - name: Badges
-    prompt_file: prompts/update_badges.prompt
+  - name: "Table of Contents"
     enabled: true
-  - name: Installation
-    prompt_file: prompts/update_installation.prompt
+    prompt_file: "prompts/toc.prompt"
+
+  - name: "Demo"
     enabled: true
-  - name: Usage
-    prompt_file: prompts/update_usage.prompt
+    prompt_file: "prompts/demo.prompt"
+
+  - name: "Installation"
     enabled: true
-  - name: Changelog
-    prompt_file: prompts/update_changelog.prompt
+    prompt_file: "prompts/installation.prompt"
+
+  - name: "Usage"
     enabled: true
-  - name: API Reference
-    prompt_file: prompts/generate_api_reference.prompt
+    prompt_file: "prompts/usage.prompt"
+
+  - name: "Features"
     enabled: true
+    prompt_file: "prompts/features.prompt"
+
+  - name: "Configuration"
+    enabled: true
+    prompt_file: "prompts/configuration.prompt"
+
+  - name: "Contributing"
+    enabled: true
+    prompt_file: "prompts/contributing.prompt"
+
+  - name: "License"
+    enabled: true
+    prompt_file: "prompts/license.prompt"
+
+  - name: "Maintainers"
+    enabled: true
+    prompt_file: "prompts/maintainers.prompt"
+
+  - name: "Acknowledgements"
+    enabled: true
+    prompt_file: "prompts/acknowledgements.prompt"
+
+  - name: "Contact"
+    enabled: true
+    prompt_file: "prompts/contact.prompt"
