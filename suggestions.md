@@ -2,20 +2,15 @@
 
 ## TL;DR Summary
 
-TL;DR: README Improver is a CLI tool and GitHub Action that uses OpenAI to enhance README.md files by generating summaries, suggestions, and polished versions. It works locally or as a GitHub Action for automated feedback on pull requests.
+README Improver is a CLI tool and GitHub Action that uses OpenAI to enhance README.md files. It auto-generates summaries, provides improvement suggestions, and creates polished README versions. Installation, usage, GitHub Action setup, contributing, license, maintainer, acknowledgements, and contact information are included.
 
 ## Improvement Suggestions
 
-- Add a section for "Installation" with detailed steps on how to install the tool
-- Include a section for "Usage" with instructions on how to run the CLI tool
-- Create a section for "GitHub Action Setup" with a detailed guide on how to set up the tool as a GitHub Action
-- Consider adding a section for "Contributing" to encourage contributions
-- Include a section for "License" to specify the project's licensing information
-- Add a section for "Maintainers" to list the maintainers of the project
-- Consider adding a section for "Acknowledgements" to thank contributors or technologies used
-- Include a section for "Contact" to provide contact information for the project
-- Add badges for build status and license to provide more information at a glance
-- Use more SEO-friendly keywords in the README content, such as "README improvement tool", "GitHub Action", "Markdown styling", "OpenAI technology"
+- Add missing sections like Installation, Usage, GitHub Action Setup, Contributing, Maintainers, Acknowledgements, and Contact
+- Improve clarity of language by using more descriptive headings and bullet points
+- Add badges for License and build status
+- Include SEO keywords like GitHub Action, CLI tool, README.md, OpenAI technology
+- Consider adding a section for FAQs or Troubleshooting for user support
 
 ---
 *Powered by [OpenAI](https://openai.com)*
