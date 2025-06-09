@@ -17,9 +17,7 @@ from readme_improver.improver import (
 )
 from readme_improver.logger import get_logger
 
-
 logger = get_logger()
-
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     """Parse command line arguments."""
@@ -46,7 +44,6 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
     return parser.parse_args(argv)
-
 
 def build_config(args: argparse.Namespace) -> dict:
     """Load YAML config and apply CLI/env overrides."""
@@ -88,7 +85,6 @@ def build_config(args: argparse.Namespace) -> dict:
 
     return config
 
-
 def archive_inputs(args: argparse.Namespace, timestamp: str) -> Path:
     """Copy existing README and suggestions to archive folder."""
     archive_root = Path(args.archive_dir)
@@ -101,7 +97,6 @@ def archive_inputs(args: argparse.Namespace, timestamp: str) -> Path:
             shutil.copy(str(p), archive_dir / p.name)
 
     return archive_dir
-
 
 def process_readme(args: argparse.Namespace, config: dict) -> None:
     """Generate improved README and suggestions."""
@@ -154,7 +149,6 @@ def process_readme(args: argparse.Namespace, config: dict) -> None:
     with open(args.output, "w", encoding="utf-8") as f:
         f.write(improved)
     logger.info("✅ Saved improved version to %s\n", args.output)
-
 
 def main(argv: list[str] | None = None) -> None:
     """Entry point for the CLI."""

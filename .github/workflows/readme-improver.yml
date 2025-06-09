@@ -1,5 +1,3 @@
-# .github/workflows/readme-improver.yml
-
 name: README Improver
 
 on:
@@ -19,7 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # Ensure the archive folder exists, so old files can be stored
       - name: Prepare archive directory
         run: mkdir -p oldreadme
 
@@ -40,13 +37,18 @@ jobs:
         run: python run_improver.py --config config.yaml --archive-dir oldreadme
 
       - if: ${{ success() }}
-        run: mv README.improved.md README.md
+        run: |
+          # Stage the improved file before renaming it
+          [ -f README.improved.md ] && git add README.improved.md
+          mv README.improved.md README.md
 
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md README.improved.md suggestions.md oldreadme/
+          git add README.md
+          [ -f suggestions.md ]     && git add suggestions.md
+          [ -d oldreadme ]          && git add oldreadme/
           git diff --cached --quiet || git commit -m "Auto update README"
           git push origin HEAD:${{ github.head_ref || github.ref_name }}
 
