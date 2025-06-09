@@ -20,19 +20,34 @@ jobs:
         with:
           python-version: "3.10"
       - run: pip install -r requirements.txt
+      - name: Archive previous README
+        run: |
+          timestamp=$(date -u +"%Y-%m-%d-%H-%M")
+          mkdir -p oldreadme/$timestamp
+          if [ -f README.md ]; then mv README.md oldreadme/$timestamp/; fi
+          if [ -f README.improved.md ]; then mv README.improved.md oldreadme/$timestamp/; fi
+          if [ -f suggestions.md ]; then mv suggestions.md oldreadme/$timestamp/; fi
+          echo "ARCHIVE_DIR=oldreadme/$timestamp" >> "$GITHUB_ENV"
       - name: Run Improver
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: python run_improver.py --config readme-improver.config.yaml
+        run: python run_improver.py --config readme-improver.config.yaml --readme "$ARCHIVE_DIR/README.md"
       - run: mv README.improved.md README.md
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md README.improved.md suggestions.md
+          git add README.md README.improved.md suggestions.md oldreadme/ logs/
           git diff --cached --quiet || git commit -m "Auto update README"
           git push origin HEAD:${{ github.head_ref || github.ref_name }}
       - if: github.event_name == 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python post_comment.py
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: readme-improver-artifacts
+          path: |
+            logs/
+            suggestions.md
