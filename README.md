@@ -30,12 +30,14 @@ README Improver is a command-line interface (CLI) tool and GitHub Action that le
 Follow these steps to install README Improver:
 
 1. Create a virtual environment:
+
     ```bash
     python -m venv .venv
     source .venv/bin/activate  # For Windows: .venv\Scripts\activate
     ```
 
 2. Install required packages:
+
     ```bash
     pip install -r requirements.txt
     ```
@@ -45,6 +47,7 @@ Follow these steps to install README Improver:
 ## Usage
 
 Run the CLI tool within the repository containing a `README.md` file using the command:
+
 ```bash
 python run_improver.py
 ```
