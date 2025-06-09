@@ -8,6 +8,9 @@ from typing import Any
 import yaml
 
 from .openai_helper import ask_openai
+from .logger import get_logger
+
+logger = get_logger()
 
 
 def load_config(path: str = "config.yaml") -> dict[str, Any]:
@@ -25,6 +28,47 @@ def load_config(path: str = "config.yaml") -> dict[str, Any]:
         return {}
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
+
+
+def validate_config(cfg: dict[str, Any]) -> bool:
+    """Validate configuration values.
+
+    The current implementation requires ``project_name``, ``email`` and
+    ``logo_path`` to be present.  It also verifies referenced files exist
+    and that badge/section entries contain the expected keys.
+
+    Args:
+        cfg: Parsed configuration dictionary.
+
+    Returns:
+        ``True`` if the configuration is valid, ``False`` otherwise.
+    """
+
+    ok = True
+    required = ["project_name", "email", "logo_path"]
+    for field in required:
+        if not cfg.get(field):
+            logger.error("Missing required config value: %s", field)
+            ok = False
+
+    logo = cfg.get("logo_path")
+    if logo and not os.path.exists(logo):
+        logger.error("Logo file not found: %s", logo)
+        ok = False
+
+    for i, badge in enumerate(cfg.get("badges", []), 1):
+        for key in ("name", "image_url", "link"):
+            if key not in badge:
+                logger.error("Badge #%d missing '%s'", i, key)
+                ok = False
+
+    for i, section in enumerate(cfg.get("extra_sections", []), 1):
+        for key in ("title", "content"):
+            if key not in section:
+                logger.error("Extra section #%d missing '%s'", i, key)
+                ok = False
+
+    return ok
 
 
 def build_prompt(readme_text: str, config: dict[str, Any]) -> str:

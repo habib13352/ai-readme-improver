@@ -11,6 +11,7 @@ from readme_improver.improver import (
     suggest_improvements,
     rewrite_readme,
     load_config,
+    validate_config,
 )
 from readme_improver.logger import get_logger
 
@@ -18,7 +19,7 @@ from readme_improver.logger import get_logger
 logger = get_logger()
 
 
-def main(argv=None):
+def main(argv=None) -> int:
     """Run the CLI."""
     sys.stdout.reconfigure(encoding="utf-8")
 
@@ -42,19 +43,22 @@ def main(argv=None):
     if env_logo:
         config["logo_path"] = env_logo
 
+    if not validate_config(config):
+        return 1
+
     if not os.getenv("OPENAI_API_KEY"):
         logger.error("OPENAI_API_KEY is not set. Add it to your .env file.")
-        return
+        return 1
 
     readme_path = args.readme
     if not os.path.exists(readme_path):
         logger.error("❌ Error: %s not found.", readme_path)
-        return
+        return 1
 
     readme_text = load_readme(readme_path)
     if not readme_text.strip():
         logger.warning("⚠️ README is empty. Exiting.")
-        return
+        return 0
 
     logger.info("🔹 Generating TL;DR summary...")
     summary = generate_summary(readme_text, args.model)
@@ -78,7 +82,8 @@ def main(argv=None):
     with open(args.improved, "w", encoding="utf-8") as f:
         f.write(improved)
     logger.info("✅ Saved improved version to %s\n", args.improved)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
