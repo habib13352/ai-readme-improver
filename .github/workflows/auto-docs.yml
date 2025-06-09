@@ -24,6 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+          pip install linkchecker
           npm install -g markdownlint-cli
       - name: Lint Markdown files
         run: markdownlint README.md docs/**/*.md
@@ -38,7 +39,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           timestamp=$(date -u +"%Y-%m-%d-%H-%M")
-          git add README.md SUGGESTED_README.md README_SUGGESTIONS.md oldreadme/ || true
+          git add README.md README.improved.md suggestions.md oldreadme/ || true
           git status --short
           if git diff --cached --quiet; then
             echo "No changes to commit"
