@@ -83,7 +83,9 @@ Returns: `float` cost in USD.
 
 ## readme_improver.openai_helper.ask_openai
 
-Send a prompt to OpenAI ChatCompletion with caching and detailed logging.
+Send a prompt to OpenAI ChatCompletion with caching. Each call writes the
+prompt, response, usage statistics and elapsed time to `logs/<timestamp>.json`.
+On errors the stack trace is saved to `logs/<timestamp>_error.json`.
 
 | Name | Type | Description |
 | --- | --- | --- |

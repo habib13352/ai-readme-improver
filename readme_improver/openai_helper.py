@@ -9,6 +9,8 @@ import hashlib
 import json
 import os
 import time
+import traceback
+from datetime import datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -21,6 +23,9 @@ load_dotenv()
 _openai_client = None
 CACHE_DIR = Path(".cache")
 CACHE_DIR.mkdir(exist_ok=True)
+# Directory for JSON logs
+LOG_DIR = Path("logs")
+LOG_DIR.mkdir(exist_ok=True)
 # Set README_IMPROVER_CACHE=0 to disable caching
 CACHE_ENABLED = os.getenv("README_IMPROVER_CACHE", "1") != "0"
 
@@ -78,48 +83,78 @@ def ask_openai(
 
     cache_key = hashlib.sha256(f"{model}:{prompt}".encode("utf-8")).hexdigest()
     cache_file = CACHE_DIR / f"{cache_key}.json"
-    if CACHE_ENABLED and cache_file.exists():
-        with cache_file.open("r", encoding="utf-8") as f:
-            return json.load(f)["response"]
 
-    logger.info("\n----- OpenAI Request -----")
-    logger.info(
-        f"Model: {model} | Temperature: {temperature} | Max tokens: {max_tokens}"
-    )
-    logger.info("Prompt:\n" + prompt)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_path = LOG_DIR / f"{timestamp}.json"
 
-    start = time.time()
-    client = _get_client()
-    response = client.chat.completions.create(
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=temperature,
-        max_tokens=max_tokens,
-    )
-    elapsed = time.time() - start
+    try:
+        if CACHE_ENABLED and cache_file.exists():
+            with cache_file.open("r", encoding="utf-8") as f:
+                content = json.load(f)["response"]
+            usage = None
+            elapsed = 0.0
+        else:
+            logger.info("\n----- OpenAI Request -----")
+            logger.info(
+                f"Model: {model} | Temperature: {temperature} | Max tokens: {max_tokens}"
+            )
+            logger.info("Prompt:\n" + prompt)
 
-    content = response.choices[0].message.content.strip()
-    finish_reason = response.choices[0].finish_reason
-    usage = response.usage
-    if usage:
-        cost = _estimate_cost(model, usage.total_tokens)
-        logger.info(
-            f"Tokens: prompt={usage.prompt_tokens} completion={usage.completion_tokens} "
-            f"total={usage.total_tokens}"
-        )
-        logger.info(f"Estimated cost: ${cost:.6f}")
-    else:
-        logger.info("Token usage unavailable")
-    if finish_reason and finish_reason != "stop":
-        logger.warning(f"Response truncated (finish_reason={finish_reason})")
-    else:
-        logger.info(f"Finish reason: {finish_reason}")
-    logger.info(f"Elapsed time: {elapsed:.2f}s")
-    logger.info("Response:\n" + content)
-    logger.info("----- End Request -----\n")
+            start = time.time()
+            client = _get_client()
+            response = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
+            elapsed = time.time() - start
 
-    if CACHE_ENABLED:
-        with cache_file.open("w", encoding="utf-8") as f:
-            json.dump({"response": content}, f)
+            content = response.choices[0].message.content.strip()
+            finish_reason = response.choices[0].finish_reason
+            usage = response.usage
 
-    return content
+            if usage:
+                cost = _estimate_cost(model, usage.total_tokens)
+                logger.info(
+                    f"Tokens: prompt={usage.prompt_tokens} completion={usage.completion_tokens} "
+                    f"total={usage.total_tokens}"
+                )
+                logger.info(f"Estimated cost: ${cost:.6f}")
+            else:
+                logger.info("Token usage unavailable")
+            if finish_reason and finish_reason != "stop":
+                logger.warning(f"Response truncated (finish_reason={finish_reason})")
+            else:
+                logger.info(f"Finish reason: {finish_reason}")
+            logger.info(f"Elapsed time: {elapsed:.2f}s")
+            logger.info("Response:\n" + content)
+            logger.info("----- End Request -----\n")
+
+            if CACHE_ENABLED:
+                with cache_file.open("w", encoding="utf-8") as f:
+                    json.dump({"response": content}, f)
+
+        log_data = {
+            "prompt": prompt,
+            "response": content,
+            "elapsed": elapsed,
+            "usage": (
+                {
+                    "prompt_tokens": getattr(usage, "prompt_tokens", None),
+                    "completion_tokens": getattr(usage, "completion_tokens", None),
+                    "total_tokens": getattr(usage, "total_tokens", None),
+                }
+                if usage
+                else None
+            ),
+        }
+        with log_path.open("w", encoding="utf-8") as f:
+            json.dump(log_data, f, indent=2)
+
+        return content
+    except Exception:
+        error_path = LOG_DIR / f"{timestamp}_error.json"
+        with error_path.open("w", encoding="utf-8") as f:
+            json.dump({"prompt": prompt, "error": traceback.format_exc()}, f, indent=2)
+        raise
