@@ -35,6 +35,20 @@ def main(argv=None):
     )
     parser.add_argument("--config", default="config.yaml", help="Path to config file")
     parser.add_argument("--model", default="gpt-3.5-turbo", help="OpenAI model")
+    parser.add_argument("--logo", help="Path or URL for a project logo")
+    parser.add_argument("--email", help="Contact email address for the README")
+    parser.add_argument(
+        "--badge",
+        action="append",
+        metavar="SPEC",
+        help="Badge spec 'name,image_url,link' (repeatable)",
+    )
+    parser.add_argument(
+        "--extra-section",
+        action="append",
+        metavar="SPEC",
+        help="Extra section 'Title:Content' (repeatable)",
+    )
     parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
     args = parser.parse_args(argv)
 
@@ -48,6 +62,34 @@ def main(argv=None):
     env_logo = os.getenv("README_LOGO")
     if env_logo:
         config["logo_path"] = env_logo
+
+    if args.logo:
+        config["logo_path"] = args.logo
+    if args.email:
+        config["email"] = args.email
+
+    if args.badge:
+        badges = []
+        for spec in args.badge:
+            parts = [p.strip() for p in spec.split(",")]
+            if len(parts) == 3:
+                badges.append({"name": parts[0], "image_url": parts[1], "link": parts[2]})
+            else:
+                logger.warning("Ignoring invalid badge spec: %s", spec)
+        if badges:
+            config["badges"] = badges
+
+    if args.extra_section:
+        extras = []
+        for spec in args.extra_section:
+            if ":" in spec:
+                title, content = spec.split(":", 1)
+                extras.append({"title": title.strip(), "content": content.strip()})
+            else:
+                logger.warning("Ignoring invalid extra section spec: %s", spec)
+        if extras:
+            config.setdefault("extra_sections", [])
+            config["extra_sections"].extend(extras)
 
     if not os.getenv("OPENAI_API_KEY"):
         logger.error("OPENAI_API_KEY is not set. Add it to your .env file.")
