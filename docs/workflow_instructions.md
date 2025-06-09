@@ -9,6 +9,7 @@ The repository needs a workflow file (for example, `.github/workflows/improve_re
 - **Automatic trigger**: run whenever a pull request modifies `README.md` or `ai_readme_improver.py` so that improvements are always reviewed.
 - **Manual trigger**: enable `workflow_dispatch` so you can start a job through the Actions tab at any time.
 - **Workflow steps**: checkout the repo, set up Python, install requirements, run the script, and commit the updated README and logs if anything changed.
+
 ## 2. Logging in the Python Script
 
 - Accept `--input`, `--output`, and `--log-dir` arguments.
@@ -19,11 +20,12 @@ The repository needs a workflow file (for example, `.github/workflows/improve_re
 
 ## 3. Example Codex Prompts
 
-
 Example Codex prompts:
+
 - "Create the workflow file with auto and manual triggers that installs requirements, runs the improver, checks for changes, and pushes updates."
 - "Add logging in ai_readme_improver.py to record prompts, responses, timing, and usage."
 - "Describe how to manually run the workflow from the Actions tab."
+
 ## 4. Verifying End-to-End Execution
 
 1. **Local test**: Run `python ai_readme_improver.py --input README.md --output README.test.md --log-dir logs_test` with your OpenAI API key set. Confirm that `README.test.md` appears and a log file is written in `logs_test`.
