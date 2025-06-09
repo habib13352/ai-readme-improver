@@ -5,10 +5,10 @@ on:
     inputs:
       email:
         description: "Custom email for the README"
-        required: true
+        required: false
       logo-path:
         description: "Path to custom logo"
-        required: true
+        required: false
 
   pull_request:
     paths: ["README.md"]
