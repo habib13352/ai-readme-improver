@@ -2,19 +2,22 @@
 
 ## TL;DR Summary
 
-TL;DR: README Improver is a CLI tool and GitHub Action that uses OpenAI to enhance README.md files by generating summaries, suggestions, and polished versions. It can be run locally or as a GitHub Action, providing detailed logs and customization options.
+TL;DR
+AI README Improver is a tool for enhancing README files with a logo, demo, installation, usage, contributing, license, maintainers, acknowledgements, and contact information. It is licensed under MIT and maintained by Hamza Ali Habib.
 
 ## Improvement Suggestions
 
-- Add a section for "Installation" with step-by-step instructions on how to install the tool
-- Include a section for "Usage" with details on how to run the CLI tool and optional flags
-- Incorporate a section for "License" specifying the licensing information for the project
-- Include a section for "Maintainers" listing the maintainers of the project
-- Add a section for "Acknowledgements" to give credit to OpenAI and the community for their contributions
-- Include a "Contact" section with contact information for the maintainer
-- Improve clarity of language by providing more detailed explanations and examples
-- Add badges for version, license, and contributors to the README for visibility
-- Use SEO keywords like "README improvement tool," "GitHub Action," and "OpenAI technology" to improve searchability.
+- Add a section for Installation with clear instructions on how to install the tool
+- Include a section for Usage with an example command on how to use the tool
+- Add a License section to specify the license of the project
+- Consider adding badges for code quality, version, and coverage
+- Include a Table of Contents for easy navigation
+- Improve clarity of language throughout the README
+- Consider adding SEO keywords related to technical writing and documentation
+- Add a section for Contributing with a link to the CONTRIBUTING.md file
+- Include a section for Maintainers to specify who is responsible for the project
+- Add an Acknowledgements section to thank any individuals or organizations that contributed to the project
+- Include Contact information for users to reach out with questions or feedback
 
 ---
 *Powered by [OpenAI](https://openai.com)*
