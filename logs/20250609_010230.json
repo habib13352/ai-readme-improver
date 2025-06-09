@@ -1,0 +1,10 @@
+{
+  "prompt": "You are an expert technical writer. Suggest specific improvements for this README. Mention missing sections (Installation, Usage, License, etc.), clarity of language, badge additions, and SEO keywords. Output as bullet points:\n\n# README Improver\n\n![Logo](assets/logo.png)\n\n[![Build Status](https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/ci.yml)](https://github.com/habib13352/ai-readme-improver/actions) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)\n\n## Table of Contents\n<!-- TOC -->\n\n## Demo\n![Demo](assets/demo.gif)\n\n## Installation\n```bash\npip install ai-readme-improver\n```\n\n## Usage\n```bash\nai-readme-improver --help\n```\n\n## Contributing\nSee [CONTRIBUTING.md](CONTRIBUTING.md).\n\n## License\nThis project is licensed under the MIT License \u2014 see the [LICENSE](LICENSE) file.\n\n## Maintainers\n- Hamza Ali Habib (@habib13352)\n\n## Acknowledgements\n- Thanks to the OpenAI team and community.\n\n## Contact\n- Email: hamzahabib10@gmail.com",
+  "response": "- Add a section for Installation with specific instructions on how to install the tool\n- Add a section for Usage with an example command to run the tool\n- Include a License section specifying the type of license the project is using\n- Consider adding badges for issues, pull requests, code coverage, etc. to provide more information about the project status\n- Improve clarity of language by providing more detailed explanations for each section\n- Add SEO keywords such as \"technical writing\", \"README\", \"improvement\", etc. to improve searchability",
+  "elapsed": 1.20833420753479,
+  "usage": {
+    "prompt_tokens": 271,
+    "completion_tokens": 108,
+    "total_tokens": 379
+  }
+}

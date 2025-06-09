@@ -1,0 +1,283 @@
+01:02:27 - 🔹 Generating TL;DR summary...
+01:02:27 - 
+----- OpenAI Request -----
+01:02:27 - Model: gpt-3.5-turbo | Temperature: 0.3 | Max tokens: 200
+01:02:27 - Prompt:
+You are an AI assistant that reads README files. Provide a concise TL;DR summary of the following README (2–3 lines):
+
+# README Improver
+
+![Logo](assets/logo.png)
+
+[![Build Status](https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/ci.yml)](https://github.com/habib13352/ai-readme-improver/actions) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+## Table of Contents
+<!-- TOC -->
+
+## Demo
+![Demo](assets/demo.gif)
+
+## Installation
+```bash
+pip install ai-readme-improver
+```
+
+## Usage
+```bash
+ai-readme-improver --help
+```
+
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file.
+
+## Maintainers
+- Hamza Ali Habib (@habib13352)
+
+## Acknowledgements
+- Thanks to the OpenAI team and community.
+
+## Contact
+- Email: hamzahabib10@gmail.com
+01:02:30 - Tokens: prompt=255 completion=71 total=326
+01:02:30 - Estimated cost: $0.000652
+01:02:30 - Finish reason: stop
+01:02:30 - Elapsed time: 3.52s
+01:02:30 - Response:
+TL;DR
+
+AI README Improver is a tool for enhancing README files. Install with `pip install ai-readme-improver` and use `ai-readme-improver --help` for usage. Contributions welcome, licensed under MIT, maintained by Hamza Ali Habib. Contact via email at hamzahabib10@gmail.com.
+01:02:30 - ----- End Request -----
+
+01:02:30 - 
+--- TL;DR SUMMARY ---
+TL;DR
+
+AI README Improver is a tool for enhancing README files. Install with `pip install ai-readme-improver` and use `ai-readme-improver --help` for usage. Contributions welcome, licensed under MIT, maintained by Hamza Ali Habib. Contact via email at hamzahabib10@gmail.com.
+----------------------
+
+01:02:30 - 🔹 Generating improvement suggestions...
+01:02:30 - 
+----- OpenAI Request -----
+01:02:30 - Model: gpt-3.5-turbo | Temperature: 0.5 | Max tokens: 400
+01:02:30 - Prompt:
+You are an expert technical writer. Suggest specific improvements for this README. Mention missing sections (Installation, Usage, License, etc.), clarity of language, badge additions, and SEO keywords. Output as bullet points:
+
+# README Improver
+
+![Logo](assets/logo.png)
+
+[![Build Status](https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/ci.yml)](https://github.com/habib13352/ai-readme-improver/actions) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+## Table of Contents
+<!-- TOC -->
+
+## Demo
+![Demo](assets/demo.gif)
+
+## Installation
+```bash
+pip install ai-readme-improver
+```
+
+## Usage
+```bash
+ai-readme-improver --help
+```
+
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file.
+
+## Maintainers
+- Hamza Ali Habib (@habib13352)
+
+## Acknowledgements
+- Thanks to the OpenAI team and community.
+
+## Contact
+- Email: hamzahabib10@gmail.com
+01:02:32 - Tokens: prompt=271 completion=108 total=379
+01:02:32 - Estimated cost: $0.000758
+01:02:32 - Finish reason: stop
+01:02:32 - Elapsed time: 1.21s
+01:02:32 - Response:
+- Add a section for Installation with specific instructions on how to install the tool
+- Add a section for Usage with an example command to run the tool
+- Include a License section specifying the type of license the project is using
+- Consider adding badges for issues, pull requests, code coverage, etc. to provide more information about the project status
+- Improve clarity of language by providing more detailed explanations for each section
+- Add SEO keywords such as "technical writing", "README", "improvement", etc. to improve searchability
+01:02:32 - ----- End Request -----
+
+01:02:32 - 
+--- IMPROVEMENT SUGGESTIONS ---
+- Add a section for Installation with specific instructions on how to install the tool
+- Add a section for Usage with an example command to run the tool
+- Include a License section specifying the type of license the project is using
+- Consider adding badges for issues, pull requests, code coverage, etc. to provide more information about the project status
+- Improve clarity of language by providing more detailed explanations for each section
+- Add SEO keywords such as "technical writing", "README", "improvement", etc. to improve searchability
+------------------------------
+
+01:02:32 - ✅ Wrote feedback to suggestions.md
+01:02:32 - 🔹 Generating rewritten README → README.improved.md
+01:02:32 - 
+----- OpenAI Request -----
+01:02:32 - Model: gpt-3.5-turbo | Temperature: 0.7 | Max tokens: 1920
+01:02:32 - Prompt:
+Structure the README exactly in this order, using these section headings (with Markdown H2):
+
+Title & Logo
+
+Badges
+
+Table of Contents
+
+Demo
+
+Installation
+
+Usage
+
+Contributing
+
+License
+
+Maintainers
+
+Acknowledgements
+
+
+You are ChatGPT. Improve the project's README.md with these rules:
+1. Insert logo (if provided) at the very top:
+   ![Logo](assets/logo.png)
+2. Insert badges under the title:
+   [![Build Status](https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/ci.yml)](https://github.com/habib13352/ai-readme-improver/actions) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+3. Include any extra sections specified in the config:
+   ## Table of Contents
+<!-- TOC -->
+
+## Demo
+![Demo](assets/demo.gif)
+
+## Installation
+```bash
+pip install ai-readme-improver
+```
+
+
+## Usage
+```bash
+ai-readme-improver --help
+```
+
+
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file.
+
+
+## Maintainers
+- Hamza Ali Habib (@habib13352)
+
+
+## Acknowledgements
+- Thanks to the OpenAI team and community.
+
+
+4. Ensure a “Contact” section with the email is at the bottom:
+   ## Contact
+- Email: hamzahabib10@gmail.com
+5. Provide a short TL;DR summary and bullet-point suggestions, then output the fully-rewritten README.md.
+6. Only use maintainer names and other details explicitly provided in the config or current README. Do not invent additional data.
+
+Here is the current README.md:
+# README Improver
+
+![Logo](assets/logo.png)
+
+[![Build Status](https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/ci.yml)](https://github.com/habib13352/ai-readme-improver/actions) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+## Table of Contents
+<!-- TOC -->
+
+## Demo
+![Demo](assets/demo.gif)
+
+## Installation
+```bash
+pip install ai-readme-improver
+```
+
+## Usage
+```bash
+ai-readme-improver --help
+```
+
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file.
+
+## Maintainers
+- Hamza Ali Habib (@habib13352)
+
+## Acknowledgements
+- Thanks to the OpenAI team and community.
+
+## Contact
+- Email: hamzahabib10@gmail.com
+
+01:02:34 - Tokens: prompt=616 completion=221 total=837
+01:02:34 - Estimated cost: $0.001674
+01:02:34 - Finish reason: stop
+01:02:34 - Elapsed time: 2.03s
+01:02:34 - Response:
+# README Improver
+
+![Logo](assets/logo.png)
+
+[![Build Status](https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/ci.yml)](https://github.com/habib13352/ai-readme-improver/actions) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+## Table of Contents
+<!-- TOC -->
+
+## Demo
+![Demo](assets/demo.gif)
+
+## Installation
+```bash
+pip install ai-readme-improver
+```
+
+## Usage
+```bash
+ai-readme-improver --help
+```
+
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file.
+
+## Maintainers
+- Hamza Ali Habib (@habib13352)
+
+## Acknowledgements
+- Thanks to the OpenAI team and community.
+
+## Contact
+- Email: hamzahabib10@gmail.com
+01:02:34 - ----- End Request -----
+
+01:02:34 - ✅ Saved improved version to README.improved.md
+
