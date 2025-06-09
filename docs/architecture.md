@@ -39,7 +39,7 @@
 
 - _get_client() -> 'OpenAI' - Create the OpenAI client lazily.
 - _estimate_cost(model, total_tokens) -> float - Estimate API cost for a given model and token count.
-- ask_openai(prompt, model, temperature, max_tokens) -> str - Send a prompt to OpenAI ChatCompletion with caching and detailed logging.
+- ask_openai(prompt, model, temperature, max_tokens) -> str - Send a prompt to OpenAI ChatCompletion with caching. Writes request and response details to JSON files under `logs/`.
 
 ## readme_improver/post_comment.py
 
