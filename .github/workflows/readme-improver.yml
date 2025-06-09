@@ -20,11 +20,13 @@ jobs:
         with:
           python-version: "3.10"
       - run: pip install -r requirements.txt
+      - run: pytest -q
       - name: Run Improver
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: python run_improver.py --config readme-improver.config.yaml
-      - run: mv README.improved.md README.md
+        run: python run_improver.py --config config.yaml --archive-dir oldreadme
+      - if: ${{ success() }}
+        run: mv README.improved.md README.md
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"

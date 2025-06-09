@@ -16,11 +16,12 @@ dependencies = [
     "PyYAML"
 ]
 
+
 [tool.setuptools]
 packages = ["readme_improver"]
 py-modules = [
-    "main",
+    "run_improver",
 ]
 
 [project.scripts]
-readme-improver = "main:main"
+readme-improver = "run_improver:main"
