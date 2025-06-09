@@ -39,11 +39,15 @@ def test_build_prompt():
         "logo_path": "logo.png",
         "email": "a@b.com",
         "extra_sections": [{"title": "More", "content": "Stuff"}],
+        "badges": [
+            {"name": "CI", "image_url": "img.png", "link": "https://ci"}
+        ],
     }
     prompt = build_prompt("readme", cfg)
     assert "logo.png" in prompt
     assert "## Contact" in prompt
     assert "More" in prompt
+    assert "img.png" in prompt
 
 
 def test_load_config(tmp_path):

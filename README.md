@@ -49,6 +49,13 @@ Run the CLI tool within the repository containing a `README.md` file using the c
 python run_improver.py
 ```
 
+Optional flags:
+
+- `--logo PATH` – override the logo path or URL
+- `--email ADDRESS` – set the contact email
+- `--badge "Name,image_url,link"` – add a badge (repeatable)
+- `--extra-section "Title:Content"` – append a custom section (repeatable)
+
 After execution, `suggestions.md` and `README.improved.md` will be generated, providing feedback and an enhanced README version. Detailed logs are stored in `logs/run_YYYYMMDD_HHMMSS.log`, including OpenAI prompts, responses, costs, and timing details. In GitHub Actions, logs are uploaded as artifacts for retrieval.
 
 ### Quick Start

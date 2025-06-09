@@ -46,6 +46,13 @@ def build_prompt(readme_text: str, config: dict[str, Any]) -> str:
     if config.get("email"):
         contact_section = f"## Contact\n- Email: {config['email']}"
 
+    badge_block = ""
+    if config.get("badges"):
+        badges = [
+            f"[![{b['name']}]({b['image_url']})]({b['link']})" for b in config["badges"]
+        ]
+        badge_block = " ".join(badges)
+
     sections = [
         f"## {s['title']}\n{s['content']}\n" for s in config.get("extra_sections", [])
     ]
@@ -55,12 +62,14 @@ def build_prompt(readme_text: str, config: dict[str, Any]) -> str:
 You are ChatGPT. Improve the project's README.md with these rules:
 1. Insert logo (if provided) at the very top:
    {logo_block}
-2. Include any extra sections specified in the config:
+2. Insert badges under the title:
+   {badge_block}
+3. Include any extra sections specified in the config:
    {extra_sections_md}
-3. Ensure a “Contact” section with the email is at the bottom:
+4. Ensure a “Contact” section with the email is at the bottom:
    {contact_section}
-4. Provide a short TL;DR summary and bullet-point suggestions, then output the fully-rewritten README.md.
-5. Only use maintainer names and other details explicitly provided in the config or current README. Do not invent additional data.
+5. Provide a short TL;DR summary and bullet-point suggestions, then output the fully-rewritten README.md.
+6. Only use maintainer names and other details explicitly provided in the config or current README. Do not invent additional data.
 
 Here is the current README.md:
 {readme_text}
