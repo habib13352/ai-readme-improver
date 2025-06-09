@@ -4,6 +4,8 @@ import argparse
 import logging
 import os
 import sys
+from pathlib import Path
+from datetime import datetime
 
 from readme_improver.readme_loader import load_readme
 from readme_improver.improver import (
@@ -13,6 +15,7 @@ from readme_improver.improver import (
     load_config,
 )
 from readme_improver.logger import get_logger
+from readme_improver.archive import archive_old_files
 
 
 logger = get_logger()
@@ -24,8 +27,12 @@ def main(argv=None):
 
     parser = argparse.ArgumentParser(prog="ai-readme-improver")
     parser.add_argument("--readme", default="README.md", help="Path to README")
-    parser.add_argument("--suggestions", default="suggestions.md", help="Suggestions output file")
-    parser.add_argument("--improved", default="README.improved.md", help="Improved README output file")
+    parser.add_argument(
+        "--suggestions", default="suggestions.md", help="Suggestions output file"
+    )
+    parser.add_argument(
+        "--improved", default="README.improved.md", help="Improved README output file"
+    )
     parser.add_argument("--config", default="config.yaml", help="Path to config file")
     parser.add_argument("--model", default="gpt-3.5-turbo", help="OpenAI model")
     parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
@@ -46,12 +53,15 @@ def main(argv=None):
         logger.error("OPENAI_API_KEY is not set. Add it to your .env file.")
         return
 
-    readme_path = args.readme
-    if not os.path.exists(readme_path):
+    timestamp = datetime.utcnow().strftime("%Y-%m-%d-%H-%M")
+    archive_dir = archive_old_files(timestamp)
+
+    readme_path = archive_dir / Path(args.readme).name
+    if not readme_path.exists():
         logger.error("❌ Error: %s not found.", readme_path)
         return
 
-    readme_text = load_readme(readme_path)
+    readme_text = load_readme(str(readme_path))
     if not readme_text.strip():
         logger.warning("⚠️ README is empty. Exiting.")
         return
@@ -62,7 +72,10 @@ def main(argv=None):
 
     logger.info("🔹 Generating improvement suggestions...")
     suggestions = suggest_improvements(readme_text, args.model)
-    logger.info("\n--- IMPROVEMENT SUGGESTIONS ---\n%s\n--------------------------------\n", suggestions)
+    logger.info(
+        "\n--- IMPROVEMENT SUGGESTIONS ---\n%s\n--------------------------------\n",
+        suggestions,
+    )
 
     with open(args.suggestions, "w", encoding="utf-8") as f:
         f.write("# 🤖 AI README Improver Feedback\n\n")
