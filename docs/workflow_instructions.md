@@ -1,6 +1,24 @@
 # Workflow Setup and Logging Guide
 
-This guide explains how to set up a simple GitHub Actions workflow that installs dependencies, runs `run_improver.py`, and commits the resulting README.
+This guide explains how to set up a simple GitHub Actions workflow that installs dependencies, runs `run_improver.py`, and commits the resulting README. You can also use the published action instead of managing the script yourself:
+
+```yaml
+- uses: habib13352/ai-readme-improver@v1
+  with:
+    openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+    email: maintainer@example.com
+    logo: assets/logo.png
+    badges: |
+      badges:
+        - name: Build Status
+          image_url: https://img.shields.io/github/actions/workflow/status/owner/repo/ci.yml
+          link: https://github.com/owner/repo/actions
+    extra_sections: |
+      extra_sections:
+        - title: Maintainers
+          content: |
+            - Jane Doe
+```
 
 ## 1. Define the GitHub Actions Workflow
 

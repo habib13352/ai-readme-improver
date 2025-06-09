@@ -62,10 +62,10 @@ python run_improver.py
 
 ## GitHub Action Setup
 
-Configure the GitHub Action for automated feedback on `README.md` changes in pull requests by adding the following workflow to `.github/workflows/readme-improver.yml`:
+Use the published action to automatically polish your README:
 
 ```yaml
-name: "README Improver CI"
+name: "README Improver"
 on:
   pull_request:
     paths: ["README.md"]
@@ -74,30 +74,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - id: ai
+        uses: habib13352/ai-readme-improver@v1
         with:
-          python-version: "3.10"
-      - run: pip install "openai>=1.0" python-dotenv markdown2
-      - run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
-      - run: python run_improver.py
-      - name: Replace README with improved version
-        run: |
-          mv README.improved.md README.md
-          rm suggestions.md
+          openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          email: maintainer@example.com
+          logo: assets/logo.png
+          badges: |
+            badges:
+              - name: Build Status
+                image_url: https://img.shields.io/github/actions/workflow/status/owner/repo/ci.yml
+                link: https://github.com/owner/repo/actions
+          extra_sections: |
+            extra_sections:
+              - title: Maintainers
+                content: |
+                  - Jane Doe
+      - run: mv ${{ steps.ai.outputs.improved_readme_path }} README.md
       - name: Commit improved README
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git diff --cached --quiet || git commit -m "chore: apply AI-suggested README improvements"
+          git diff --cached --quiet || git commit -m "chore: update README"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v4
-        with:
-          name: readme-improver-logs
-          path: logs
-      - run: python post_comment.py
 ```
 
 ## Contributing
