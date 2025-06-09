@@ -1,0 +1,10 @@
+{
+  "prompt": "Here\u2019s the repository layout:\n- `readme_improver\\__init__.py`\n- `readme_improver\\archive.py`\n- `readme_improver\\improver.py`\n- `readme_improver\\logger.py`\n- `readme_improver\\openai_helper.py`\n- `readme_improver\\post_comment.py`\n- `readme_improver\\readme_loader.py`\n- `scripts\\generate_architecture_md.py`\n- `scripts\\update_readme.py`\n\nWrite the \u201c## Contributing\u201d section.  \n- Heading: ## Contributing  \n- Briefly explain how to contribute: opening issues, making pull requests, running tests locally.  \n- Link to CONTRIBUTING.md.  \n- Format as:\n\n```markdown\n## Contributing\n\nContributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:\n- Reporting bugs\n- Submitting pull requests\n- Writing tests\n```\n",
+  "response": "```markdown\n## Contributing\n\nContributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:\n- Reporting bugs\n- Submitting pull requests\n- Writing tests\n```",
+  "elapsed": 0.7152297496795654,
+  "usage": {
+    "prompt_tokens": 214,
+    "completion_tokens": 46,
+    "total_tokens": 260
+  }
+}

@@ -22,42 +22,39 @@
 
 ![Demo](assets/demo.gif)
 
-In this demo, you can see the CLI tool in action as it automatically generates a table of contents (TOC) for a README file. The tool also adds badges for build status and code coverage, enhancing the overall readability and professionalism of the document.
+_The user sees the CLI tool in action as it improves a README by adding badges, table of contents, and other enhancements._
 ```
 
-```markdown
 ## Installation
 
 ```bash
 pip install ai-readme-improver
 ```
 
-```
-
 ## Usage
 
 ```bash
-ai-readme-improver --config config.yaml --archive-dir oldreadme --logo company_logo.png --email contact@company.com
+ai-readme-improver --config config.yaml --archive-dir oldreadme --logo logo.png --email user@example.com
 ```
 
-Briefly explain: This command runs the improver with your custom config, archives old files under oldreadme/, uses company_logo.png as the logo, and sets the contact email to contact@company.com.
+Briefly explain: This command runs the improver with your custom config, archives old files under oldreadme/, adds a logo to the updated readme, and sets the contact email to user@example.com.
 
 ## Features
 - 📚 Archives previous README and suggestions
 - 📝 Generates TL;DR summaries, suggestions, and full rewrites
 - ⚙️ Configurable via config.yaml
-- 🚀 GitHub Action integration
-- 🔒 Commits only on real changes
+- 🤖 GitHub Action integration
+- 🛠️ Commits only on real changes
 
 ## Configuration
 
-| Key            | Description                                  | Default                      |
-| ---------------|----------------------------------------------|----------------------------- |
-| project_name   | The name of the project                      | None                         |
-| logo_path      | The path to the project's logo image         | None                         |
-| email          | The email address associated with the project| None                         |
-| badges         | Whether to display badges on the project page| True                         |
-| extra_sections | Additional sections to include on the page   | None                         |
+| Key           | Description                                         | Default        |
+|---------------|-----------------------------------------------------|----------------|
+| project_name  | Name of the project                                 | None           |
+| logo_path     | Path to the project logo                            | None           |
+| email         | Email address for contact                           | None           |
+| badges        | List of badges to display in the readme             | []             |
+| extra_sections| List of additional sections to include in the readme| []             |
 
 ```markdown
 ## Contributing
@@ -78,10 +75,8 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 - Hamza Ali Habib (@habib13352)
 
 ## Acknowledgements
-
-- We would like to thank the OpenAI team for their invaluable support and guidance throughout this project.
-- Special thanks to our community contributors for their dedication and hard work in helping us achieve our goals.
-- We are grateful for the assistance of our mentors and advisors who provided valuable insights and feedback along the way.
+- The OpenAI team for their valuable insights and contributions.
+- Community contributors for their support and feedback.
 
 ## Contact
 - Email: hamzahabib10@gmail.com

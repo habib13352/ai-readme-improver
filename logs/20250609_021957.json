@@ -1,0 +1,10 @@
+{
+  "prompt": "Here\u2019s the repository layout:\n- `readme_improver\\__init__.py`\n- `readme_improver\\archive.py`\n- `readme_improver\\improver.py`\n- `readme_improver\\logger.py`\n- `readme_improver\\openai_helper.py`\n- `readme_improver\\post_comment.py`\n- `readme_improver\\readme_loader.py`\n- `scripts\\generate_architecture_md.py`\n- `scripts\\update_readme.py`\n\nWrite the \u201c## Usage\u201d section.  \n- Heading: ## Usage  \n- Show a code block demonstrating the basic CLI flags:\n  - `--config`\n  - `--archive-dir`\n  - `--logo`\n  - `--email`\n- Include a short descriptive sentence on what each flag does.  \n- Format as:\n\n```markdown\n## Usage\n\n```bash\nai-readme-improver --config config.yaml --archive-dir oldreadme\n```\n\nBriefly explain: This command runs the improver with your custom config and archives old files under oldreadme/.\n```  \n",
+  "response": "## Usage\n\n```bash\nai-readme-improver --config config.yaml --archive-dir oldreadme --logo logo.png --email user@example.com\n```\n\nBriefly explain: This command runs the improver with your custom config, archives old files under oldreadme/, adds a logo to the updated readme, and sets the contact email to user@example.com.",
+  "elapsed": 1.1184966564178467,
+  "usage": {
+    "prompt_tokens": 239,
+    "completion_tokens": 76,
+    "total_tokens": 315
+  }
+}

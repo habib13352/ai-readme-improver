@@ -1,0 +1,10 @@
+{
+  "prompt": "Here\u2019s the repository layout:\n- `readme_improver\\__init__.py`\n- `readme_improver\\archive.py`\n- `readme_improver\\improver.py`\n- `readme_improver\\logger.py`\n- `readme_improver\\openai_helper.py`\n- `readme_improver\\post_comment.py`\n- `readme_improver\\readme_loader.py`\n- `scripts\\generate_architecture_md.py`\n- `scripts\\update_readme.py`\n\nProduce the \u201c## Installation\u201d section.  \n- Heading: ## Installation  \n- Show a code block with the pip install command for this package.  \n- Optionally note any prerequisites (e.g. Python 3.8+).  \n- Format as:\n\n```markdown\n## Installation\n\n```bash\npip install ai-readme-improver\n```\n\n```\n",
+  "response": "## Installation\n\n```bash\npip install ai-readme-improver\n```",
+  "elapsed": 0.49386119842529297,
+  "usage": {
+    "prompt_tokens": 192,
+    "completion_tokens": 16,
+    "total_tokens": 208
+  }
+}

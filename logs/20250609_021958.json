@@ -1,0 +1,10 @@
+{
+  "prompt": "Here\u2019s the repository layout:\n- `readme_improver\\__init__.py`\n- `readme_improver\\archive.py`\n- `readme_improver\\improver.py`\n- `readme_improver\\logger.py`\n- `readme_improver\\openai_helper.py`\n- `readme_improver\\post_comment.py`\n- `readme_improver\\readme_loader.py`\n- `scripts\\generate_architecture_md.py`\n- `scripts\\update_readme.py`\n\nGenerate the \u201c## Features\u201d section.  \n- Heading: ## Features  \n- Bullet-list 4\u20136 key capabilities of this tool, e.g.:\n  - Archives previous README and suggestions\n  - Generates TL;DR summaries, suggestions, and full rewrites\n  - Configurable via config.yaml\n  - GitHub Action integration\n  - Commits only on real changes  \n- Use emoji bullets (optional) for visual flair.\n",
+  "response": "## Features\n- \ud83d\udcda Archives previous README and suggestions\n- \ud83d\udcdd Generates TL;DR summaries, suggestions, and full rewrites\n- \u2699\ufe0f Configurable via config.yaml\n- \ud83e\udd16 GitHub Action integration\n- \ud83d\udee0\ufe0f Commits only on real changes",
+  "elapsed": 1.3360836505889893,
+  "usage": {
+    "prompt_tokens": 207,
+    "completion_tokens": 60,
+    "total_tokens": 267
+  }
+}

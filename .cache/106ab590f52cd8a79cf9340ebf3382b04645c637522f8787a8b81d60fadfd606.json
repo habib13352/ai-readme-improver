@@ -1,0 +1,1 @@
+{"response": "## Usage\n\n```bash\nai-readme-improver --config config.yaml --archive-dir oldreadme --logo logo.png --email user@example.com\n```\n\nBriefly explain: This command runs the improver with your custom config, archives old files under oldreadme/, adds a logo to the updated readme, and sets the contact email to user@example.com."}

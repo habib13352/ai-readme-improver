@@ -1,0 +1,10 @@
+{
+  "prompt": "Here\u2019s the repository layout:\n- `readme_improver\\__init__.py`\n- `readme_improver\\archive.py`\n- `readme_improver\\improver.py`\n- `readme_improver\\logger.py`\n- `readme_improver\\openai_helper.py`\n- `readme_improver\\post_comment.py`\n- `readme_improver\\readme_loader.py`\n- `scripts\\generate_architecture_md.py`\n- `scripts\\update_readme.py`\n\nYou are a README generator. Create a \u201c## Table of Contents\u201d section that links to each main H2 heading in this README (in order): Demo, Installation, Usage, Features, Configuration, Contributing, License, Maintainers, Acknowledgements, Contact.\n\nOutput exactly:\n\n## Table of Contents\n\n- [Demo](#demo)\n- [Installation](#installation)\n- [Usage](#usage)\n- [Features](#features)\n- [Configuration](#configuration)\n- [Contributing](#contributing)\n- [License](#license)\n- [Maintainers](#maintainers)\n- [Acknowledgements](#acknowledgements)\n- [Contact](#contact)\n",
+  "response": "## Table of Contents\n\n- [Demo](#demo)\n- [Installation](#installation)\n- [Usage](#usage)\n- [Features](#features)\n- [Configuration](#configuration)\n- [Contributing](#contributing)\n- [License](#license)\n- [Maintainers](#maintainers)\n- [Acknowledgements](#acknowledgements)\n- [Contact](#contact)",
+  "elapsed": 2.7148852348327637,
+  "usage": {
+    "prompt_tokens": 257,
+    "completion_tokens": 82,
+    "total_tokens": 339
+  }
+}
