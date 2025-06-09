@@ -1,3 +1,5 @@
+"""Utility functions for reading the repository README."""
+
 from .logger import get_logger
 
 

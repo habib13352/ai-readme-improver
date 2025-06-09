@@ -1,14 +1,15 @@
 # Workflow Setup and Logging Guide
 
-This guide explains how to set up a GitHub Actions workflow that runs automatically or manually, logs each API call to disk, and provides prompts and tests to ensure everything works.
+This guide explains how to set up a simple GitHub Actions workflow that installs dependencies, runs `run_improver.py`, and commits the resulting README.
 
 ## 1. Define the GitHub Actions Workflow
 
-The repository needs a workflow file (for example, `.github/workflows/improve_readme.yml`) with these key features:
-
-- **Automatic trigger**: run whenever a pull request modifies `README.md` or `ai_readme_improver.py` so that improvements are always reviewed.
-- **Manual trigger**: enable `workflow_dispatch` so you can start a job through the Actions tab at any time.
-- **Workflow steps**: checkout the repo, set up Python, install requirements, run the script, and commit the updated README and logs if anything changed.
+Create `.github/workflows/readme-improver.yml` containing a job that:
+- Checks out the repository
+- Sets up Python and installs `requirements.txt`
+- Runs `python run_improver.py` with `OPENAI_API_KEY` provided
+- Commits `README.improved.md` back to `README.md` and pushes the result.
+  Set `README_IMPROVER_CACHE=0` in the job's environment to skip disk caching if desired.
 
 ## 2. Logging in the Python Script
 
@@ -28,11 +29,11 @@ Example Codex prompts:
 
 ## 4. Verifying End-to-End Execution
 
-1. **Local test**: Run `python ai_readme_improver.py --input README.md --output README.test.md --log-dir logs_test` with your OpenAI API key set. Confirm that `README.test.md` appears and a log file is written in `logs_test`.
+1. **Local test**: Run `python run_improver.py` with your `OPENAI_API_KEY` set. Confirm that `README.improved.md` and `suggestions.md` appear and logs are written.
 2. **PR-based test**:
    - Commit the workflow and updated script to a feature branch.
-   - Open a pull request to `main`. The workflow should run automatically, produce an improved README, and create logs.
-3. You can also trigger the job manually from the Actions tab and inspect the logs for JSON files with prompts, responses, and timing info.
+   - Open a pull request to `main`. The workflow should run automatically and push the improved README.
+3. You can also trigger the job manually from the Actions tab.
 
 With these pieces in place, you can reliably improve your README via GPT models while keeping a clear record of every API call.
 This overview should help you quickly implement the pipeline and understand the key areas to customize. Feel free to adapt the workflow for other files or expand the logging as needed.

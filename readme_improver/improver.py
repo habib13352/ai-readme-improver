@@ -1,3 +1,5 @@
+"""High level helpers to talk to the OpenAI API for README updates."""
+
 from __future__ import annotations
 
 import os
