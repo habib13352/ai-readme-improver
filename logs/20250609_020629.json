@@ -1,0 +1,10 @@
+{
+  "prompt": "Write the \u201c## Usage\u201d section.  \n- Heading: ## Usage  \n- Show a code block demonstrating the basic CLI flags:\n  - `--config`\n  - `--archive-dir`\n  - `--logo`\n  - `--email`\n- Include a short descriptive sentence on what each flag does.  \n- Format as:\n\n```markdown\n## Usage\n\n```bash\nai-readme-improver --config config.yaml --archive-dir oldreadme\n```\n\nBriefly explain: This command runs the improver with your custom config and archives old files under oldreadme/.\n```  \n",
+  "response": "## Usage\n\n```bash\nai-readme-improver --config config.yaml --archive-dir oldreadme --logo company_logo.png --email contact@company.com\n```\n\nBriefly explain: This command runs the improver with your custom config, archives old files under oldreadme/, uses company_logo.png as the logo, and sets the contact email to contact@company.com.",
+  "elapsed": 1.6189415454864502,
+  "usage": {
+    "prompt_tokens": 128,
+    "completion_tokens": 78,
+    "total_tokens": 206
+  }
+}

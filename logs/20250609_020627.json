@@ -1,0 +1,10 @@
+{
+  "prompt": "Generate the \u201c## Demo\u201d section.  \n- Heading: ## Demo  \n- Embed the GIF at assets/demo.gif.  \n- Write 2\u20133 sentences describing what the user sees (e.g., the CLI improving a README, showing badges, TOC, etc.).  \n- Format as:\n\n```markdown\n## Demo\n\n![Demo](assets/demo.gif)\n\n_Your descriptive caption here._\n```  \n",
+  "response": "```markdown\n## Demo\n\n![Demo](assets/demo.gif)\n\nIn this demo, you can see the CLI tool in action as it automatically generates a table of contents (TOC) for a README file. The tool also adds badges for build status and code coverage, enhancing the overall readability and professionalism of the document.\n```",
+  "elapsed": 1.2779557704925537,
+  "usage": {
+    "prompt_tokens": 88,
+    "completion_tokens": 65,
+    "total_tokens": 153
+  }
+}

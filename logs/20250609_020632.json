@@ -1,0 +1,10 @@
+{
+  "prompt": "Produce the \u201c## Configuration\u201d section.  \n- Heading: ## Configuration  \n- Render a Markdown table with columns: Key | Description | Default.  \n- Include rows for:\n  - project_name\n  - logo_path\n  - email\n  - badges\n  - extra_sections  \n- For each, briefly describe its purpose and default value (if any).\n",
+  "response": "## Configuration\n\n| Key            | Description                                  | Default                      |\n| ---------------|----------------------------------------------|----------------------------- |\n| project_name   | The name of the project                      | None                         |\n| logo_path      | The path to the project's logo image         | None                         |\n| email          | The email address associated with the project| None                         |\n| badges         | Whether to display badges on the project page| True                         |\n| extra_sections | Additional sections to include on the page   | None                         |",
+  "elapsed": 2.032923698425293,
+  "usage": {
+    "prompt_tokens": 81,
+    "completion_tokens": 103,
+    "total_tokens": 184
+  }
+}

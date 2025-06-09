@@ -1,0 +1,10 @@
+{
+  "prompt": "Generate the \u201c## Features\u201d section.  \n- Heading: ## Features  \n- Bullet-list 4\u20136 key capabilities of this tool, e.g.:\n  - Archives previous README and suggestions\n  - Generates TL;DR summaries, suggestions, and full rewrites\n  - Configurable via config.yaml\n  - GitHub Action integration\n  - Commits only on real changes  \n- Use emoji bullets (optional) for visual flair.\n",
+  "response": "## Features\n- \ud83d\udcda Archives previous README and suggestions\n- \ud83d\udcdd Generates TL;DR summaries, suggestions, and full rewrites\n- \u2699\ufe0f Configurable via config.yaml\n- \ud83d\ude80 GitHub Action integration\n- \ud83d\udd12 Commits only on real changes",
+  "elapsed": 1.2121174335479736,
+  "usage": {
+    "prompt_tokens": 96,
+    "completion_tokens": 58,
+    "total_tokens": 154
+  }
+}

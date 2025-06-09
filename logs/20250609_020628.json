@@ -1,0 +1,10 @@
+{
+  "prompt": "Produce the \u201c## Installation\u201d section.  \n- Heading: ## Installation  \n- Show a code block with the pip install command for this package.  \n- Optionally note any prerequisites (e.g. Python 3.8+).  \n- Format as:\n\n```markdown\n## Installation\n\n```bash\npip install ai-readme-improver\n```\n\n```\n",
+  "response": "```markdown\n## Installation\n\n```bash\npip install ai-readme-improver\n```\n\n```",
+  "elapsed": 0.5463883876800537,
+  "usage": {
+    "prompt_tokens": 81,
+    "completion_tokens": 21,
+    "total_tokens": 102
+  }
+}

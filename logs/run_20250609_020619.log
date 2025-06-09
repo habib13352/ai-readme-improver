@@ -1,0 +1,525 @@
+02:06:20 - 🔹 Generating TL;DR summary...
+02:06:20 - 
+----- OpenAI Request -----
+02:06:20 - Model: gpt-3.5-turbo | Temperature: 0.3 | Max tokens: 200
+02:06:20 - Prompt:
+You are an AI assistant that reads README files. Provide a concise TL;DR summary of the following README (2–3 lines):
+
+# AI README Improver
+
+![Logo](assets/logo.png)
+
+[![Build Status](https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/readme-improver.yml?branch=main)](https://github.com/habib13352/ai-readme-improver/actions) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+## Table of Contents
+
+- [Demo](#demo)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+- [Maintainers](#maintainers)
+- [Acknowledgements](#acknowledgements)
+- [Contact](#contact)
+
+```markdown
+## Demo
+
+![Demo](assets/demo.gif)
+
+In this demo, the user can see how the CLI tool enhances a README file by automatically adding badges, a table of contents, and formatting the content for better readability.
+```
+
+```markdown
+## Installation
+
+```bash
+pip install ai-readme-improver
+```
+
+```
+
+## Usage
+
+```bash
+ai-readme-improver --config config.yaml --archive-dir oldreadme --logo company_logo.png --email hello@example.com
+```
+
+Briefly explain: This command runs the improver with your custom config, archives old files under oldreadme/, uses the specified company logo, and sets the contact email to hello@example.com.
+
+## Features
+- 📁 Archives previous README and suggestions
+- 📝 Generates TL;DR summaries, suggestions, and full rewrites
+- ⚙️ Configurable via config.yaml
+- ⚡ GitHub Action integration
+- 🔒 Commits only on real changes
+
+## Configuration
+
+| Key           | Description                                 | Default                  |
+| ------------- | ------------------------------------------- | ------------------------ |
+| project_name  | The name of the project                     | None                     |
+| logo_path     | The file path to the project's logo image   | None                     |
+| email         | The contact email address for the project   | None                     |
+| badges        | Whether to display badges on the project    | True                     |
+| extra_sections| Additional sections to include in the project documentation | None  |
+
+```markdown
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+- Reporting bugs
+- Submitting pull requests
+- Writing tests
+```
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
+## Maintainers
+- John Smith (@johnsmith)
+- Sarah Johnson (@sarahjohnson)
+- Michael Lee (@michaellee)
+
+## Acknowledgements
+
+- The OpenAI team for their support and collaboration throughout this project.
+- Our community contributors for their valuable feedback and contributions.
+- Our mentors for their guidance and expertise.
+- Our friends and family for their endless support and encouragement.
+
+```markdown
+## Contact
+
+- Email: hamzahabib10@gmail.com
+```
+02:06:24 - Tokens: prompt=684 completion=76 total=760
+02:06:24 - Estimated cost: $0.001520
+02:06:24 - Finish reason: stop
+02:06:24 - Elapsed time: 3.27s
+02:06:24 - Response:
+TL;DR
+AI README Improver is a CLI tool that enhances README files by adding badges, a table of contents, and improving readability. It archives old files, generates summaries, suggestions, and full rewrites, and is configurable via a config file. Contributions are welcome, and the project is licensed under MIT. Contact email: hamzahabib10@gmail.com.
+02:06:24 - ----- End Request -----
+
+02:06:24 - 
+--- TL;DR SUMMARY ---
+TL;DR
+AI README Improver is a CLI tool that enhances README files by adding badges, a table of contents, and improving readability. It archives old files, generates summaries, suggestions, and full rewrites, and is configurable via a config file. Contributions are welcome, and the project is licensed under MIT. Contact email: hamzahabib10@gmail.com.
+----------------------
+
+02:06:24 - 🔹 Generating improvement suggestions...
+02:06:24 - 
+----- OpenAI Request -----
+02:06:24 - Model: gpt-3.5-turbo | Temperature: 0.5 | Max tokens: 400
+02:06:24 - Prompt:
+You are an expert technical writer. Suggest specific improvements for this README. Mention missing sections (Installation, Usage, License, etc.), clarity of language, badge additions, and SEO keywords. Output as bullet points:
+
+# AI README Improver
+
+![Logo](assets/logo.png)
+
+[![Build Status](https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/readme-improver.yml?branch=main)](https://github.com/habib13352/ai-readme-improver/actions) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+## Table of Contents
+
+- [Demo](#demo)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+- [Maintainers](#maintainers)
+- [Acknowledgements](#acknowledgements)
+- [Contact](#contact)
+
+```markdown
+## Demo
+
+![Demo](assets/demo.gif)
+
+In this demo, the user can see how the CLI tool enhances a README file by automatically adding badges, a table of contents, and formatting the content for better readability.
+```
+
+```markdown
+## Installation
+
+```bash
+pip install ai-readme-improver
+```
+
+```
+
+## Usage
+
+```bash
+ai-readme-improver --config config.yaml --archive-dir oldreadme --logo company_logo.png --email hello@example.com
+```
+
+Briefly explain: This command runs the improver with your custom config, archives old files under oldreadme/, uses the specified company logo, and sets the contact email to hello@example.com.
+
+## Features
+- 📁 Archives previous README and suggestions
+- 📝 Generates TL;DR summaries, suggestions, and full rewrites
+- ⚙️ Configurable via config.yaml
+- ⚡ GitHub Action integration
+- 🔒 Commits only on real changes
+
+## Configuration
+
+| Key           | Description                                 | Default                  |
+| ------------- | ------------------------------------------- | ------------------------ |
+| project_name  | The name of the project                     | None                     |
+| logo_path     | The file path to the project's logo image   | None                     |
+| email         | The contact email address for the project   | None                     |
+| badges        | Whether to display badges on the project    | True                     |
+| extra_sections| Additional sections to include in the project documentation | None  |
+
+```markdown
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+- Reporting bugs
+- Submitting pull requests
+- Writing tests
+```
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
+## Maintainers
+- John Smith (@johnsmith)
+- Sarah Johnson (@sarahjohnson)
+- Michael Lee (@michaellee)
+
+## Acknowledgements
+
+- The OpenAI team for their support and collaboration throughout this project.
+- Our community contributors for their valuable feedback and contributions.
+- Our mentors for their guidance and expertise.
+- Our friends and family for their endless support and encouragement.
+
+```markdown
+## Contact
+
+- Email: hamzahabib10@gmail.com
+```
+02:06:26 - Tokens: prompt=700 completion=130 total=830
+02:06:26 - Estimated cost: $0.001660
+02:06:26 - Finish reason: stop
+02:06:26 - Elapsed time: 2.03s
+02:06:26 - Response:
+- Add a section for "Installation" with clear instructions on how to install the tool
+- Include a "Usage" section with a command example and a brief explanation of what the command does
+- Consider adding a "License" section to specify the licensing information for the project
+- Include a "Maintainers" section to give credit to the individuals maintaining the project
+- Add SEO keywords like "README improvement tool", "GitHub Action integration", "technical writing tool"
+- Improve clarity of language in the README for better readability
+- Consider adding badges for code coverage, code quality, or version number to provide more information about the project's status.
+02:06:26 - ----- End Request -----
+
+02:06:26 - 
+--- IMPROVEMENT SUGGESTIONS ---
+- Add a section for "Installation" with clear instructions on how to install the tool
+- Include a "Usage" section with a command example and a brief explanation of what the command does
+- Consider adding a "License" section to specify the licensing information for the project
+- Include a "Maintainers" section to give credit to the individuals maintaining the project
+- Add SEO keywords like "README improvement tool", "GitHub Action integration", "technical writing tool"
+- Improve clarity of language in the README for better readability
+- Consider adding badges for code coverage, code quality, or version number to provide more information about the project's status.
+------------------------------
+
+02:06:26 - ✅ Wrote feedback to suggestions.md
+02:06:26 - 🔹 Generating rewritten README → README.improved.md
+02:06:26 - 
+----- OpenAI Request -----
+02:06:26 - Model: gpt-3.5-turbo | Temperature: 0.7 | Max tokens: 1024
+02:06:26 - Prompt:
+You are a README generator. Create a “## Table of Contents” section that links to each main H2 heading in this README (in order): Demo, Installation, Usage, Features, Configuration, Contributing, License, Maintainers, Acknowledgements, Contact.
+
+Output exactly:
+
+## Table of Contents
+
+- [Demo](#demo)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+- [Maintainers](#maintainers)
+- [Acknowledgements](#acknowledgements)
+- [Contact](#contact)
+
+02:06:27 - Tokens: prompt=146 completion=82 total=228
+02:06:27 - Estimated cost: $0.000456
+02:06:27 - Finish reason: stop
+02:06:27 - Elapsed time: 1.32s
+02:06:27 - Response:
+## Table of Contents
+
+- [Demo](#demo)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+- [Maintainers](#maintainers)
+- [Acknowledgements](#acknowledgements)
+- [Contact](#contact)
+02:06:27 - ----- End Request -----
+
+02:06:27 - 
+----- OpenAI Request -----
+02:06:27 - Model: gpt-3.5-turbo | Temperature: 0.7 | Max tokens: 1024
+02:06:27 - Prompt:
+Generate the “## Demo” section.  
+- Heading: ## Demo  
+- Embed the GIF at assets/demo.gif.  
+- Write 2–3 sentences describing what the user sees (e.g., the CLI improving a README, showing badges, TOC, etc.).  
+- Format as:
+
+```markdown
+## Demo
+
+![Demo](assets/demo.gif)
+
+_Your descriptive caption here._
+```  
+
+02:06:28 - Tokens: prompt=88 completion=65 total=153
+02:06:28 - Estimated cost: $0.000306
+02:06:28 - Finish reason: stop
+02:06:28 - Elapsed time: 1.28s
+02:06:28 - Response:
+```markdown
+## Demo
+
+![Demo](assets/demo.gif)
+
+In this demo, you can see the CLI tool in action as it automatically generates a table of contents (TOC) for a README file. The tool also adds badges for build status and code coverage, enhancing the overall readability and professionalism of the document.
+```
+02:06:28 - ----- End Request -----
+
+02:06:28 - 
+----- OpenAI Request -----
+02:06:28 - Model: gpt-3.5-turbo | Temperature: 0.7 | Max tokens: 1024
+02:06:28 - Prompt:
+Produce the “## Installation” section.  
+- Heading: ## Installation  
+- Show a code block with the pip install command for this package.  
+- Optionally note any prerequisites (e.g. Python 3.8+).  
+- Format as:
+
+```markdown
+## Installation
+
+```bash
+pip install ai-readme-improver
+```
+
+```
+
+02:06:29 - Tokens: prompt=81 completion=21 total=102
+02:06:29 - Estimated cost: $0.000204
+02:06:29 - Finish reason: stop
+02:06:29 - Elapsed time: 0.55s
+02:06:29 - Response:
+```markdown
+## Installation
+
+```bash
+pip install ai-readme-improver
+```
+
+```
+02:06:29 - ----- End Request -----
+
+02:06:29 - 
+----- OpenAI Request -----
+02:06:29 - Model: gpt-3.5-turbo | Temperature: 0.7 | Max tokens: 1024
+02:06:29 - Prompt:
+Write the “## Usage” section.  
+- Heading: ## Usage  
+- Show a code block demonstrating the basic CLI flags:
+  - `--config`
+  - `--archive-dir`
+  - `--logo`
+  - `--email`
+- Include a short descriptive sentence on what each flag does.  
+- Format as:
+
+```markdown
+## Usage
+
+```bash
+ai-readme-improver --config config.yaml --archive-dir oldreadme
+```
+
+Briefly explain: This command runs the improver with your custom config and archives old files under oldreadme/.
+```  
+
+02:06:30 - Tokens: prompt=128 completion=78 total=206
+02:06:30 - Estimated cost: $0.000412
+02:06:30 - Finish reason: stop
+02:06:30 - Elapsed time: 1.62s
+02:06:30 - Response:
+## Usage
+
+```bash
+ai-readme-improver --config config.yaml --archive-dir oldreadme --logo company_logo.png --email contact@company.com
+```
+
+Briefly explain: This command runs the improver with your custom config, archives old files under oldreadme/, uses company_logo.png as the logo, and sets the contact email to contact@company.com.
+02:06:30 - ----- End Request -----
+
+02:06:30 - 
+----- OpenAI Request -----
+02:06:30 - Model: gpt-3.5-turbo | Temperature: 0.7 | Max tokens: 1024
+02:06:30 - Prompt:
+Generate the “## Features” section.  
+- Heading: ## Features  
+- Bullet-list 4–6 key capabilities of this tool, e.g.:
+  - Archives previous README and suggestions
+  - Generates TL;DR summaries, suggestions, and full rewrites
+  - Configurable via config.yaml
+  - GitHub Action integration
+  - Commits only on real changes  
+- Use emoji bullets (optional) for visual flair.
+
+02:06:32 - Tokens: prompt=96 completion=58 total=154
+02:06:32 - Estimated cost: $0.000308
+02:06:32 - Finish reason: stop
+02:06:32 - Elapsed time: 1.21s
+02:06:32 - Response:
+## Features
+- 📚 Archives previous README and suggestions
+- 📝 Generates TL;DR summaries, suggestions, and full rewrites
+- ⚙️ Configurable via config.yaml
+- 🚀 GitHub Action integration
+- 🔒 Commits only on real changes
+02:06:32 - ----- End Request -----
+
+02:06:32 - 
+----- OpenAI Request -----
+02:06:32 - Model: gpt-3.5-turbo | Temperature: 0.7 | Max tokens: 1024
+02:06:32 - Prompt:
+Produce the “## Configuration” section.  
+- Heading: ## Configuration  
+- Render a Markdown table with columns: Key | Description | Default.  
+- Include rows for:
+  - project_name
+  - logo_path
+  - email
+  - badges
+  - extra_sections  
+- For each, briefly describe its purpose and default value (if any).
+
+02:06:34 - Tokens: prompt=81 completion=103 total=184
+02:06:34 - Estimated cost: $0.000368
+02:06:34 - Finish reason: stop
+02:06:34 - Elapsed time: 2.03s
+02:06:34 - Response:
+## Configuration
+
+| Key            | Description                                  | Default                      |
+| ---------------|----------------------------------------------|----------------------------- |
+| project_name   | The name of the project                      | None                         |
+| logo_path      | The path to the project's logo image         | None                         |
+| email          | The email address associated with the project| None                         |
+| badges         | Whether to display badges on the project page| True                         |
+| extra_sections | Additional sections to include on the page   | None                         |
+02:06:34 - ----- End Request -----
+
+02:06:34 - 
+----- OpenAI Request -----
+02:06:34 - Model: gpt-3.5-turbo | Temperature: 0.7 | Max tokens: 1024
+02:06:34 - Prompt:
+Write the “## Contributing” section.  
+- Heading: ## Contributing  
+- Briefly explain how to contribute: opening issues, making pull requests, running tests locally.  
+- Link to CONTRIBUTING.md.  
+- Format as:
+
+```markdown
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+- Reporting bugs
+- Submitting pull requests
+- Writing tests
+```
+
+02:06:35 - Tokens: prompt=103 completion=46 total=149
+02:06:35 - Estimated cost: $0.000298
+02:06:35 - Finish reason: stop
+02:06:35 - Elapsed time: 1.03s
+02:06:35 - Response:
+```markdown
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+- Reporting bugs
+- Submitting pull requests
+- Writing tests
+```
+02:06:35 - ----- End Request -----
+
+02:06:35 - 
+----- OpenAI Request -----
+02:06:35 - Model: gpt-3.5-turbo | Temperature: 0.7 | Max tokens: 1024
+02:06:35 - Prompt:
+Generate the “## License” section.  
+- Heading: ## License  
+- State the project is under the MIT License.  
+- Link to the LICENSE file.  
+- Format as:
+
+```markdown
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+```
+
+02:06:35 - Tokens: prompt=73 completion=27 total=100
+02:06:35 - Estimated cost: $0.000200
+02:06:35 - Finish reason: stop
+02:06:35 - Elapsed time: 0.51s
+02:06:35 - Response:
+```markdown
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+```
+02:06:35 - ----- End Request -----
+
+02:06:35 - 
+----- OpenAI Request -----
+02:06:35 - Model: gpt-3.5-turbo | Temperature: 0.7 | Max tokens: 1024
+02:06:35 - Prompt:
+Write the “## Acknowledgements” section.  
+- Heading: ## Acknowledgements  
+- Bullet-list people or projects you’d like to thank (e.g. OpenAI team, community contributors).  
+- Use brief, appreciative language.
+
+02:06:36 - Tokens: prompt=57 completion=67 total=124
+02:06:36 - Estimated cost: $0.000248
+02:06:36 - Finish reason: stop
+02:06:36 - Elapsed time: 1.10s
+02:06:36 - Response:
+## Acknowledgements
+
+- We would like to thank the OpenAI team for their invaluable support and guidance throughout this project.
+- Special thanks to our community contributors for their dedication and hard work in helping us achieve our goals.
+- We are grateful for the assistance of our mentors and advisors who provided valuable insights and feedback along the way.
+02:06:36 - ----- End Request -----
+
+02:06:36 - ✅ Saved improved version to README.improved.md
+

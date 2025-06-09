@@ -1,0 +1,1 @@
+{"response": "```markdown\n## Demo\n\n![Demo](assets/demo.gif)\n\nIn this demo, you can see the CLI tool in action as it automatically generates a table of contents (TOC) for a README file. The tool also adds badges for build status and code coverage, enhancing the overall readability and professionalism of the document.\n```"}

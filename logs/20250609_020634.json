@@ -1,0 +1,10 @@
+{
+  "prompt": "Write the \u201c## Contributing\u201d section.  \n- Heading: ## Contributing  \n- Briefly explain how to contribute: opening issues, making pull requests, running tests locally.  \n- Link to CONTRIBUTING.md.  \n- Format as:\n\n```markdown\n## Contributing\n\nContributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:\n- Reporting bugs\n- Submitting pull requests\n- Writing tests\n```\n",
+  "response": "```markdown\n## Contributing\n\nContributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:\n- Reporting bugs\n- Submitting pull requests\n- Writing tests\n```",
+  "elapsed": 1.0302786827087402,
+  "usage": {
+    "prompt_tokens": 103,
+    "completion_tokens": 46,
+    "total_tokens": 149
+  }
+}
