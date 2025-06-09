@@ -1,11 +1,11 @@
 name: README Improver
 
-on:
-  workflow_dispatch:
-  pull_request:
-    paths: ["README.md"]
-  push:
-    branches: [main]
+#on:
+  #workflow_dispatch:
+  #pull_request:
+    #paths: ["README.md"]
+  #push:
+    #branches: [main]
 
 permissions:
   contents: write
