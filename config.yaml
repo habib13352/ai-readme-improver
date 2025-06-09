@@ -1,5 +1,3 @@
-# config.yaml
-
 project_name: "AI README Improver"
 email: "hamzahabib10@gmail.com"
 logo_path: "assets/logo.png"
@@ -7,10 +5,14 @@ logo_path: "assets/logo.png"
 badges:
   - name: "Build Status"
     image_url: "https://img.shields.io/github/actions/workflow/status/habib13352/ai-readme-improver/readme-improver.yml?branch=main"
-    link: "https://github.com/habib13352/ai-readme-improver/actions"
+    link:       "https://github.com/habib13352/ai-readme-improver/actions"
   - name: "License"
     image_url: "https://img.shields.io/badge/license-MIT-blue.svg"
-    link: "LICENSE"
+    link:       "LICENSE"
+
+maintainers:
+  - name: "Hamza Ali Habib"
+    handle: "@habib13352"
 
 # Now we drive each major section via its own prompt file:
 sections:
