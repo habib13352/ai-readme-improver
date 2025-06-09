@@ -4,8 +4,9 @@ import argparse
 import logging
 import os
 import sys
-from pathlib import Path
+import shutil
 from datetime import datetime
+from pathlib import Path
 
 from readme_improver.readme_loader import load_readme
 from readme_improver.improver import (
@@ -15,24 +16,18 @@ from readme_improver.improver import (
     load_config,
 )
 from readme_improver.logger import get_logger
-from readme_improver.archive import archive_old_files
 
 
 logger = get_logger()
 
 
-def main(argv=None):
-    """Run the CLI."""
-    sys.stdout.reconfigure(encoding="utf-8")
-
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    """Parse command line arguments."""
     parser = argparse.ArgumentParser(prog="ai-readme-improver")
-    parser.add_argument("--readme", default="README.md", help="Path to README")
-    parser.add_argument(
-        "--suggestions", default="suggestions.md", help="Suggestions output file"
-    )
-    parser.add_argument(
-        "--improved", default="README.improved.md", help="Improved README output file"
-    )
+    parser.add_argument("--input", default="README.md", help="Path to README")
+    parser.add_argument("--output", default="README.improved.md", help="Improved README path")
+    parser.add_argument("--suggestions", default="suggestions.md", help="Suggestions output file")
+    parser.add_argument("--archive-dir", default="oldreadme", help="Directory to archive old files")
     parser.add_argument("--config", default="config.yaml", help="Path to config file")
     parser.add_argument("--model", default="gpt-3.5-turbo", help="OpenAI model")
     parser.add_argument("--logo", help="Path or URL for a project logo")
@@ -50,11 +45,11 @@ def main(argv=None):
         help="Extra section 'Title:Content' (repeatable)",
     )
     parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
-    args = parser.parse_args(argv)
+    return parser.parse_args(argv)
 
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
 
+def build_config(args: argparse.Namespace) -> dict:
+    """Load YAML config and apply CLI/env overrides."""
     config = load_config(args.config)
     env_email = os.getenv("README_EMAIL")
     if env_email:
@@ -91,14 +86,33 @@ def main(argv=None):
             config.setdefault("extra_sections", [])
             config["extra_sections"].extend(extras)
 
+    return config
+
+
+def archive_inputs(args: argparse.Namespace, timestamp: str) -> Path:
+    """Copy existing README and suggestions to archive folder."""
+    archive_root = Path(args.archive_dir)
+    archive_dir = archive_root / timestamp
+    archive_dir.mkdir(parents=True, exist_ok=True)
+
+    for path in [args.input, args.suggestions]:
+        p = Path(path)
+        if p.exists():
+            shutil.copy(str(p), archive_dir / p.name)
+
+    return archive_dir
+
+
+def process_readme(args: argparse.Namespace, config: dict) -> None:
+    """Generate improved README and suggestions."""
     openai_key = os.getenv("OPENAI_API_KEY")
     if not openai_key:
         logger.error("OPENAI_API_KEY is not set. Falling back to original README.")
 
     timestamp = datetime.utcnow().strftime("%Y-%m-%d-%H-%M")
-    archive_dir = archive_old_files(timestamp)
+    archive_dir = archive_inputs(args, timestamp)
 
-    readme_path = archive_dir / Path(args.readme).name
+    readme_path = archive_dir / Path(args.input).name
     if not readme_path.exists():
         logger.error("❌ Error: %s not found.", readme_path)
         return
@@ -116,7 +130,7 @@ def main(argv=None):
         logger.info("🔹 Generating improvement suggestions...")
         suggestions = suggest_improvements(readme_text, args.model)
         logger.info(
-            "\n--- IMPROVEMENT SUGGESTIONS ---\n%s\n--------------------------------\n",
+            "\n--- IMPROVEMENT SUGGESTIONS ---\n%s\n------------------------------\n",
             suggestions,
         )
     else:
@@ -132,15 +146,26 @@ def main(argv=None):
         f.write("---\n*Powered by [OpenAI](https://openai.com)*\n")
     logger.info("✅ Wrote feedback to %s", args.suggestions)
 
-    logger.info("🔹 Generating rewritten README → %s", args.improved)
+    logger.info("🔹 Generating rewritten README → %s", args.output)
     if openai_key:
         improved = rewrite_readme(readme_text, args.model, config=config)
     else:
         improved = readme_text
-    with open(args.improved, "w", encoding="utf-8") as f:
+    with open(args.output, "w", encoding="utf-8") as f:
         f.write(improved)
-    logger.info("✅ Saved improved version to %s\n", args.improved)
+    logger.info("✅ Saved improved version to %s\n", args.output)
 
+
+def main(argv: list[str] | None = None) -> None:
+    """Entry point for the CLI."""
+    sys.stdout.reconfigure(encoding="utf-8")
+    args = parse_args(argv)
+
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
+
+    config = build_config(args)
+    process_readme(args, config)
 
 if __name__ == "__main__":
     main()

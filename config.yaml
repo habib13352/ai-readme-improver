@@ -12,3 +12,19 @@ extra_sections:
   - title: "Acknowledgements"
     content: |
       Thanks to OpenAI and the community for feedback.
+sections:
+  - name: Badges
+    prompt_file: prompts/update_badges.prompt
+    enabled: true
+  - name: Installation
+    prompt_file: prompts/update_installation.prompt
+    enabled: true
+  - name: Usage
+    prompt_file: prompts/update_usage.prompt
+    enabled: true
+  - name: Changelog
+    prompt_file: prompts/update_changelog.prompt
+    enabled: true
+  - name: API Reference
+    prompt_file: prompts/generate_api_reference.prompt
+    enabled: true

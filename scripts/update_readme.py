@@ -15,7 +15,7 @@ from readme_improver.readme_loader import load_readme
 
 
 ARCHIVE_ROOT = Path("oldreadme")
-CONFIG_PATH = "readme-improver.config.yaml"
+CONFIG_PATH = "config.yaml"
 
 
 def archive_previous(timestamp: str) -> Path:

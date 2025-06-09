@@ -28,6 +28,7 @@ jobs:
           pip install -r requirements.txt
           pip install linkchecker
           npm install -g markdownlint-cli
+      - run: pytest -q
       - name: Lint Markdown files
         run: markdownlint README.md docs/**/*.md
       - name: Check links in README

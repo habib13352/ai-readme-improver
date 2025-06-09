@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import pytest
 
 import readme_improver.openai_helper as openai_helper
 from readme_improver.logger import get_logger
@@ -72,3 +73,9 @@ def test_ask_openai_caching(tmp_path, monkeypatch):
     assert result1 == "answer"
     assert result2 == "answer"
     assert dummy.calls == 1
+
+def test_load_config_invalid(tmp_path):
+    cfg = tmp_path / "bad.yaml"
+    cfg.write_text("a: [1,2", encoding="utf-8")
+    with pytest.raises(Exception):
+        load_config(str(cfg))

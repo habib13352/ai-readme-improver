@@ -16,6 +16,12 @@ from pathlib import Path
 from dotenv import load_dotenv
 from .logger import get_logger
 
+try:
+    from openai import RateLimitError
+except Exception:  # pragma: no cover - openai may not be installed
+    class RateLimitError(Exception):
+        """Fallback when openai package is missing."""
+
 logger = get_logger()
 
 load_dotenv()
@@ -102,12 +108,22 @@ def ask_openai(
 
             start = time.time()
             client = _get_client()
-            response = client.chat.completions.create(
-                model=model,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=temperature,
-                max_tokens=max_tokens,
-            )
+            for attempt in range(3):
+                try:
+                    response = client.chat.completions.create(
+                        model=model,
+                        messages=[{"role": "user", "content": prompt}],
+                        temperature=temperature,
+                        max_tokens=max_tokens,
+                    )
+                    break
+                except RateLimitError:
+                    wait = 2 ** attempt
+                    logger.warning("Rate limited by OpenAI, retrying in %ss", wait)
+                    time.sleep(wait)
+            else:
+                raise RuntimeError("Exceeded OpenAI retry attempts")
+
             elapsed = time.time() - start
 
             content = response.choices[0].message.content.strip()

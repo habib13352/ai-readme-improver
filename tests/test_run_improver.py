@@ -9,11 +9,10 @@ def test_run_improver_creates_improved(tmp_path, monkeypatch):
     readme = tmp_path / "README.md"
     readme.write_text("original", encoding="utf-8")
 
-    # Ensure OPENAI_API_KEY is not set and archive dir uses temp path
+    # Ensure OPENAI_API_KEY is not set and use temp archive directory
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
-    monkeypatch.setattr("readme_improver.archive.ARCHIVE_ROOT", tmp_path / "old")
 
-    main([])
+    main(["--archive-dir", str(tmp_path / "old")])
 
     improved = tmp_path / "README.improved.md"
     assert improved.exists()
