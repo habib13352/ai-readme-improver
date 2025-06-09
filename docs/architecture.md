@@ -5,7 +5,7 @@
 **Purpose:** No module docstring
 **Key Functions:** None
 
-## readme_improver/**init**.py
+## `readme_improver/__init__.py`
 
 **Purpose:** Utilities for the ai-readme-improver package.
 **Key Functions:** None
@@ -90,7 +90,7 @@
 - main() -> None
 **Used in:** .github/workflows/auto-docs.yml
 
-## tests/**init**.py
+## `tests/__init__.py`
 
 **Purpose:** No module docstring
 **Key Functions:** None
