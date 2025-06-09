@@ -1,0 +1,49 @@
+name: 'AI README Improver'
+description: 'Improve project README files using OpenAI'
+inputs:
+  openai_api_key:
+    description: 'OpenAI API key used to call the API'
+    required: true
+  email:
+    description: 'Contact email shown in the generated README'
+    required: false
+    default: ''
+  logo:
+    description: 'Path or URL to a project logo'
+    required: false
+    default: ''
+  badges:
+    description: 'YAML list of badge objects to add'
+    required: false
+    default: ''
+  extra_sections:
+    description: 'YAML list of extra README sections'
+    required: false
+    default: ''
+outputs:
+  improved_readme_path:
+    description: 'Path to the improved README file'
+runs:
+  using: 'composite'
+  steps:
+    - id: config
+      run: |
+        echo "email: \"${{ inputs.email }}\"" > config.yaml
+        echo "logo_path: \"${{ inputs.logo }}\"" >> config.yaml
+        if [ -n "${{ inputs.badges }}" ]; then
+          echo "${{ inputs.badges }}" >> config.yaml
+        fi
+        if [ -n "${{ inputs.extra_sections }}" ]; then
+          echo "${{ inputs.extra_sections }}" >> config.yaml
+        fi
+      shell: bash
+    - id: improve
+      run: python run_improver.py
+      env:
+        OPENAI_API_KEY: ${{ inputs.openai_api_key }}
+        README_EMAIL: ${{ inputs.email }}
+        README_LOGO: ${{ inputs.logo }}
+      shell: bash
+    - id: output
+      run: echo "improved_readme_path=README.improved.md" >> "$GITHUB_OUTPUT"
+      shell: bash
