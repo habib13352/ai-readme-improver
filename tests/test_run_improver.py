@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from run_improver import main
@@ -20,3 +19,5 @@ def test_run_improver_creates_improved(tmp_path, monkeypatch):
     assert improved.exists()
     assert improved.read_text(encoding="utf-8") == "original"
     assert (tmp_path / "old").exists()
+    # suggestions.md should also be created
+    assert (tmp_path / "suggestions.md").exists()
