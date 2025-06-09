@@ -40,7 +40,8 @@ Follow these steps to install README Improver:
     pip install -r requirements.txt
     ```
 
-3. Copy `.env.example` to `.env` and add your `OPENAI_API_KEY` for successful execution.
+3. Copy `.env.example` to `.env` and optionally add your `OPENAI_API_KEY`.
+   Without it, the tool simply copies the original README.
 
 ## Usage
 

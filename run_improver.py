@@ -91,9 +91,9 @@ def main(argv=None):
             config.setdefault("extra_sections", [])
             config["extra_sections"].extend(extras)
 
-    if not os.getenv("OPENAI_API_KEY"):
-        logger.error("OPENAI_API_KEY is not set. Add it to your .env file.")
-        return
+    openai_key = os.getenv("OPENAI_API_KEY")
+    if not openai_key:
+        logger.error("OPENAI_API_KEY is not set. Falling back to original README.")
 
     timestamp = datetime.utcnow().strftime("%Y-%m-%d-%H-%M")
     archive_dir = archive_old_files(timestamp)
@@ -108,16 +108,20 @@ def main(argv=None):
         logger.warning("⚠️ README is empty. Exiting.")
         return
 
-    logger.info("🔹 Generating TL;DR summary...")
-    summary = generate_summary(readme_text, args.model)
-    logger.info("\n--- TL;DR SUMMARY ---\n%s\n----------------------\n", summary)
+    if openai_key:
+        logger.info("🔹 Generating TL;DR summary...")
+        summary = generate_summary(readme_text, args.model)
+        logger.info("\n--- TL;DR SUMMARY ---\n%s\n----------------------\n", summary)
 
-    logger.info("🔹 Generating improvement suggestions...")
-    suggestions = suggest_improvements(readme_text, args.model)
-    logger.info(
-        "\n--- IMPROVEMENT SUGGESTIONS ---\n%s\n--------------------------------\n",
-        suggestions,
-    )
+        logger.info("🔹 Generating improvement suggestions...")
+        suggestions = suggest_improvements(readme_text, args.model)
+        logger.info(
+            "\n--- IMPROVEMENT SUGGESTIONS ---\n%s\n--------------------------------\n",
+            suggestions,
+        )
+    else:
+        summary = "OPENAI_API_KEY not provided; using original README."
+        suggestions = "No suggestions generated."
 
     with open(args.suggestions, "w", encoding="utf-8") as f:
         f.write("# 🤖 AI README Improver Feedback\n\n")
@@ -129,7 +133,10 @@ def main(argv=None):
     logger.info("✅ Wrote feedback to %s", args.suggestions)
 
     logger.info("🔹 Generating rewritten README → %s", args.improved)
-    improved = rewrite_readme(readme_text, args.model, config=config)
+    if openai_key:
+        improved = rewrite_readme(readme_text, args.model, config=config)
+    else:
+        improved = readme_text
     with open(args.improved, "w", encoding="utf-8") as f:
         f.write(improved)
     logger.info("✅ Saved improved version to %s\n", args.improved)

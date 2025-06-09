@@ -25,7 +25,7 @@ This guide explains how to set up a simple GitHub Actions workflow that installs
 Create `.github/workflows/readme-improver.yml` containing a job that:
 - Checks out the repository
 - Sets up Python and installs `requirements.txt`
-- Runs `python run_improver.py` with `OPENAI_API_KEY` provided
+- Runs `python run_improver.py` (optionally with `OPENAI_API_KEY` for real improvements)
 - Commits `README.improved.md` back to `README.md` and pushes the result.
   Set `README_IMPROVER_CACHE=0` in the job's environment to skip disk caching if desired.
 
@@ -47,7 +47,7 @@ Example Codex prompts:
 
 ## 4. Verifying End-to-End Execution
 
-1. **Local test**: Run `python run_improver.py` with your `OPENAI_API_KEY` set. Confirm that `README.improved.md` and `suggestions.md` appear and logs are written.
+1. **Local test**: Run `python run_improver.py`. Providing `OPENAI_API_KEY` generates AI content; otherwise the README is copied. Confirm that `README.improved.md` and `suggestions.md` appear and logs are written.
 2. **PR-based test**:
    - Commit the workflow and updated script to a feature branch.
    - Open a pull request to `main`. The workflow should run automatically and push the improved README.
